@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 0f5eec3aee33973888e17fe6909555d7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - terrain_NIR: {fileID: 2100000, guid: 97165f8f09a4c7bec93fe7a463e4daf4, type: 2}
+  - terrain_TAG: {fileID: 2100000, guid: e31fe99349cf2cd42b705e73d38f5115, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,32 @@
+fileFormatVersion: 2
+guid: aaa7ab44c00761145afbf964fd64ec3a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - beetLeaf: {fileID: 100000, guid: b229b397ab79afe608a813467093b658, type: 3}
+  - galliumLeaf: {instanceID: 0}
+  - galliumSteam: {instanceID: 0}
+  - capsellaLeaf1: {instanceID: 0}
+  - capsellaLeaf2: {instanceID: 0}
+  - capsellaLeaf3: {instanceID: 0}
+  - capsellaLeaf4: {instanceID: 0}
+  - capsellaLeaf5: {instanceID: 0}
+  - capsellaLeaf6: {instanceID: 0}
+  - capsellaLeaf7: {instanceID: 0}
+  - capsellaLeaf8: {instanceID: 0}
+  - capsellaLeaf9: {instanceID: 0}
+  - CapsellaRed: {instanceID: 0}
+  - GalliumRed: {instanceID: 0}
+  - BeetBlack: {instanceID: 0}
+  - CapsellaBlack: {instanceID: 0}
+  - GalliumBlack: {instanceID: 0}
+  - PlainBlack: {instanceID: 0}
+  - green: {instanceID: 0}
+  - white: {instanceID: 0}
+  - terrain: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
