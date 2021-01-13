@@ -352,8 +352,6 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
                 }
             }
             */
-
-
         }
         didSpawnedOnce = true; // used to have the right reference
     }

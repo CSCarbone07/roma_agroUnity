@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
 [ExecuteInEditMode]
 public class PrefabInstatiation : MonoBehaviour
 {
@@ -12,6 +10,9 @@ public class PrefabInstatiation : MonoBehaviour
     public GameObject prefab;
     //public int numberOfObjects = 20;
     //public float radius = 5f;
+    public bool useSeed = false;
+    public int seed = 0;
+
     private Vector3 myPosition;// = transform.position;
     private List<GameObject> createdPrefabs = new List<GameObject>();
     public float gridX = 5f;
@@ -77,7 +78,7 @@ public class PrefabInstatiation : MonoBehaviour
         {
             prefab = inGameObject;
         }
-        if (inGameObject != null)
+        if (prefab != null)
         {
             for (int i = transform.childCount - 1; i >= 0; i--)
             {
@@ -141,18 +142,15 @@ public class PrefabInstatiation : MonoBehaviour
             //Vector3 newScaleRandomness = new Vector3(newFloatScaleRandomness, newFloatScaleRandomness, newFloatScaleRandomness);
             child.transform.localScale = Scale; // + newScaleRandomness;
         }
-
-        //combineMeshes();
-
         return createdPrefabs;
-
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        if (useSeed)
+        { Random.seed = seed; }
     }
 
     // Update is called once per frame
@@ -163,6 +161,9 @@ public class PrefabInstatiation : MonoBehaviour
 
         if (updateInstantiation)
         {
+            if (useSeed)
+            { Random.seed = seed; }
+
             procedural_Instantiate(prefab);
             updateInstantiation = false;
         }
@@ -200,57 +201,4 @@ public class PrefabInstatiation : MonoBehaviour
 
         //print(this.gameObject.name);
     }
-
-    void combineMeshes()
-    {
-        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
-        Mesh[] meshes = new Mesh[meshFilters.Length];
-        int temp_i = 0;
-        print("combining meshes");
-        //foreach (MeshFilter m in GetComponentsInChildren<MeshFilter>())
-        foreach (GameObject g in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
-        {
-            //meshes[temp_i] = m.sharedMesh;
-            if (g.GetComponent<MeshFilter>() != null)
-            {
-                meshes[temp_i] = g.GetComponent<MeshFilter>().mesh;
-                temp_i++;
-
-            }
-            print(meshes[temp_i].name);
-
-        }
-        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
-        print("meshes found");
-
-        int i = 0;
-        while (i < meshFilters.Length)
-        {
-            //combine[i].mesh = meshFilters[i].sharedMesh;
-            print("starting combining mesh " + i);
-            print("debug a");
-            combine[i].mesh = meshes[i];
-            print("debug b");
-            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-            print("debug c");
-            //meshFilters[i].gameObject.SetActive(false);
-             print("combining mesh " + i);
-            i++;
-        }
-        transform.GetComponent<MeshFilter>().mesh = new Mesh();
-        transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
-        transform.gameObject.SetActive(true);
-
-    }
-
-
-    void bakeMeshes()
-    {
-        foreach (GameObject g in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
-        {
-            //g.GetComponent<MeshFilter>().mesh;
-            //g.GetComponent<MeshFilter>().mesh;
-        }
-    }
-
 }

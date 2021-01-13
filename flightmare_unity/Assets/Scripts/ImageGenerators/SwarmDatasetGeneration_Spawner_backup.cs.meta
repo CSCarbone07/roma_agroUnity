@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: 96ca6bc4cb34f5f1eb6664ab35d28cda
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - goodPlant: {fileID: 3247680888802322304, guid: fae438e451b0198f9a62a34e6995e8d0,
+      type: 3}
+  - galliumLeaf: {instanceID: 0}
+  - galliumSteam: {instanceID: 0}
+  - capsellaLeaf1: {instanceID: 0}
+  - capsellaLeaf2: {instanceID: 0}
+  - capsellaLeaf3: {instanceID: 0}
+  - capsellaLeaf4: {instanceID: 0}
+  - capsellaLeaf5: {instanceID: 0}
+  - capsellaLeaf6: {instanceID: 0}
+  - capsellaLeaf7: {instanceID: 0}
+  - capsellaLeaf8: {instanceID: 0}
+  - capsellaLeaf9: {fileID: 767472578714892820, guid: 456a5b871f3614a8a814cc16e7d07941,
+      type: 3}
+  - CapsellaRed: {instanceID: 0}
+  - GalliumRed: {instanceID: 0}
+  - BeetBlack: {instanceID: 0}
+  - CapsellaBlack: {instanceID: 0}
+  - GalliumBlack: {instanceID: 0}
+  - PlainBlack: {instanceID: 0}
+  - green: {instanceID: 0}
+  - white: {instanceID: 0}
+  - terrain: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

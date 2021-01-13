@@ -109,8 +109,10 @@ MonoBehaviour:
   RGB_Mat: {fileID: 0}
   NIR_Mat: {fileID: 2100000, guid: 26fa3acc0c2bf1c5b91130b9fde46746, type: 2}
   TAG_Mat: {fileID: 2100000, guid: 043ab3b0f1c1efcca98d6fedd8488f02, type: 2}
-  randomizeTexture: 0
+  randomizeInitialTexture: 0
+  randomizeSimTexture: 0
   pathToTextures_RGB: bonirob/weeds/rgb/
   pathToTextures_NIR: bonirob/weeds/nir/
   maxIndexOfTextures: 51
+  currentTextureID: 0
   weedScale: {x: 1, y: 1, z: 1}

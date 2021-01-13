@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 using UnityEngine;
 using System.IO;
 using Random = UnityEngine.Random;
@@ -276,9 +274,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         {
             if (overlapColumn > 1)
             {
-                #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
-                #endif
             }
 
             float fov = GetComponent<Camera>().fieldOfView;
@@ -360,9 +356,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         counter++;
         if(counter > maxImageIndex)
         {
-            #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-            #endif
         }
     }
 
@@ -903,10 +897,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         //Vector3 cen = go.GetComponent<Renderer>().bounds.center;
         //Vector3 ext = go.GetComponent<Renderer>().bounds.extents;
-        Vector2[] extentPoints = new Vector2[8];
-        /*
+        Vector2[] extentPoints = new Vector2[8]
         {
-
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y-ext.y, cen.z-ext.z)),
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y-ext.y, cen.z-ext.z)),
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y-ext.y, cen.z+ext.z)),
@@ -915,9 +907,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y+ext.y, cen.z-ext.z)),
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y+ext.y, cen.z+ext.z)),
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y+ext.y, cen.z+ext.z))
-        
         };
-         */
         Vector2 min = extentPoints[0];
         Vector2 max = extentPoints[0];
         foreach (Vector2 v in extentPoints)

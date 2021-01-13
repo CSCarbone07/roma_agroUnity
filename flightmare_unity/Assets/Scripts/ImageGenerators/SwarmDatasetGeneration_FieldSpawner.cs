@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 using UnityEngine;
 using System.IO;
 using Random = UnityEngine.Random;
@@ -268,9 +266,7 @@ public class SwarmDatasetGeneration_FieldSpawner
         counter++;
         if(counter >= 1001)
         {
-            #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-            #endif
         }
     }
 
@@ -713,8 +709,7 @@ public class SwarmDatasetGeneration_FieldSpawner
 
         //Vector3 cen = go.GetComponent<Renderer>().bounds.center;
         //Vector3 ext = go.GetComponent<Renderer>().bounds.extents;
-        Vector2[] extentPoints = new Vector2[8];
-        /*
+        Vector2[] extentPoints = new Vector2[8]
         {
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y-ext.y, cen.z-ext.z)),
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y-ext.y, cen.z-ext.z)),
@@ -725,7 +720,6 @@ public class SwarmDatasetGeneration_FieldSpawner
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y+ext.y, cen.z+ext.z)),
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y+ext.y, cen.z+ext.z))
         };
-        */
         Vector2 min = extentPoints[0];
         Vector2 max = extentPoints[0];
         foreach (Vector2 v in extentPoints)

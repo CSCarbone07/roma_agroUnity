@@ -68,3 +68,7 @@ ExportedObj/
 # Temporary auto-generated Android Assets
 */[Aa]ssets/[Ss]treamingAssets/aa.meta
 */[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Excluding text fiels
+*/[Aa]ssets/[Ss]cenes/[Tt]ext_fields.meta
+*/[Aa]ssets/[Ss]cenes/[Tt]ext_fields/*
