@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3247680888802322304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8270237038419139273}
+  - component: {fileID: 6614214073316160531}
+  - component: {fileID: -8047458167934756838}
+  m_Layer: 0
+  m_Name: Potato_Wageningen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8270237038419139273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247680888802322304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.65769, y: -5.071598, z: -20.370848}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6614214073316160531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247680888802322304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b577002b0193c6eb64fdd2ca705b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TestMaterial: {fileID: 0}
+  beetLeaf:
+  - {fileID: 100000, guid: 7b2080fa28c69cb11b6d508ec98c63c5, type: 3}
+  beetLeaf_NIR:
+  - {fileID: 1238140388977307622, guid: 87f1cdd1c8f6a08b9b281ea3946ec3fa, type: 3}
+  - {fileID: 1332328213160821866, guid: 85bc5404e0f25529e9aa9ff730d7d76e, type: 3}
+  - {fileID: 6032416200391836145, guid: 59bc09f4ddf7694a69ea3b25a871b920, type: 3}
+  - {fileID: 8831057216449088491, guid: e437285a7f45a322881e5142ad8dee11, type: 3}
+  - {fileID: 28556158160944705, guid: 543a91d133ee23c6fb79332d05e0d609, type: 3}
+  - {fileID: 8006713255607066245, guid: c46a0f47c29af2366b2bed61b88766b2, type: 3}
+  - {fileID: 1009013607124867061, guid: 3d0b7e6cc2ca191e1bd574b485b8f6cd, type: 3}
+  beetLeaf_TAG:
+  - {fileID: 7535683008467673100, guid: 5eb6f085cd981fe5c8b92c8461abb099, type: 3}
+  - {fileID: 7261326087048729202, guid: e528c43653b5b06dfba937a5752fd2c2, type: 3}
+  - {fileID: 2114449382202503083, guid: f890b7e6473237ae993e9f1f5e9fcd7c, type: 3}
+  - {fileID: 5127679453002315072, guid: 9c7a7e0624012b674a744ef64f342c3e, type: 3}
+  - {fileID: 2048132706755274770, guid: 64fe119c8d71cd1ff9ba90b371f89a60, type: 3}
+  - {fileID: 8243617227544551381, guid: 1083c3ef8ad5a34aab90d36049021eda, type: 3}
+  - {fileID: 6660425878131388415, guid: 6e0f2bc598e43d24e9e340ae4e42bac6, type: 3}
+  maxBeetLeafAmount: 7
+  beetLeafScale: {x: 0.1, y: 0.1, z: 0.1}
+  createdPrefabLeaves: []
+  createdPrefabLeavesType: 
+  beetLeafRotation: {x: 200, y: 0, z: -90}
+  rend: []
+  thisRend: {fileID: 0}
+--- !u!114 &-8047458167934756838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247680888802322304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190bf257524864271a3edf509145cb7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnOnStart: 0
+  TestMaterial: {fileID: 0}
+  beetLeaf: []
+  beetLeaf_NIR: []
+  beetLeaf_TAG: []
+  maxBeetLeafAmount: 7
+  beetLeafScale: {x: 1, y: 1, z: 1}
+  createdPrefabLeaves: []
+  createdPrefabLeavesType: 
+  beetLeafRotation: {x: 200, y: 0, z: -90}
+  rend: []
+  thisRend: {fileID: 0}

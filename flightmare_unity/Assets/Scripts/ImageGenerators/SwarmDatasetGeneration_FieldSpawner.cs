@@ -142,7 +142,7 @@ public class SwarmDatasetGeneration_FieldSpawner
     // Start is called before the first frame update
     public void Start()
     {
-        readField();
+        //readField();
         /*
         cameraInitialPosition = this.transform.position;
         newWeed = new GameObject[WeedNumber];
@@ -181,7 +181,7 @@ public class SwarmDatasetGeneration_FieldSpawner
 
     }
 
-
+    /*
     private void readField()
     {
         string path = "Assets/Resources/Texts/Fields/fields.yaml";
@@ -207,7 +207,7 @@ public class SwarmDatasetGeneration_FieldSpawner
         reader.Close();
 
     }
-
+    */
     private void updateScreen()
     {
         Debug.Log("spawning");

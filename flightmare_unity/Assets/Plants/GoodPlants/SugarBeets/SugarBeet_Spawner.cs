@@ -40,6 +40,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
     {
         //base.Start();
         thisRend = GetComponent<Renderer>();
+        //Spawn();
         //print(createdPrefabLeaves.Length);
         //print(createdPrefabLeavesType.Length);
 
@@ -54,8 +55,10 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
             n++;
         }
         */
-        //OnDrawGizmosSelected();
+        //OnDrawGizmos();
         //Debug.Log("gizmosss");
+
+
 
     }
 
@@ -66,14 +69,23 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
     // the object.
     void OnDrawGizmos()
     {
+
+        //Vector3[] pts = new Vector3[8];
+        //Bounds b = createdPrefabLeaves[0].GetComponent().bounds;
+
+
+
+
+
+
         // A sphere that fully encloses the bounding box.
+        Vector3 center;
+        float radius;
 
-
-        
-        foreach(Renderer r in rend)
+        foreach (Renderer r in rend)
         {
-            Vector3 center = r.bounds.center;
-            float radius = r.bounds.extents.magnitude;
+            center = r.bounds.center;
+            radius = r.bounds.extents.magnitude;
 
             Debug.Log(center.ToString("F4"));
             Debug.Log(radius.ToString("F4"));
@@ -83,10 +95,13 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
         }
 
 
-        Vector3 center = createdPrefabLeaves[0].GetComponentInChildren<SkinnedMeshRenderer>().bounds.center;
-        float radius = createdPrefabLeaves[0].GetComponentInChildren<SkinnedMeshRenderer>().bounds.extents.magnitude;
+        center = createdPrefabLeaves[0].GetComponentInChildren<SkinnedMeshRenderer>().bounds.center;
+        radius = createdPrefabLeaves[0].GetComponentInChildren<SkinnedMeshRenderer>().bounds.extents.magnitude;
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(center, radius);
+
+
+
     }
     */
 
@@ -130,6 +145,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
             createdPrefabLeavesType[x] = typeOfLeaf;
             createdPrefabLeaf = Instantiate(beetLeaf[typeOfLeaf], tempPosition, newRotation);
 
+            // TODO this is going to create extra boxes for the labeling, need to change to not creating more plants 
             if (UnityEngine.Random.Range(0f, 10f) < 9.5f)
             {
                 createdPrefabLeaf.transform.localScale = beetLeafScale * UnityEngine.Random.Range(0.5f, 1f);
@@ -140,14 +156,16 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
             }
             createdPrefabLeaf.isStatic = true;
             createdPrefabLeaf.SetActive(true);
-            createdPrefabLeaf.AddComponent<MeshRenderer>();
+            //createdPrefabLeaf.AddComponent<MeshRenderer>();
             createdPrefabLeaf.transform.SetParent(this.transform);
             createdPrefabLeaves[x] = createdPrefabLeaf;
 
+            Vector2 upperLimit = new Vector2(0, 0);
+            Vector2 lowerLimit = new Vector2(0, 0);
 
-
-            //Material leafMaterial = FindObjectOfType(typeof(Renderer));
             /*
+            //Material leafMaterial = FindObjectOfType(typeof(Renderer));
+
             Mesh leafMesh = createdPrefabLeaf.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().sharedMesh;
             int[] leafTris = leafMesh.triangles;
             Vector3[] leafVerts = leafMesh.vertices;
@@ -165,8 +183,15 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
             int leafTextureWidth = leafTexture.width;
             int leafTextureHeight = leafTexture.height;
 
-            Vector2 upperLimit = new Vector2(0, 0);
-            Vector2 lowerLimit = new Vector2(0, 0);
+            print("printing verts");
+            print(leafVerts.Length);
+            print("printing uvs");
+            print(leafUVs.Length);
+            print(leafTris.Length);
+            print(leafTextureWidth);
+            print(leafTextureHeight);
+
+
             //Debug.Log("w: " + leafTextureWidth);
             //Debug.Log("h: " + leafTextureHeight);
             int counter = 0;
@@ -180,6 +205,8 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
                         //Debug.Log("w: " + w);
                         //Debug.Log("h: " + h);
 
+                        print("Getting pixel");
+
                         int u = w / leafTextureWidth;
                         int v = h / leafTextureHeight;
                         Vector2 uv = new Vector2(u,v);
@@ -191,12 +218,12 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
                             for (int i = 0; i < leafTris.Length; i += 3)
                             {
 
-                                //Vector2 u1 = leafUVs[leafTris[i]]; // get the triangle UVs
-                                //Vector2 u2 = leafUVs[leafTris[i + 1]];
-                                //Vector2 u3 = leafUVs[leafTris[i + 2]];
-                                Vector2 u1 = leafUVs[i]; // get the triangle UVs
-                                Vector2 u2 = leafUVs[i + 1];
-                                Vector2 u3 = leafUVs[i + 2];
+                                Vector2 u1 = leafUVs[leafTris[i]]; // get the triangle UVs
+                                Vector2 u2 = leafUVs[leafTris[i + 1]];
+                                Vector2 u3 = leafUVs[leafTris[i + 2]];
+                                //Vector2 u1 = leafUVs[i]; // get the triangle UVs
+                                //Vector2 u2 = leafUVs[i + 1];
+                                //Vector2 u3 = leafUVs[i + 2];
                                 // calculate triangle area - if zero, skip it
                                 float a = Area(u1, u2, u3);
                                 if (a > 0)
@@ -240,10 +267,11 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
                     }
                 }
             }
-            */
-
             //Color currentPixel = leafTexture.GetPixelBilinear(0.8f, 0.5f);
             //Color currentPixel = ((Texture2D)leafMaterial.mainTexture).GetPixelBilinear(0.8f, 0.5f);
+            */
+
+
 
             //Debug.Log("lower limit: " + lowerLimit);
             //Debug.Log("upper limit: " + upperLimit);

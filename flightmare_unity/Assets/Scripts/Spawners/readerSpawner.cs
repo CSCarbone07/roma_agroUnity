@@ -65,6 +65,7 @@ public class readerSpawner : MonoBehaviour
         reader.Close();
     }
 
+    [MenuItem("Tools/Read file")]
     private void readFile()
     {
 

@@ -69,7 +69,7 @@ public class quadPlant_Spawner : SpawnerAndSwitch
     public override void Spawn()
     {
         base.Spawn();
-        print("weed spawn");
+        //print("weed spawn");
 
         materialsSetup();
 
