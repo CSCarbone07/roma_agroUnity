@@ -14,14 +14,20 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     public int seed = 1;
 
     public bool varyField = true;
-    public bool varyCamera_position = true;
+    public bool varyCamera_position = false;
     public Vector3 noise_camera_position = new Vector3(0, 0, 0);
-    public bool varyCamera_rotation = true;
+    public bool varyCamera_rotation = false;
     public Vector3 noise_camera_rotation = new Vector3(0, 0, 0);
-    public bool varyIllumination_intensity = true;
+    public bool varyIllumination_intensity = false;
     //public float noise_illumination_instensity = 0;
-    public bool varyIllumination_orientation = true;
+    public bool varyIllumination_orientation = false;
     //public Vector3 noise_Illumination_rotation = new Vector3(0, 0, 0);
+    public bool altitudeTest = false;
+    public float[] altitudes;
+    private float currentTestAltitude = 0;
+    private int altitudeId = 0;
+    private int altitudesSize = 0;
+
     public bool overlapTest = false;
     public float altitude = 10;
     private int overlapRow = -1;
@@ -80,7 +86,6 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     protected Vector3 randomRotationValue;
 
     protected static int plantNumber = 84;//9;//65;
-    public int cropRows = 6;//3;//5;
 
     //private static int CapsellaNumber = 8;
     //private static int GalliumNumber = 8;
@@ -96,6 +101,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     protected List<GameObject> newWeed;
 
     protected GameObject newTerrain;
+
+    public string classLabel = "0";
 
     protected int beetLeafAmount = 7;
     protected int galliumLeafAmount = 5;
@@ -159,7 +166,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        Random.seed = seed;
+
+        //Random.seed = seed;
+        altitudesSize = altitudes.Length;
 
         cameraInitialPosition = this.transform.position;
         //newWeed = new GameObject[WeedNumber];
@@ -216,32 +225,57 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         Debug.Log("spawning");
         CounterUpdate();
+        Random.seed = counter;
+
+        //int altitudesSize = altitudes.Length;
 
         //print(Application.persistentDataPath);
-        if (varyField || (varyFieldInterval > 0 && counter > 1 && (counter-1) % varyFieldInterval == 0))
+        if (firstSpawn || (varyField || (varyFieldInterval > 0 && counter > 1 && (counter-1) % varyFieldInterval == 0)) && (!altitudeTest || altitudeId == altitudesSize))
         {
+            altitudeId = 0;
             SpawnTerrain();
             Spawn();
         }
         else
         {
-            if(!firstSpawn)
+            if (!firstSpawn)
             {
                 SwitchToRGB();
                 print("switched to RGB");
             }
 
         }
-        if (varyCamera_position)
-        { 
-            float randInitX = Random.Range(-noise_camera_position.x, noise_camera_position.x);
-            float randInitY = Random.Range(-noise_camera_position.y, noise_camera_position.y);
-            float randInitZ = Random.Range(-noise_camera_position.z, noise_camera_position.z);
 
-            Vector3 RandomPosition = new Vector3(randInitX, randInitY, randInitZ);
-            this.transform.position = cameraInitialPosition + RandomPosition;
+        float randInitX = 0;
+        float randInitY = 0;
+        float randInitZ = 0;
+        Vector3 RandomPosition = new Vector3(0, 0, 0);
+
+        if (varyCamera_position && (!altitudeTest || altitudeId==0))
+        { 
+            randInitX = Random.Range(-noise_camera_position.x, noise_camera_position.x);
+            randInitY = Random.Range(-noise_camera_position.y, noise_camera_position.y);
+            randInitZ = Random.Range(-noise_camera_position.z, noise_camera_position.z);
+
+            RandomPosition = new Vector3(randInitX, randInitY, randInitZ);
         }
-        if (varyCamera_rotation)
+        if(altitudeTest)
+        {
+            currentTestAltitude = altitudes[altitudeId];
+            cameraInitialPosition = new Vector3(cameraInitialPosition.x, currentTestAltitude, cameraInitialPosition.z) ;
+            /*
+            if(altitudeId>0)
+            {
+                counter--;
+            }
+            */
+            altitudeId++;
+        }
+        this.transform.position = cameraInitialPosition + RandomPosition;
+
+
+
+        if (varyCamera_rotation && (!altitudeTest || altitudeId == 1))
         {
             float randomRotX = Random.Range(-noise_camera_rotation.x, noise_camera_rotation.x);
             float randomRotY = Random.Range(-noise_camera_rotation.y, noise_camera_rotation.y);
@@ -249,7 +283,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
             this.transform.rotation = Quaternion.Euler(90 + randomRotX, randomRotY, randomRotZ);
         }
-        if (varyIllumination_intensity || varyIllumination_orientation)
+        if ((varyIllumination_intensity || varyIllumination_orientation) && (!altitudeTest || altitudeId == 0))
         {
             RandomLightAndPosition();
         }
@@ -314,7 +348,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         }
 
         Invoke("SwitchToTAG", TAGswitchDelay);
-        if (varyField || (varyFieldInterval > 0 && counter % varyFieldInterval == 0))
+        //if (varyField || (varyFieldInterval > 0 && counter % varyFieldInterval == 0))
+        if ((varyField || (varyFieldInterval > 0 && counter % varyFieldInterval == 0)) && (!altitudeTest || altitudeId == altitudesSize))
         {
             Invoke("clearScene", clearDelay);
             Invoke("dataLoop", clearDelay+2);
@@ -324,7 +359,6 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             Invoke("dataLoop", clearDelay);
             firstSpawn = false;
         }
-
     }
 
 
@@ -339,8 +373,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void CounterUpdate()
     {
-        counter++;
-        if(counter > maxImageIndex)
+        if (!altitudeTest || altitudeId == altitudesSize || firstSpawn)
+        { counter++; }
+    
+        if(counter > maxImageIndex)// && (!altitudeTest || altitudeId == altitudesSize))
         {
             UnityEditor.EditorApplication.isPlaying = false;
         }
@@ -491,16 +527,32 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         byte[] bytes = screenShot.EncodeToPNG();
         //string filename = ScreenshotName(mode, field);
-        string filename = string.Format("{0}/Dataset/rgb/{1}.png", Application.persistentDataPath, counter);
+        string filename;
+        if (altitudeTest)
+        {
+            filename = string.Format("{0}/Dataset/{1}/rgb/{2}.png", Application.persistentDataPath, currentTestAltitude, counter);
+        }
+        else
+        {
+            filename = string.Format("{0}/Dataset/rgb/{1}.png", Application.persistentDataPath, counter);
+        }
         System.IO.File.WriteAllBytes(filename, bytes);
 
         
 
         if(SaveBoundingBoxes)
         {
-            string boxFileName = string.Format("{0}/Dataset/boxes/{1}.txt", Application.persistentDataPath, counter);
+            string boxFileName;
+            if (altitudeTest)
+            {
+                boxFileName = string.Format("{0}/Dataset/{1}/boxes/{2}.txt", Application.persistentDataPath, currentTestAltitude, counter);
+            }
+            else
+            {
+                boxFileName = string.Format("{0}/Dataset/boxes/{1}.txt", Application.persistentDataPath, counter);
+            }
             if (GetComponent<BoundingBox_Plants>())
-            { GetComponent<BoundingBox_Plants>().saveBoxes(newPlant, filename, boxFileName, "SugarBeets"); }
+            { GetComponent<BoundingBox_Plants>().saveBoxes(newPlant, filename, boxFileName, classLabel); }
         }
 
 
@@ -569,8 +621,16 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         Destroy(rt);
 
         byte[] bytes = screenShot.EncodeToPNG();
-        //string filename = ScreenshotName(mode, field);
-        string filename = string.Format("{0}/Dataset/tag/{1}.png", Application.persistentDataPath, counter);
+        //string filename = string.Format("{0}/Dataset/tag/{1}.png", Application.persistentDataPath, counter);
+        string filename;
+        if (altitudeTest)
+        {
+            filename = string.Format("{0}/Dataset/{1}/tag/{2}.png", Application.persistentDataPath, currentTestAltitude, counter);
+        }
+        else
+        {
+            filename = string.Format("{0}/Dataset/tag/{1}.png", Application.persistentDataPath, counter);
+        }
         System.IO.File.WriteAllBytes(filename, bytes);
     }
 
@@ -613,7 +673,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         spawnPoint = defaultPos;
         rotation = zeroRot;
         newTerrain = Instantiate(terrain, terrainOffset, zeroRot);
-        newTerrain.transform.localScale = defaultScale;
+        //newTerrain.transform.localScale = defaultScale;
     }
 
     private Vector3 RandomPosition()

@@ -33,7 +33,7 @@ public class BoundingBox_Plants : MonoBehaviour
 
     void OnGUI()
     {
-        if (displayBoxes && plants.Count > 1 && plants[0] != null)
+        if (displayBoxes && plants != null && plants[0] != null)
         {
             //GameObject[] allGOs = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
             //GameObject[] allGOs = plantSpawner;
@@ -50,7 +50,7 @@ public class BoundingBox_Plants : MonoBehaviour
                 firstRound = true;
 
 
-                for (int c = 0; c < p.transform.GetChildCount(); c++)
+                for (int c = 0; c < p.transform.childCount; c++)
                 {
                     Transform a = p.transform.GetChild(c);
                     Transform o;
@@ -86,10 +86,11 @@ public class BoundingBox_Plants : MonoBehaviour
                         }
                     }
                 }
-
+                /*
                 print(Screen.width + "x" + Screen.height);
                 print("min:" + total_min);
                 print("max:" + total_max);
+                */
                 // Construct a rect of the min and max positions 
                 if ((total_max.x >= 0 && total_max.y >= 0 && total_max.x <= Screen.width && total_max.y <= Screen.height) 
                 || (total_min.x >= 0 && total_min.y >= 0 && total_min.x <= Screen.width && total_min.y <= Screen.height)
@@ -116,10 +117,10 @@ public class BoundingBox_Plants : MonoBehaviour
                     { total_max.x = Screen.width; }
                     if (total_max.y > Screen.height)
                     { total_max.y = Screen.height; }
-
+                    /*
                     print("final min:" + total_min);
                     print("final max:" + total_max);
-
+                    */
 
                     r = Rect.MinMaxRect(total_min.x, total_min.y, total_max.x, total_max.y);
                     GUI.Box(r, "");
@@ -144,7 +145,7 @@ public class BoundingBox_Plants : MonoBehaviour
             firstRound = true;
 
 
-            for (int c = 0; c < p.transform.GetChildCount(); c++)
+            for (int c = 0; c < p.transform.childCount; c++)
             {
                 Transform a = p.transform.GetChild(c);
                 Transform o;

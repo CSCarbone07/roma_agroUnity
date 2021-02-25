@@ -62,9 +62,9 @@ public class BoundingBoxRenderer : MonoBehaviour
                     Quaternion objectRotation = o.transform.rotation;
                     //Vector3 rotatedExtent = objectRotation * b.extents;
 
-                    print("Object rotation");
-                    print(o.transform.eulerAngles);
-                    print(o.transform.rotation);
+                    //print("Object rotation");
+                    //print(o.transform.eulerAngles);
+                    //print(o.transform.rotation);
                     //print("Object extent");
                     //print(b.extents);
                     //print("Extent rotated");
@@ -116,7 +116,7 @@ public class BoundingBoxRenderer : MonoBehaviour
                     for (int i = 0; i < pts.Length; i++) pts[i].y = Screen.height - pts[i].y;
 
 
-                    print("points found");
+                    //print("points found");
                     // Calculate the min and max positions 
                     //Vector3 min = pts[0];
                     //Vector3 max = pts[0];
