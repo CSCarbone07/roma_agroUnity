@@ -19,6 +19,8 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
 
 
     public int maxBeetLeafAmount = 7;
+    public int amountRandomess = 0;
+    private int usedAmount = 7;
     public Vector3 beetLeafScale = new Vector3(1, 1, 1);
 
     [HideInInspector]
@@ -120,40 +122,63 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
             GameObject.DestroyImmediate(child.gameObject);
         }
 
-        //Debug.Log("I am a Good Plant");
-        //GameObject createdPrefabStem = new GameObject();
-        createdPrefabLeaves = new GameObject[maxBeetLeafAmount];
-        createdPrefabLeavesType = new int[maxBeetLeafAmount];
+
 
         // Leaf Spawn
         //Vector3 tempPosition = position;
         Vector3 tempPosition = this.transform.position;
         tempPosition[1] += 0.8f;
 
-        for (int x = 0; x < maxBeetLeafAmount; x++)
+        float widthRandomness = UnityEngine.Random.Range(0.75f, 1f);
+
+        if(amountRandomess>0)
+        {
+            usedAmount = maxBeetLeafAmount + UnityEngine.Random.Range(-amountRandomess, amountRandomess+1);
+        }
+        else
+        {
+            usedAmount = maxBeetLeafAmount;
+        }
+
+
+        //Debug.Log("I am a Good Plant");
+        //GameObject createdPrefabStem = new GameObject();
+        createdPrefabLeaves = new GameObject[usedAmount];
+        createdPrefabLeavesType = new int[usedAmount];
+
+        for (int x = 0; x < usedAmount; x++)
         {
             //Debug.Log("spawning leaf: " + x);
 
 
-            randomRotationValue = new Vector3(0f, x * 50f, 0f);
-            beetLeafRotation[1] += UnityEngine.Random.Range(-16.0f, 16.0f);
+            Vector3 roundRotation = new Vector3(0f, x * 360.0f / usedAmount, 0f);
+            randomRotationValue = new Vector3(0, UnityEngine.Random.Range(-15.0f, 15.0f), 0);
+            //beetLeafRotation[1] += UnityEngine.Random.Range(-30.0f, 30.0f);
             //beetLeafRotation[0] += UnityEngine.Random.Range(-5.0f, 5.0f);
-            newRotation = Quaternion.Euler(beetLeafRotation + randomRotationValue);
+            newRotation = Quaternion.Euler(beetLeafRotation + roundRotation + randomRotationValue);
             GameObject createdPrefabLeaf;
 
             int typeOfLeaf = Random.Range(0, beetLeaf.Length - 1);
             createdPrefabLeavesType[x] = typeOfLeaf;
             createdPrefabLeaf = Instantiate(beetLeaf[typeOfLeaf], tempPosition, newRotation);
 
+
             // TODO this is going to create extra boxes for the labeling, need to change to not creating more plants 
+            /*
             if (UnityEngine.Random.Range(0f, 10f) < 9.5f)
             {
                 createdPrefabLeaf.transform.localScale = beetLeafScale * UnityEngine.Random.Range(0.5f, 1f);
+                createdPrefabLeaf.transform.localScale = new Vector3(createdPrefabLeaf.transform.localScale.x, createdPrefabLeaf.transform.localScale.y * widthRandomness, createdPrefabLeaf.transform.localScale.z);
             }
             else
             {
                 createdPrefabLeaf.transform.localScale = beetLeafScale * 0;
             }
+            */
+            createdPrefabLeaf.transform.localScale = beetLeafScale * UnityEngine.Random.Range(0.5f, 1f);
+            createdPrefabLeaf.transform.localScale = new Vector3(createdPrefabLeaf.transform.localScale.x, createdPrefabLeaf.transform.localScale.y * widthRandomness, createdPrefabLeaf.transform.localScale.z);
+
+
             createdPrefabLeaf.isStatic = true;
             createdPrefabLeaf.SetActive(true);
             //createdPrefabLeaf.AddComponent<MeshRenderer>();
@@ -303,7 +328,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
 
         if (createdPrefabLeaves.Length > 0)
         {
-            for (int x = 0; x < maxBeetLeafAmount; x++)
+            for (int x = 0; x < usedAmount; x++)
             {
                 GameObject createdPrefabLeaf = Instantiate(beetLeaf[createdPrefabLeavesType[x]], createdPrefabLeaves[x].transform.position, createdPrefabLeaves[x].transform.rotation);
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);
@@ -323,7 +348,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
 
         if (createdPrefabLeaves.Length > 0)
         {
-            for (int x = 0; x < maxBeetLeafAmount; x++)
+            for (int x = 0; x < usedAmount; x++)
             {
                 GameObject createdPrefabLeaf = Instantiate(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x].transform.position, createdPrefabLeaves[x].transform.rotation);
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);
@@ -343,7 +368,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
         base.SwitchToTAG();
         if (createdPrefabLeaves.Length > 0)
         {
-            for (int x = 0; x < maxBeetLeafAmount; x++)
+            for (int x = 0; x < usedAmount; x++)
             {
                 GameObject createdPrefabLeaf = Instantiate(beetLeaf_TAG[createdPrefabLeavesType[x]], createdPrefabLeaves[x].transform.position, createdPrefabLeaves[x].transform.rotation);
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);

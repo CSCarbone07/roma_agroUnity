@@ -10,69 +10,67 @@ using System.IO;
 public class readerSpawner : MonoBehaviour
 {
     private string m_Path;
+    public string r_Path = "Assets/Resources/Texts/Fields/";
 
-    public string sourceFile = "Assets/Resources/Texts/Fields/fields.yaml";
+    public bool spawnOnStart = false;
+
+    public string sourceFile = "fields";
+    public string sourceFormat = ".yaml";
 
     public float scale = 1;
     public float maxDensity = 12;
     public bool useSeed = true;
     public bool readSeed = true;
     public int seed = 0;
+    public float altitudeOffset = 0;
     private List<Vector3> cells_coordinates = new List<Vector3>();
     private List<float> cells_density = new List<float>();
 
     public GameObject spawner;
     private List<GameObject> spawnedInstances = new List<GameObject>();
+    private List<GameObject> spawnedUtilities = new List<GameObject>();
 
 
     public bool updateInstantiation = false;    // Click to update instances
 
 
-    // Start is called before the first frame update
-    void Start()
+
+
+
+    public void ReadString(string inString)
     {
-        if(useSeed)
-        {Random.seed = seed;}
-
-        readFile();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (updateInstantiation)
-        {
-            if(useSeed)
-            {
-                Random.seed = seed;
-            }
-
-            readFile();
-            updateInstantiation = false;
-        }
-
-    }
+        sourceFile = inString;
 
 
-    static void ReadString()
-    {
+        /*
         string path = "Assets/Resources/test.txt";
 
         //Read the text from directly from the test.txt file
         StreamReader reader = new StreamReader(path);
         Debug.Log(reader.ReadToEnd());
         reader.Close();
+        */
     }
+    /*
+    public void setFieldNumber(string inString)
+    {
+        sourceFile = "Assets/Resources/Texts/Fields/field_" + inString + ".yaml";
+    }
+    */
+
+
 
     [MenuItem("Tools/Read file")]
-    private void readFile()
+    public void readFile(string inString)
     {
-
-        foreach (Transform child in transform) //this.gameObject.transform)
+        string fileString;
+        if (inString == " ")
         {
-            //DestroyImmediate(child.gameObject);
-            GameObject.DestroyImmediate(child.gameObject);
+            fileString = sourceFile;
+        }
+        else
+        {
+            fileString = inString;
         }
 
         //Get the path of the Game data folder
@@ -82,14 +80,19 @@ public class readerSpawner : MonoBehaviour
         Debug.Log("dataPath : " + m_Path);
 
         string path = sourceFile;
+
         if (!Application.isEditor)
         {
-            path = m_Path + "/field.yaml";
+            path = m_Path + fileString + sourceFormat;
+        }
+        else
+        {
+            path = r_Path + fileString + sourceFormat;
         }
 
 
 
-        Debug.Log("file read start");
+        Debug.Log("file read start: " + path);
         StreamReader reader = new StreamReader(path);
         string stream = reader.ReadToEnd();
         string[] lines = stream.Split('\n');
@@ -126,13 +129,14 @@ public class readerSpawner : MonoBehaviour
             if(temp_numbers.Count>1)
             {
                 //Debug.Log(line);
-                Vector3 testVector = new Vector3(temp_numbers[2], temp_numbers[3], 0.0f);
+                //Vector3 testVector = new Vector3(temp_numbers[2], temp_numbers[3], 0.0f);
                 //Debug.Log(testVector.ToString());
 
                 cell_id = (int)temp_numbers[1];
                 //Debug.Log("id assigned " + cell_id.ToString());
 
-                cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale + scale/2, 0.0f, temp_numbers[3] * scale + scale / 2));
+                //cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale + scale/2, 0.0f, temp_numbers[3] * scale + scale / 2));
+                cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale, altitudeOffset, temp_numbers[3] * scale));
                 //Debug.Log("coordinates assigned");
 
                 cells_density.Insert(cell_id, temp_numbers[4]);
@@ -150,34 +154,124 @@ public class readerSpawner : MonoBehaviour
 
     private void spawnObjects()
     {
+   
+        if (useSeed)
+        { Random.seed = seed; }
+
+
+
+        /*
+        foreach (GameObject o in spawnedInstances)
+        {
+            Destroy(o);
+            print("Destroying cells");
+        }
+        */
+        /*
         foreach (Transform child in transform) //this.gameObject.transform)
         {
             //DestroyImmediate(child.gameObject);
             GameObject.DestroyImmediate(child.gameObject);
         }
-
+        */
 
         spawnedInstances.Clear();
+        spawnedUtilities.Clear();
         Quaternion zeroRot = Quaternion.Euler(0, 0, 0);
 
         //foreach (Vector3 o in cells_coordinates)
-        print(cells_density.Count.ToString());
+        //print(cells_density.Count.ToString());
         for (int i = 0; i < cells_density.Count; i++)
         {
             if (cells_density[i]>0)
             {
                 GameObject spawnedObject = Instantiate(spawner, cells_coordinates[i], zeroRot);
-                spawnedInstances.Add(spawnedObject);
                 spawnedObject.transform.SetParent(this.gameObject.transform);
                 spawnedObject.GetComponent<CellSpawner>().cell_id = i;
                 spawnedObject.GetComponent<CellSpawner>().Density = cells_density[i]*100.0f/ maxDensity;
-                spawnedObject.GetComponent<CellSpawner>().procedural_Instantiate(null);
-                print("spawning cell " + i.ToString() + " in position " + cells_coordinates[i]);
+                List<GameObject> newUtilities = spawnedObject.GetComponent<CellSpawner>().procedural_Instantiate(null);
+                spawnedUtilities.AddRange(newUtilities);
+                spawnedInstances.Add(spawnedObject);
+                //spawnedInstances.
+                //print("spawning cell " + i.ToString() + " in position " + cells_coordinates[i]);
             }
         }
 
         //this.GetComponent<>().SwitchToTAG();
 
     }
+
+    public List<GameObject> getCellObjects()
+    {
+        return spawnedInstances;
+    }
+
+    public List<GameObject> getSpawnedObjects()
+    {
+        return spawnedUtilities;
+    }
+
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (useSeed)
+        { Random.seed = seed; }
+
+        if (spawnOnStart)
+        { readFile(sourceFile); }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (updateInstantiation)
+        {
+            List<GameObject> objectsToDestroy = new List<GameObject>();
+
+            foreach (Transform child in transform) //this.gameObject.transform)
+            {
+                objectsToDestroy.Add(child.gameObject);
+                //DestroyImmediate(child.gameObject);
+            }
+            foreach (GameObject o in objectsToDestroy)
+            {
+                GameObject.DestroyImmediate(o);
+                print("destroying object");
+                //GameObject.Destroy(child.gameObject);
+            }
+
+
+
+            /*
+            foreach (GameObject o in spawnedUtilities)
+            {
+                Destroy(o);
+                //print("Destroying cells");
+            }
+            foreach (GameObject o in spawnedInstances)
+            {
+                Destroy(o);
+                //print("Destroying cells");
+            }
+            */
+
+
+            if (useSeed)
+            {
+                Random.seed = seed;
+            }
+
+            readFile(sourceFile);
+
+            updateInstantiation = false;
+                      
+        }
+
+    }
+
 
 }

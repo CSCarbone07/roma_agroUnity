@@ -71,7 +71,7 @@ public class CellSpawner : MonoBehaviour
         }
 
         //print("Instatiating prefabs");
-        print(inGameObject);
+        //print(inGameObject);
         if (inGameObject != null)
         {
             prefab = inGameObject;
@@ -100,6 +100,7 @@ public class CellSpawner : MonoBehaviour
                     randomRotationValue = addRandomRotation * (Random.Range(-90.0f, 90.0f));
                     newRotation = Quaternion.Euler(Rotation + randomRotationValue);
 
+                    //print(Density);
                     if ((Density / 100) >= Random.Range(0.0f, 1.0f))
                     {
 
@@ -138,16 +139,18 @@ public class CellSpawner : MonoBehaviour
 
             }
         }
-        /*
+
         foreach (Transform child in transform)
         {
+            float newFloatScaleRandomness = Random.Range(-scaleRandomness, scaleRandomness);
+            Vector3 newScaleRandomness = new Vector3(newFloatScaleRandomness, newFloatScaleRandomness, newFloatScaleRandomness);
+
             //Vector3 newScaleRandomness = new Vector3(newFloatScaleRandomness, newFloatScaleRandomness, newFloatScaleRandomness);
-            child.transform.localScale = Scale; // + newScaleRandomness;
-            print("rescaling " + Scale);
+            //print(child);
+            child.transform.localScale = Scale + newScaleRandomness;
         }
-        */
-        this.transform.localScale = Scale;
-        print("rescaling " + Scale);
+        //this.transform.localScale = Scale;
+        //print("rescaling " + Scale);
 
         return createdPrefabs;
     }

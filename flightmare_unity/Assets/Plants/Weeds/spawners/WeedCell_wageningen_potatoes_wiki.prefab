@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2812888223597826947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2812888223597826949}
+  - component: {fileID: -1945922810653196773}
+  m_Layer: 0
+  m_Name: WeedCell_wageningen_potatoes_wiki
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2812888223597826949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812888223597826947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.327999, y: 0.513, z: -3.8729973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1945922810653196773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812888223597826947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f6b1b60ed05256b9c537393cf4a1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6820708235156757560, guid: 7c72e147af851d2188c0697b9d0f28cf, type: 3}
+  cell_id: 0
+  cellSize: 4
+  max_prefabs: 12
+  Rotation: {x: 90, y: 0, z: 0}
+  Scale: {x: 1.5, y: 1.5, z: 1.5}
+  positionRandomness: {x: 0, y: 0, z: 0}
+  addRandomRotationX: 0
+  addRandomRotationY: 0
+  addRandomRotationZ: 1
+  scaleRandomness: 0
+  Density: 50
+  updateInstantiation: 0

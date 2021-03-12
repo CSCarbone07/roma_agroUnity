@@ -11,12 +11,16 @@ public class SaveImage : MonoBehaviour
     public int width = 1024;
     public int height = 1024;
     private int counter = 0;
-     
+    public bool takeScreenshotOnStart = false;
 
     // Start is called before the first frame update
     void Start()
-    {
-        //TakeScreenshot();
+    {   
+        if(takeScreenshotOnStart)
+        {
+            TakeScreenshot("test", 1);
+        }
+
     }
 
     // Update is called once per frame

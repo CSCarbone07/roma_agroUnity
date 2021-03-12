@@ -58,6 +58,12 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     public Vector3 goodPlantScale = new Vector3(1, 1, 1);
 
+    public GameObject textWeedSpawner;
+    private GameObject spawned_textWeedSpawner;
+    public Vector3 textWeed_Offset = new Vector3(0f, 0.1f, 0f);
+    private List<GameObject> newTextWeeds;
+
+
     //public static int WeedInit = 14;//5;//20;
     public int WeedNumber = 14;
 
@@ -401,6 +407,20 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
+        if(textWeedSpawner != null)
+        {
+            foreach (GameObject w in newTextWeeds)
+            {
+                Destroy(w);
+            }
+            List<GameObject> cells = spawned_textWeedSpawner.GetComponent<readerSpawner>().getCellObjects();
+            foreach (GameObject w in cells)
+            {
+                Destroy(w);
+            }
+        }
+
+
     }
 
 
@@ -441,6 +461,20 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
+        if(textWeedSpawner != null)
+        {
+            if (spawned_textWeedSpawner == null)
+            {
+                spawned_textWeedSpawner = Instantiate(textWeedSpawner, textWeed_Offset, Quaternion.Euler(0, 0, 0));
+            }
+            if(spawned_textWeedSpawner != null)
+            {
+                string fieldFile = "field_" + counter.ToString();
+                spawned_textWeedSpawner.GetComponent<readerSpawner>().readFile(fieldFile);
+                newTextWeeds = spawned_textWeedSpawner.GetComponent<readerSpawner>().getSpawnedObjects();
+            }
+        }
+
 
 
         nextSpawnTime = Time.time + spawnDelay;
@@ -456,6 +490,13 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         if (weedPlantSpawner != null)
         {
             foreach (GameObject g in newWeed)
+            {
+                g.GetComponent<SpawnerAndSwitch>().SwitchToRGB();
+            }
+        }
+        if (textWeedSpawner != null)
+        {
+            foreach (GameObject g in newTextWeeds)
             {
                 g.GetComponent<SpawnerAndSwitch>().SwitchToRGB();
             }
@@ -476,6 +517,13 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 g.GetComponent<SpawnerAndSwitch>().SwitchToNIR();
             }
         }
+        if (textWeedSpawner != null)
+        {
+            foreach (GameObject g in newTextWeeds)
+            {
+                g.GetComponent<SpawnerAndSwitch>().SwitchToNIR();
+            }
+        }
         newTerrain.GetComponent<SpawnerAndSwitch>().SwitchToNIR();
     }
 
@@ -488,6 +536,13 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         if (weedPlantSpawner != null)
         {
             foreach (GameObject g in newWeed)
+            {
+                g.GetComponent<SpawnerAndSwitch>().SwitchToTAG();
+            }
+        }
+        if (textWeedSpawner != null)
+        {
+            foreach (GameObject g in newTextWeeds)
             {
                 g.GetComponent<SpawnerAndSwitch>().SwitchToTAG();
             }

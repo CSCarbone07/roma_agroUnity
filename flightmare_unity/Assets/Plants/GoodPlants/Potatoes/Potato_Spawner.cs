@@ -151,7 +151,7 @@ public class Potato_Spawner : SpawnerAndSwitch
                     newRotation = Quaternion.Euler(leafRotation + flipRotation + s.transform.GetChild(l).rotation.eulerAngles);
 
 
-                    typeOfLeaf = Random.Range(0, stemLeaves.Length - 1);
+                    typeOfLeaf = Random.Range(0, stemLeaves.Length);
                     createdPrefabStemLeavesType.Add(typeOfLeaf);
                     createdPrefabLeaf = Instantiate(stemLeaves[typeOfLeaf], s.transform.GetChild(l).position, newRotation);
                     createdPrefabStemLeaves.Add(createdPrefabLeaf);
@@ -165,11 +165,12 @@ public class Potato_Spawner : SpawnerAndSwitch
                     newRotation = Quaternion.Euler(leafRotation + flipRotation + s.transform.GetChild(l).rotation.eulerAngles);
 
 
-                    typeOfLeaf = Random.Range(0, stemLeaves.Length - 1);
+                    typeOfLeaf = Random.Range(0, stemLeaves.Length);
                     createdPrefabStemLeavesType.Add(typeOfLeaf);
                     createdPrefabLeaf = Instantiate(stemLeaves[typeOfLeaf], s.transform.GetChild(l).position, newRotation);
                     createdPrefabStemLeaves.Add(createdPrefabLeaf);
                     createdPrefabLeaf.transform.localScale = leafScale * UnityEngine.Random.Range(0.5f, 1f);
+                    createdPrefabLeaf.transform.localScale = new Vector3(createdPrefabLeaf.transform.localScale.x, createdPrefabLeaf.transform.localScale.y * UnityEngine.Random.Range(0.75f, 1f), createdPrefabLeaf.transform.localScale.z);
                     createdPrefabLeaf.transform.SetParent(this.transform);
                     plantComponents.Add(createdPrefabLeaf);
 
@@ -180,11 +181,11 @@ public class Potato_Spawner : SpawnerAndSwitch
             flipRotation = new Vector3(0, -45, 0);
             newRotation = Quaternion.Euler(headRotation + flipRotation + s.transform.GetChild(s.transform.childCount - 2).rotation.eulerAngles);
 
-            typeOfLeaf = Random.Range(0, headLeaves.Length - 1);
+            typeOfLeaf = Random.Range(0, headLeaves.Length);
             createdPrefabHeadLeavesType.Add(typeOfLeaf);
             createdPrefabLeaf = Instantiate(headLeaves[typeOfLeaf], s.transform.GetChild(s.transform.childCount - 2).position, newRotation);
             createdPrefabHeadLeaves.Add(createdPrefabLeaf);
-            createdPrefabLeaf.transform.localScale = leafScale * UnityEngine.Random.Range(0.5f, 1f);
+            createdPrefabLeaf.transform.localScale = leafScale * UnityEngine.Random.Range(0.75f, 1.25f);
             createdPrefabLeaf.transform.SetParent(this.transform);
 
             plantComponents.Add(createdPrefabLeaf);

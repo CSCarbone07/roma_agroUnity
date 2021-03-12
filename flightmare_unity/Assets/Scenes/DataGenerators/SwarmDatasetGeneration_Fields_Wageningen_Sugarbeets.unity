@@ -328,7 +328,7 @@ MonoBehaviour:
   noise_camera_rotation: {x: 0, y: 180, z: 0}
   varyIllumination_intensity: 0
   varyIllumination_orientation: 0
-  altitudeTest: 1
+  altitudeTest: 0
   altitudes:
   - 5
   - 20
@@ -339,6 +339,8 @@ MonoBehaviour:
   goodPlant: {fileID: 3247680888802322304, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
   goodPlant_Offset: {x: 0, y: -0.6, z: 0}
   goodPlantScale: {x: 1, y: 1, z: 1}
+  textWeedSpawner: {fileID: 2262129528714445665, guid: d6ba619572568b47191e6bd867f29856, type: 3}
+  textWeed_Offset: {x: 0, y: 0.1, z: 0}
   WeedNumber: 100
   weedPlantSpawner: {fileID: 0}
   weedPlants:

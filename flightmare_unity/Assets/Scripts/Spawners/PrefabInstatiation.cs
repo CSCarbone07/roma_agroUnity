@@ -23,7 +23,7 @@ public class PrefabInstatiation : MonoBehaviour
     public Vector3 Scale = new Vector3(1,1,1);
     private Quaternion newRotation;
 
-
+    public Vector3 positionOffset = new Vector3(0, 0, 0);
     public Vector3 positionRandomness = new Vector3(0, 0, 0);
 
     private Vector3 addRandomRotation;
@@ -63,13 +63,18 @@ public class PrefabInstatiation : MonoBehaviour
 
     public List<GameObject> procedural_Instantiate(GameObject inGameObject)
     {
-        gameObject.isStatic = true;
+        //gameObject.isStatic = true;
 
-
+        List<GameObject> childrenToDestroy = new List<GameObject>();
         foreach (Transform child in transform) //this.gameObject.transform)
         {
+            childrenToDestroy.Add(child.gameObject);
             //DestroyImmediate(child.gameObject);
-            GameObject.DestroyImmediate(child.gameObject);
+            //GameObject.DestroyImmediate(child.gameObject);
+        }
+        foreach (GameObject o in childrenToDestroy) //this.gameObject.transform)
+        {
+            GameObject.DestroyImmediate(o);
         }
 
         //print("Instatiating prefabs");
@@ -111,7 +116,7 @@ public class PrefabInstatiation : MonoBehaviour
                             Vector3 newPositionRandomness = new Vector3(Random.Range(-positionRandomness.x, positionRandomness.x),
                             Random.Range(-positionRandomness.y, positionRandomness.y), Random.Range(-positionRandomness.z, positionRandomness.z));
 
-                            Vector3 pos = new Vector3(x * spacingX, 0, y * spacingY) + myPosition + newPositionRandomness;
+                            Vector3 pos = new Vector3(x * spacingX, 0, y * spacingY) + myPosition + newPositionRandomness + positionOffset;
                             GameObject createdPrefab = Instantiate(prefab, pos, newRotation);
                             //print("Debugging3");
                             createdPrefabs.Add(createdPrefab);
@@ -120,8 +125,7 @@ public class PrefabInstatiation : MonoBehaviour
                             createdPrefab.transform.SetParent(this.gameObject.transform); // = this.transform;
                                                                                           //prefab.transform.parent = transform;
 
-                            float newFloatScaleRandomness = Random.Range(-scaleRandomness, scaleRandomness);
-                            Vector3 newScaleRandomness = new Vector3(newFloatScaleRandomness, newFloatScaleRandomness, newFloatScaleRandomness);
+
 
                             //Vector3 newRandomness = new Vector3(Random.Range(0.0f, scaleRandomness.X), Random.Range(0.0f, scaleRandomness.Y), Random.Range(0.0f, scaleRandomness.Z));
                             //Vector3 newScaleRandomness = new Vector3(Random.Range(-scaleRandomnessX, scaleRandomnessX), Random.Range(-scaleRandomnessY, scaleRandomnessY), Random.Range(-scaleRandomnessZ, scaleRandomnessZ));
@@ -139,8 +143,12 @@ public class PrefabInstatiation : MonoBehaviour
         }
         foreach (Transform child in transform)
         {
+            float newFloatScaleRandomness = Random.Range(-scaleRandomness, scaleRandomness);
+            Vector3 newScaleRandomness = new Vector3(newFloatScaleRandomness, newFloatScaleRandomness, newFloatScaleRandomness);
+
             //Vector3 newScaleRandomness = new Vector3(newFloatScaleRandomness, newFloatScaleRandomness, newFloatScaleRandomness);
-            child.transform.localScale = Scale; // + newScaleRandomness;
+            //print(child);
+            child.transform.localScale = Scale + newScaleRandomness;
         }
         return createdPrefabs;
     }
