@@ -95,7 +95,7 @@ Material:
     - _ReceiveShadows: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 0.35
+    - _SpecularIntensity: 2
     - _SrcBlend: 5
     - _Surface: 1
     - _UVSec: 0

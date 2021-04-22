@@ -16,8 +16,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeafScale.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeafScale.y
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeafScale.z
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: maxBeetLeafAmount
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: beetLeaf.Array.size

@@ -1,0 +1,94 @@
+Changelog Version 5.079
+- AfsFoliageShader Terrain "fixed" for Unity 2018.
+
+Changelog Version 5.078
+- Support for latest Alloy version added.
+
+Changelog Version 5.077
+- Support for Uber/Alloy fixed.
+
+Changelog Version 5.076
+- Hotfix for 5.075.
+
+Changelog Version 5.075
+- Translucency View Dependency added to foliage shader.
+- Baked shadows for trees improved/fixed.
+
+Changelog Version 5.074
+- Support for VegetationStudio and indirect instanced rendering added to the foliage shader.
+
+Changelog Version 5.073
+- Fixed Depth Normal shader for Unity 2017.
+
+Changelog Version 5.072
+- Fixed curve editor for Unity 2017.
+
+Changelog Version 5.071
+- Little fix for VertexLit shader added.
+
+Changelog Version 5.07
+- Tree Mesh Shaders now work properly with baked shadows in deferred.
+
+Changelog Version 5.06
+- SH lighting for billboards reworked.
+- Support for baked shadowmaps added to the deferred lighting shader.
+- Basic support for the Critias Foliage system added.
+
+Changelog Version 5.05
+- Touch bending script changed as proposed by @PutridPleasure on the forum.
+
+Changelog Version 5.04
+- Fading out translucency fixed
+- Option to disable/enable "Preserve Length" added as forward lighting does not really like it.
+
+Changelog Version 5.03
+- SH lighting fixes added for 5.6. and 2017
+- Foliage shader now supports 2017.
+- TouchBendingCollision.cs now is much faster in case you have several hundred or even thousands of instances.
+
+Changelog Version 5.02
+- Minor bug fixes added.
+- Support for Cross Fading added to the foliage shader.
+
+
+Changelog Version 5.0
+
+- General:
+- - Wind: Wind has been unified and is now driven by a built in wind zone.
+- - Lighting: Has been unified. All shaders use the same lighting function (pbr).
+- - - Deferred translucency and physically based wrapped around diffuse lighting added, finally.
+- - - Horizon fade: This feature suppresses "wrong" reflections caused by strong normal maps.
+- - - Specular ambient reflections on grass: Technically not really possible but still added... In case you add proper textures to your grass this helps a lot to really make the grass be grounded in the scene.
+
+- Foliage shader:
+- - Instancing support added.
+- - The Foliage shaders now always expect single sided geometry – although double sided geometry still is supported of course. See the culling features of the shader.
+- - Proper forward and deferred lighting added: This needs you to use the provided deferred lighting and deferred reflection shaders.
+- - Bending revisited and optimized.
+- - New Beniding Mode added: Vertex Colors (old Vertex Color Mode has been renamed to: Vertex Colors(legacy)): This mode only uses Vertex Colors but does not allow you to bake AO into the mesh.
+
+- Touch bending:
+- - Does not need two materials anymore. Touch bending now is handled by using Material Property Blocks.
+- - Now handles (theoretically) an endless number of registered touches
+
+- Tree shaders:
+- - Instancing support added.
+- - Fully deferred, full PBS Lighting.
+- - Bark supports Ambient Occlusion (stored in the alpha channel of the diffuse texture).
+- - Shadow casted by trees are "faded" in. 
+
+- Billboard shader:
+- - Default AFS billboard shader now uses alpha testing (instead of alpha blending) and writes properly to depth. This makes billboards work with depth based images effects like SSAO, Global Fog or Volumetric Lighting.
+
+- Grass shader
+- - Grass now supports "real" translucent lighting taking all lights and shadows into account.
+
+- AFS Setup Script
+- - Added performance improvements.
+
+- Foliage Tool
+- - Added blueprints.
+- - Improved vertex color adjustments.
+
+- Combine Children Script
+- - Now bakes pivots into the combined mesh so that each each single plant can benefit from "preserve length" which will give you far less stretching.

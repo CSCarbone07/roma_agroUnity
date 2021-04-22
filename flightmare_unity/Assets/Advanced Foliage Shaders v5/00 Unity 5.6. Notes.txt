@@ -1,0 +1,20 @@
+UNITY 5.6. NOTES
+
+——-
+
+When you open the demo scenes in Unity 5.6. you may have noticed some plants wobbling strangely in the wind instead of bending properly. 
+This is caused by the fact that Unity 5.6. disables instancing by default, but the shaders, plants and the setup up script expect instancing to be enabled.
+So the shaders fall back in the "dynamic batching" mode or even handle each plant as single draw call.
+
+This is fixed in this version. You may fix this in your own projects by editing the foliage material and check "Enable instancing" at the very bottom of the material inspector window.
+In case you want to not use instancing but rather go with dynamic batching (i can not imagine any reason why you should do so but anyway) you may optimize the settings for dynamic batched geometry by editing the "— AFS Setup" script:
+- Find "Wind Settings" -> "Wind Settings for Foliage Shaders" and set the "Wave Size" to a value about "8" e.g.
+Please note: Dynamic batching is not supported when using forward rendering! You have to enable instancing as otherwise point and spot lights will cause ghosting artifacts.
+
+——-
+
+Unity 5.5. and 5.6. won't let you assign a custom "depth normal shader" using the regular gui. You have to go to the "Graphics settings" and then switch to debug mode (using the "hamburger" menu next to the lock at the very top of the inspector) in order to bring up the corresponding slots where you can plug in the afs depth normal shader.
+
+——-
+
+When using Unity 5.6. you will have to manually disable "Bake Light Probes For Trees" in the terrain settings. Otherwise billboards will become too dark compared to the mesh trees as billboards do not get any light from lightprobes.

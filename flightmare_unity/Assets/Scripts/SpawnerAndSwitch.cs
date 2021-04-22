@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnerAndSwitch : MonoBehaviour
 {
+    public string objectClass = "-1";
 
 
     // Start is called before the first frame update
@@ -16,6 +17,11 @@ public class SpawnerAndSwitch : MonoBehaviour
     public virtual void Update()
     {
         
+    }
+
+    public virtual void setPlantScale(float inScale)
+    {
+
     }
 
     public virtual void Spawn()
@@ -33,6 +39,8 @@ public class SpawnerAndSwitch : MonoBehaviour
             SetAllChildrenStatic(child);
         }
     }
+
+
 
     public virtual void SwitchToRGB()
     {

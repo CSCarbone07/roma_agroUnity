@@ -37,6 +37,17 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
 
     private bool didSpawnedOnce = false;
 
+/*
+    void OnDestroy()
+    {
+        TestMaterial = null;
+        beetLeaf = null;
+        beetLeaf_NIR = null;
+        beetLeaf_TAG = null;
+        createdPrefabLeaves = null;
+        createdPrefabLeavesType = null;
+    }
+*/
     // Start is called before the first frame update
     public override void Start()
     {
@@ -63,7 +74,6 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
 
 
     }
-
 
 
     /*
@@ -113,6 +123,15 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
 
     }
 
+    public override void setPlantScale(float inScale)
+    {
+        //print("set plant scale " + inScale);
+
+        beetLeafScale.x += inScale;
+        beetLeafScale.y += inScale;
+        beetLeafScale.z += inScale;
+    }
+
     public override void Spawn()
     {
 
@@ -146,6 +165,9 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
         createdPrefabLeaves = new GameObject[usedAmount];
         createdPrefabLeavesType = new int[usedAmount];
 
+        Vector3 plantRandomRotation = new Vector3(0, UnityEngine.Random.Range(-180.0f, 180.0f), 0);
+
+
         for (int x = 0; x < usedAmount; x++)
         {
             //Debug.Log("spawning leaf: " + x);
@@ -155,7 +177,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
             randomRotationValue = new Vector3(0, UnityEngine.Random.Range(-15.0f, 15.0f), 0);
             //beetLeafRotation[1] += UnityEngine.Random.Range(-30.0f, 30.0f);
             //beetLeafRotation[0] += UnityEngine.Random.Range(-5.0f, 5.0f);
-            newRotation = Quaternion.Euler(beetLeafRotation + roundRotation + randomRotationValue);
+            newRotation = Quaternion.Euler(beetLeafRotation + roundRotation + randomRotationValue + plantRandomRotation);
             GameObject createdPrefabLeaf;
 
             int typeOfLeaf = Random.Range(0, beetLeaf.Length - 1);

@@ -16,25 +16,37 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeafScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeafScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeafScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: maxBeetLeafAmount
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: beetLeaf.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: beetLeaf.Array.data[0]
       value: 
-      objectReference: {fileID: 9170169963816570324, guid: 1bdbb3f9d502a3deaaf6566faa8af5db, type: 3}
+      objectReference: {fileID: 1490443827435790035, guid: b7dbc691dc5945e15a925131f22fb753, type: 3}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: beetLeaf.Array.data[1]
       value: 
-      objectReference: {fileID: 8568545243962074432, guid: 2475b61f132e8a9748efff5061eddc39, type: 3}
+      objectReference: {fileID: 1490443827435790035, guid: b7dbc691dc5945e15a925131f22fb753, type: 3}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: beetLeaf.Array.data[2]
       value: 
-      objectReference: {fileID: 3302832462250202978, guid: fd31a287b1288173898df18fe7003e67, type: 3}
+      objectReference: {fileID: 1490443827435790035, guid: b7dbc691dc5945e15a925131f22fb753, type: 3}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: beetLeaf.Array.data[3]
       value: 
@@ -57,8 +69,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: beetLeaf_TAG.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeaf_TAG.Array.data[1]
+      value: 
+      objectReference: {fileID: 7535683008467673100, guid: 5eb6f085cd981fe5c8b92c8461abb099, type: 3}
+    - target: {fileID: 6614214073316160531, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+      propertyPath: beetLeaf_TAG.Array.data[2]
+      value: 
+      objectReference: {fileID: 7535683008467673100, guid: 5eb6f085cd981fe5c8b92c8461abb099, type: 3}
     - target: {fileID: 8270237038419139273, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -43,16 +43,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f6b1b60ed05256b9c537393cf4a1d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6820708235156757560, guid: cafd1d732f506acfe8002e76fd6cc824, type: 3}
+  prefab: {fileID: 3014408685066868621, guid: 6edda5b20e866e8ceac17d14f3d089be, type: 3}
   cell_id: 0
   cellSize: 4
   max_prefabs: 12
   Rotation: {x: 90, y: 0, z: 0}
-  Scale: {x: 1.25, y: 1.25, z: 1.25}
+  Scale: {x: 1, y: 1, z: 1}
   positionRandomness: {x: 0, y: 0, z: 0}
   addRandomRotationX: 0
   addRandomRotationY: 0
   addRandomRotationZ: 1
-  scaleRandomness: 0.75
+  scaleRandomness: 0.05
   Density: 50
   updateInstantiation: 0

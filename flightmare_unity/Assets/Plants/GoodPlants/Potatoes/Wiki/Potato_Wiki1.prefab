@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 190bf257524864271a3edf509145cb7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectClass: 1
   SpawnOnStart: 0
   TestMaterial: {fileID: 0}
   stems:
@@ -68,6 +69,7 @@ MonoBehaviour:
   - {fileID: 4122202047352925070, guid: 2a38653fb33a786a482727a784066e3d, type: 3}
   - {fileID: 3052196441016769997, guid: 9f4df684401b4633cb7723940283e136, type: 3}
   - {fileID: 1195112946705531394, guid: c8577b1d19d1b9fc7ad01d4ef8276e36, type: 3}
+  minStems: 7
   maxStems: 8
   stemPositionNoise: {x: 0.1, y: 0, z: 0.1}
   stemScale: {x: 0.75, y: 0.75, z: 0.75}

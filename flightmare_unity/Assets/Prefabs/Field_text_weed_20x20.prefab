@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2262129528714445665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9063709632206582133}
+  - component: {fileID: 3764288400039134454}
+  m_Layer: 0
+  m_Name: Field_text_weed_20x20
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9063709632206582133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2262129528714445665}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.42818, y: 3.33, z: 24.01927}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3764288400039134454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2262129528714445665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5847164c0d34e8bdb95777fb0ab65446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  r_Path: Assets/Resources/Texts/Fields/fields_20x20/
+  spawnOnStart: 0
+  sourceFile: field_5
+  sourceFormat: .yaml
+  scale: 4
+  maxDensity: 12
+  useSeed: 1
+  readSeed: 1
+  seed: 5
+  altitudeOffset: -0.75
+  spawner: {fileID: 2812888223597826947, guid: baeb8f7a0a1b71f548b709f1aeb8f0e7, type: 3}
+  updateInstantiation: 0

@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74338a114813d93cfb10db61b24c4e88, type: 2}
+  - {fileID: 2100000, guid: a58979d65add8c452916280139e25d15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5eec3aee33973888e17fe6909555d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrain_RGB: {fileID: 2100000, guid: 74338a114813d93cfb10db61b24c4e88, type: 2}
-  terrain_NIR: {fileID: 2100000, guid: 74338a114813d93cfb10db61b24c4e88, type: 2}
+  terrain_RGB: {fileID: 2100000, guid: a58979d65add8c452916280139e25d15, type: 2}
+  terrain_NIR: {fileID: 2100000, guid: a58979d65add8c452916280139e25d15, type: 2}
   terrain_TAG: {fileID: 2100000, guid: e31fe99349cf2cd42b705e73d38f5115, type: 2}

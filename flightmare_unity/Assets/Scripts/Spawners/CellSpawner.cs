@@ -97,7 +97,7 @@ public class CellSpawner : MonoBehaviour
                 for (int i = 0; i < max_prefabs; i++)
                 {
                     addRandomRotation = new Vector3(addRandomRotationX, addRandomRotationY, addRandomRotationZ);
-                    randomRotationValue = addRandomRotation * (Random.Range(-90.0f, 90.0f));
+                    randomRotationValue = addRandomRotation * (Random.Range(-180.0f, 180.0f));
                     newRotation = Quaternion.Euler(Rotation + randomRotationValue);
 
                     //print(Density);
@@ -111,7 +111,7 @@ public class CellSpawner : MonoBehaviour
                         0, Random.Range(-cellSize/2, cellSize/2));
 
                         Vector3 pos = myPosition + cellPositionRandomness + newPositionRandomness;
-                        GameObject createdPrefab = Instantiate(prefab, pos, newRotation);
+                        GameObject createdPrefab = Instantiate(prefab, pos, Quaternion.Euler(Vector3.zero));
                         //print("Debugging3");
                         createdPrefabs.Add(createdPrefab);
                         //print("Debugging4");
@@ -127,6 +127,8 @@ public class CellSpawner : MonoBehaviour
 
                         if (createdPrefab.GetComponent<SpawnerAndSwitch>())
                         {
+                            createdPrefab.GetComponent<SpawnerAndSwitch>().setPlantScale(Random.Range(-scaleRandomness, scaleRandomness));
+                            createdPrefab.transform.rotation = newRotation;
                             createdPrefab.GetComponent<SpawnerAndSwitch>().Spawn();
                         }
                         //print("spawning cell objects");

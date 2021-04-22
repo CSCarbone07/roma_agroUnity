@@ -48,7 +48,7 @@ MonoBehaviour:
   cellSize: 4
   max_prefabs: 12
   Rotation: {x: 90, y: 0, z: 0}
-  Scale: {x: 1.5, y: 1.5, z: 1.5}
+  Scale: {x: 0.1, y: 0.1, z: 0.1}
   positionRandomness: {x: 0, y: 0, z: 0}
   addRandomRotationX: 0
   addRandomRotationY: 0

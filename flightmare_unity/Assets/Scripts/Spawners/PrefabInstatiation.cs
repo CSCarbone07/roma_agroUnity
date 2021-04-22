@@ -108,7 +108,7 @@ public class PrefabInstatiation : MonoBehaviour
                     {
                         //randomRotationValue = new Vector3(Random.Range(-90.0f, 90.0f)* addRandomRotationX, Random.Range(-90.0f, 90.0f) * addRandomRotationY, Random.Range(-90.0f, 90.0f) * addRandomRotationZ));
                         addRandomRotation = new Vector3(addRandomRotationX, addRandomRotationY, addRandomRotationZ);
-                        randomRotationValue = addRandomRotation * (Random.Range(-90.0f, 90.0f));
+                        randomRotationValue = addRandomRotation * (Random.Range(-180.0f, 180.0f));
                         newRotation = Quaternion.Euler(Rotation + randomRotationValue);
 
                         if ((Density / 100) >= Random.Range(0.0f, 1.0f))
@@ -117,7 +117,7 @@ public class PrefabInstatiation : MonoBehaviour
                             Random.Range(-positionRandomness.y, positionRandomness.y), Random.Range(-positionRandomness.z, positionRandomness.z));
 
                             Vector3 pos = new Vector3(x * spacingX, 0, y * spacingY) + myPosition + newPositionRandomness + positionOffset;
-                            GameObject createdPrefab = Instantiate(prefab, pos, newRotation);
+                            GameObject createdPrefab = Instantiate(prefab, pos, Quaternion.Euler(Vector3.zero));
                             //print("Debugging3");
                             createdPrefabs.Add(createdPrefab);
                             //print("Debugging4");
@@ -132,6 +132,8 @@ public class PrefabInstatiation : MonoBehaviour
 
                             if (createdPrefab.GetComponent<SpawnerAndSwitch>())
                             {
+                                createdPrefab.GetComponent<SpawnerAndSwitch>().setPlantScale(Random.Range(-scaleRandomness, scaleRandomness));
+                                createdPrefab.transform.rotation = newRotation;
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().Spawn();
                             }
                             //createdPrefab.transform.localScale = Scale + newScaleRandomness;
@@ -141,6 +143,7 @@ public class PrefabInstatiation : MonoBehaviour
                 }
             }
         }
+        /*
         foreach (Transform child in transform)
         {
             float newFloatScaleRandomness = Random.Range(-scaleRandomness, scaleRandomness);
@@ -150,6 +153,7 @@ public class PrefabInstatiation : MonoBehaviour
             //print(child);
             child.transform.localScale = Scale + newScaleRandomness;
         }
+        */
         return createdPrefabs;
     }
 

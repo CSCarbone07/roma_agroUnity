@@ -12,10 +12,15 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private Vector3 cameraInitialPosition;
 
     public int seed = 1;
+    public float delayToSave = 1;
+    public float delayToSwitch = 2;
+    public float delayToRespawn = 1;
+    private float accumulatedDelay = 0;
 
     public bool varyField = true;
     public bool varyCamera_position = false;
     public Vector3 noise_camera_position = new Vector3(0, 0, 0);
+    private Vector3 currentNoisePosition = new Vector3(0, 0, 0);
     public bool varyCamera_rotation = false;
     public Vector3 noise_camera_rotation = new Vector3(0, 0, 0);
     public bool varyIllumination_intensity = false;
@@ -29,14 +34,19 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private int altitudesSize = 0;
 
     public bool overlapTest = false;
+    private bool overlapTestStart = true;
+    public bool takeOnlyOnePOV = false;
+    public bool randomPOV = false;
+    private int overlapId = 0;
     public float altitude = 10;
-    private int overlapRow = -1;
     private int overlapColumn = -1;
-    private int overlapWidth_0 = 0;
-    private int overlapWidth_1 = 0;
-    private int overlapHeight_0 = 0;
-    private int overlapHeight_1 = 0;
+    private int overlapRow = -1;
+    private int overlapWidth_0 = -1;
+    private int overlapWidth_1 = -1;
+    private int overlapHeight_0 = -1;
+    private int overlapHeight_1 = -1;
 
+    
 
     public bool Include_NIR = false;
     private bool firstSpawn = true;
@@ -45,6 +55,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private GameObject spawned_goodPlantSpawner;
     public GameObject goodPlant;
     public Vector3 goodPlant_Offset = new Vector3(0f, 0.1f, 0f);
+
 
 
     /*
@@ -100,6 +111,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     string[] boxes; //= new string[plantNumber + WeedNumber];
 
     // object instances 
+    protected List<GameObject> allPlants = new List<GameObject>();
     protected GameObject newPlantField;
     //protected GameObject[] newPlant;// = new GameObject[plantNumber];
     //protected GameObject[] newWeed; //= new GameObject[WeedInit];
@@ -108,19 +120,19 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     protected GameObject newTerrain;
 
-    public string classLabel = "0";
+    //public string classLabel = "0";
 
     protected int beetLeafAmount = 7;
     protected int galliumLeafAmount = 5;
     protected int capsellaLeafAmount = 8;
 
     // control the spawing ratio, remember to check also Invoke() functions
-    protected float clearDelay = 2f;
-    protected float spawnDelay = 3f;
-    protected float NIRswitchDelay = 1f;
-    protected float TAGswitchDelay = 1f;
-    protected float nextSpawnTime = 0f;
-    protected float nextNIRswitch = 1f;
+    //protected float clearDelay = 2f;
+    //protected float spawnDelay = 3f;
+    //protected float NIRswitchDelay = 1f;
+    //protected float TAGswitchDelay = 1f;
+    //protected float nextSpawnTime = 0f;
+    //protected float nextNIRswitch = 1f;
 
 
     // range for spawing objects
@@ -141,8 +153,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     public int varyFieldInterval = 10;
 
     // camera resolution
-    protected int width = 1024;
-    protected int height = 1024;
+    public int width = 1024;
+    public int height = 1024;
 
     Vector3 spawnPoint;
     Vector3 scaleFactor;
@@ -173,8 +185,16 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     public void Start()
     {
 
+        if(!overlapTest)
+        {
+            overlapRow = 0;
+            overlapColumn = 0;
+        }
+
+
         //Random.seed = seed;
         altitudesSize = altitudes.Length;
+    
 
         cameraInitialPosition = this.transform.position;
         //newWeed = new GameObject[WeedNumber];
@@ -184,14 +204,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         counter = minImageIndex-1; // so its incremented again in the dataloop
         specs = new species[plantNumber + WeedNumber];
 
+        /*
         if(Include_NIR)
-        {
-            /*
-            spawnDelay = 4;
-            clearDelay = 3;
-            TAGswitchDelay = 2;
-            NIRswitchDelay = 1;
-            */           
+        {        
             spawnDelay = 8;
             clearDelay = 6;
             TAGswitchDelay = 4;
@@ -199,16 +214,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         }
         else
         {
-            /*
-            spawnDelay = 3;
-            clearDelay = 2;
-            TAGswitchDelay = 1;
-            */
             spawnDelay = 6;
             clearDelay = 4;
             TAGswitchDelay = 2;
         }
-
+        */
         if(!varyField)
         {
             SpawnTerrain();
@@ -225,20 +235,44 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         //Debug.Log(nextSpawnTime);
 
     }
+     
+    Vector3 myRotateY(Vector3 v, float angle )
+    {
+        Vector3 outVector = new Vector3();
+        
+        float sin = Mathf.Sin( angle * Mathf.Deg2Rad);
+        float cos = Mathf.Cos( angle * Mathf.Deg2Rad);
+   
+        float tx = v.x;
+        float tz = v.z;
 
+        outVector.x = (cos * tx) - (sin * tz);
+        outVector.y = 0;
+        outVector.z = (sin * tx) + (cos * tz);
+
+        return outVector;
+    }
+    
     void dataLoop()
     {
+        EditorUtility.UnloadUnusedAssetsImmediate();
+        GC.Collect();
 
         Debug.Log("spawning");
         CounterUpdate();
-        Random.seed = counter;
+        //Random.seed = counter;
+        seed++;
+        Random.seed = seed;
 
         //int altitudesSize = altitudes.Length;
 
         //print(Application.persistentDataPath);
-        if (firstSpawn || (varyField || (varyFieldInterval > 0 && counter > 1 && (counter-1) % varyFieldInterval == 0)) && (!altitudeTest || altitudeId == altitudesSize))
+        if (firstSpawn || (overlapTestStart && 
+        (varyField && (varyFieldInterval > 0 && counter > 1 && (counter-1) % varyFieldInterval == 0)) 
+        && (!altitudeTest || altitudeId == altitudesSize)))
         {
-            altitudeId = 0;
+            print("respawning on counter " + counter);
+            print("Varation interval " + varyFieldInterval);
             SpawnTerrain();
             Spawn();
         }
@@ -247,27 +281,60 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             if (!firstSpawn)
             {
                 SwitchToRGB();
-                print("switched to RGB");
+                print("switched to RGB on counter " + counter);
             }
 
         }
 
+        if (varyCamera_rotation && (firstSpawn || 
+        (overlapTestStart && (!altitudeTest || altitudeId == altitudesSize)) ))
+        {
+
+            float randomRotX = Random.Range(-noise_camera_rotation.x, noise_camera_rotation.x);
+            float randomRotY = Random.Range(-noise_camera_rotation.y, noise_camera_rotation.y);
+            float randomRotZ = Random.Range(-noise_camera_rotation.z, noise_camera_rotation.z);
+
+            print("varying rotation " + randomRotY);
+
+
+            this.transform.rotation = Quaternion.Euler(90 + randomRotX, randomRotY, randomRotZ);
+            //this.transform.rotation = Quaternion.Euler(90, 90, 0);
+        }
+
+        if ((varyIllumination_intensity || varyIllumination_orientation))// && overlapTestStart && (!altitudeTest || altitudeId == 0))
+        {
+            RandomLightAndPosition();
+        }
+
+
+
         float randInitX = 0;
         float randInitY = 0;
         float randInitZ = 0;
-        Vector3 RandomPosition = new Vector3(0, 0, 0);
 
-        if (varyCamera_position && (!altitudeTest || altitudeId==0))
+        if (varyCamera_position && (firstSpawn || 
+        (overlapTestStart && (!altitudeTest || altitudeId==altitudesSize)) ))
         { 
+            print("Varying position");
+
             randInitX = Random.Range(-noise_camera_position.x, noise_camera_position.x);
             randInitY = Random.Range(-noise_camera_position.y, noise_camera_position.y);
             randInitZ = Random.Range(-noise_camera_position.z, noise_camera_position.z);
 
-            RandomPosition = new Vector3(randInitX, randInitY, randInitZ);
+            currentNoisePosition = new Vector3(randInitX, randInitY, randInitZ);
         }
-        if(altitudeTest)
+
+        if(altitudeTest && overlapTestStart)
         {
+            print("Increasing altitude id from " + altitudeId);
+
+            if(altitudeId == altitudesSize)
+            {
+                altitudeId = 0;
+            }
+
             currentTestAltitude = altitudes[altitudeId];
+            //altitude = currentTestAltitude;
             cameraInitialPosition = new Vector3(cameraInitialPosition.x, currentTestAltitude, cameraInitialPosition.z) ;
             /*
             if(altitudeId>0)
@@ -277,109 +344,143 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             */
             altitudeId++;
         }
-        this.transform.position = cameraInitialPosition + RandomPosition;
-
-
-
-        if (varyCamera_rotation && (!altitudeTest || altitudeId == 1))
-        {
-            float randomRotX = Random.Range(-noise_camera_rotation.x, noise_camera_rotation.x);
-            float randomRotY = Random.Range(-noise_camera_rotation.y, noise_camera_rotation.y);
-            float randomRotZ = Random.Range(-noise_camera_rotation.z, noise_camera_rotation.z);
-
-            this.transform.rotation = Quaternion.Euler(90 + randomRotX, randomRotY, randomRotZ);
-        }
-        if ((varyIllumination_intensity || varyIllumination_orientation) && (!altitudeTest || altitudeId == 0))
-        {
-            RandomLightAndPosition();
-        }
+        this.transform.position = cameraInitialPosition + currentNoisePosition;
+        altitude = this.transform.position.y;
 
 
         if (overlapTest)
         {
-            if (overlapColumn > 1)
-            {
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
+            print("Increasing overlap id from " + overlapId);
 
+            overlapId++;
+            if (overlapTestStart)
+            {
+                //UnityEditor.EditorApplication.isPlaying = false;
+                overlapRow = -1;
+                overlapId = 1;
+            }
+            
+            
+            overlapTestStart = false;
             float fov = GetComponent<Camera>().fieldOfView;
             float shiftDistance = 2 * altitude * Mathf.Tan((fov/2)* Mathf.Deg2Rad);
-            this.transform.position = cameraInitialPosition + new Vector3((shiftDistance / 3.0f) * overlapRow, 0, (shiftDistance / 3.0f) * overlapColumn);
+            Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
+            movingVector = myRotateY(movingVector, -this.transform.eulerAngles.y);
+            this.transform.position = cameraInitialPosition + currentNoisePosition + movingVector;
             //-1 0 1
             //2 1 0
-            overlapWidth_0 =((width / 3) * (1-overlapRow));
-            overlapWidth_1 =((width / 3) * (2-overlapRow));
+            overlapWidth_0 =((width / 3) * (1-overlapColumn));
+            overlapWidth_1 =((width / 3) * (2-overlapColumn));
 
-            overlapHeight_0 = ((height / 3) * (1-overlapColumn));
-            overlapHeight_1 = ((height / 3) * (2-overlapColumn));
+            overlapHeight_0 = ((height / 3) * (1-overlapRow));
+            overlapHeight_1 = ((height / 3) * (2-overlapRow));
 
-            print(fov);
-            print(shiftDistance);
 
-            overlapRow++;
-            if (overlapRow > 1)
+            //print("Camera moved to position: " + this.transform.position);
+            //print("Camera moved by: " + movingVector);
+
+            overlapColumn++;
+            if (overlapColumn > 1)
             {
-                overlapRow = -1;
-                overlapColumn++;
+                overlapColumn = -1;
+                overlapRow++;
+                if(overlapRow>1)
+                {
+                    overlapTestStart = true;
+                }
+            }
+        }
+
+        if(!overlapTest && takeOnlyOnePOV)
+        {
+            if(randomPOV)
+            {
+
+                overlapColumn = UnityEngine.Random.Range(-1, 2);
+                overlapRow = UnityEngine.Random.Range(-1, 2);
+
+                overlapId = (overlapColumn + 2) + (overlapRow+1)*3;
+
+                float fov = GetComponent<Camera>().fieldOfView;
+                float shiftDistance = 2 * altitude * Mathf.Tan((fov/2)* Mathf.Deg2Rad);
+                Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
+                movingVector = myRotateY(movingVector, -this.transform.eulerAngles.y);
+                this.transform.position = cameraInitialPosition + currentNoisePosition + movingVector;
+            }
+            else
+            {
+                overlapColumn = 0;
+                overlapRow = 0;
+                overlapId = 5;
             }
 
+
+            overlapWidth_0 =((width / 3) * (1-overlapColumn));
+            overlapWidth_1 =((width / 3) * (2-overlapColumn));
+
+            overlapHeight_0 = ((height / 3) * (1-overlapRow));
+            overlapHeight_1 = ((height / 3) * (2-overlapRow));
+            
         }
+
+
+        accumulatedDelay = 0;
 
         if (TakeScreenshots)
         {
             //Invoke("saveSingleMasks", 1f);
             //Invoke("SaveRGB", 0.5f);
-            Invoke("SaveRGB", 1.0f);
+            accumulatedDelay += delayToSave;
+            Invoke("SaveRGB", accumulatedDelay);
         }
 
         if (Include_NIR)
         {
-            Invoke("SwitchToNIR", NIRswitchDelay);
+            accumulatedDelay += delayToSwitch;
+            Invoke("SwitchToNIR", accumulatedDelay);
             if (TakeScreenshots)
             {
-                //Invoke("SaveNIR", 1.5f);
-                //Invoke("SaveTAG", 2.5f);
-                Invoke("SaveNIR", 3.0f);
-                Invoke("SaveTAG", 5.0f);
+                //Invoke("SaveNIR", 3.0f);
+                //Invoke("SaveTAG", 5.0f);
+
+                accumulatedDelay += delayToSave;
+                Invoke("SaveNIR", accumulatedDelay);
             }
         }
-        else
+
+
+        accumulatedDelay += delayToSwitch;
+        Invoke("SwitchToTAG", accumulatedDelay);
+        if (TakeScreenshots)
         {
-            if (TakeScreenshots)
-            {
-                //Invoke("saveTAG", 1.5f);
-                Invoke("SaveTAG", 3.0f);
-
-            }
+            //Invoke("saveTAG", 1.5f);
+            accumulatedDelay += delayToSave;
+            Invoke("SaveTAG", accumulatedDelay);
         }
 
-        Invoke("SwitchToTAG", TAGswitchDelay);
+
         //if (varyField || (varyFieldInterval > 0 && counter % varyFieldInterval == 0))
-        if ((varyField || (varyFieldInterval > 0 && counter % varyFieldInterval == 0)) && (!altitudeTest || altitudeId == altitudesSize))
+        if ((varyField && (varyFieldInterval > 0 && counter > 0 && (counter) % varyFieldInterval == 0)) 
+        && (!altitudeTest || altitudeId == altitudesSize) && (!overlapTest || (overlapTest && overlapRow > 1)))
         {
-            Invoke("clearScene", clearDelay);
-            Invoke("dataLoop", clearDelay+2);
+            accumulatedDelay += delayToSwitch;
+            Invoke("clearScene", accumulatedDelay);
+            accumulatedDelay += delayToRespawn;
+            Invoke("dataLoop", accumulatedDelay);
         }
         else
         {
-            Invoke("dataLoop", clearDelay);
-            firstSpawn = false;
+            accumulatedDelay += delayToRespawn;
+            Invoke("dataLoop", accumulatedDelay);
         }
-    }
+        firstSpawn = false;
 
-
-    private bool ShouldSpawn()
-    {
-        return Time.time >= nextSpawnTime;
-    }
-    private bool ShouldSwitch()
-    {
-        return Time.time >= nextNIRswitch;
     }
 
     private void CounterUpdate()
     {
-        if (!altitudeTest || altitudeId == altitudesSize || firstSpawn)
+        if (firstSpawn || ((!altitudeTest || altitudeId == altitudesSize) 
+        && (!overlapTest || (overlapTest && overlapRow > 1))))
         { counter++; }
     
         if(counter > maxImageIndex)// && (!altitudeTest || altitudeId == altitudesSize))
@@ -420,6 +521,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
+        EditorUtility.UnloadUnusedAssetsImmediate();
+        GC.Collect();
 
     }
 
@@ -434,6 +537,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         Vector3 pos = RandomPosition();
         Vector3 plant_start_pos = goodPlant_Offset;
         Vector3 weed_start_pos = weedPlants_Offset[0];
+
         if(goodPlantSpawner!=null)
         { 
             if (spawned_goodPlantSpawner == null)
@@ -445,7 +549,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 newPlant = spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().procedural_Instantiate(goodPlant);
                 if(GetComponent<BoundingBox_Plants>() != null)
                 {
-                    GetComponent<BoundingBox_Plants>().setPlantSpawner(newPlant);
+                    //allPlants.Clear();
+                    allPlants = newPlant;
                 }
             }
         }
@@ -458,6 +563,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             if (spawned_weedPlantSpawner != null)
             {
                 newWeed = spawned_weedPlantSpawner.GetComponent<PrefabInstatiation>().procedural_Instantiate(weedPlants[0]);
+                if(GetComponent<BoundingBox_Plants>() != null)
+                {
+                    allPlants.AddRange(newWeed);
+                }
             }
         }
 
@@ -472,17 +581,24 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 string fieldFile = "field_" + counter.ToString();
                 spawned_textWeedSpawner.GetComponent<readerSpawner>().readFile(fieldFile);
                 newTextWeeds = spawned_textWeedSpawner.GetComponent<readerSpawner>().getSpawnedObjects();
+                if(GetComponent<BoundingBox_Plants>() != null)
+                {
+                    allPlants.AddRange(newTextWeeds);
+                }
             }
         }
 
+        if(GetComponent<BoundingBox_Plants>() != null && (spawned_goodPlantSpawner != null || spawned_textWeedSpawner != null))
+        {
+            GetComponent<BoundingBox_Plants>().setPlantSpawner(allPlants);
+        }
 
 
-        nextSpawnTime = Time.time + spawnDelay;
-        nextNIRswitch = Time.time + NIRswitchDelay;
     }
 
     private void SwitchToRGB()
     {
+        print("Switching to RGB");
         foreach (GameObject g in newPlant)
         {
             g.GetComponent<SpawnerAndSwitch>().SwitchToRGB();
@@ -506,6 +622,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void SwitchToNIR()
     {
+        print("Switching to NIR");
         foreach (GameObject g in newPlant)
         {
             g.GetComponent<SpawnerAndSwitch>().SwitchToNIR();
@@ -529,6 +646,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void SwitchToTAG()
     {
+        print("Switching to TAG");
         foreach (GameObject g in newPlant)
         {
             g.GetComponent<SpawnerAndSwitch>().SwitchToTAG();
@@ -556,7 +674,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     {
         RenderTexture rt;
         Texture2D screenShot;
-        if (overlapTest)
+        if (overlapTest || takeOnlyOnePOV)
         {
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;
@@ -572,7 +690,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             screenShot = new Texture2D(width, height, TextureFormat.RGB24, false);
             GetComponent<Camera>().Render();
             RenderTexture.active = rt;
-            screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+            screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);     
         }
 
 
@@ -585,11 +703,17 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         string filename;
         if (altitudeTest)
         {
-            filename = string.Format("{0}/Dataset/{1}/rgb/{2}.png", Application.persistentDataPath, currentTestAltitude, counter);
+            //filename = string.Format("{0}/Dataset/{1}/rgb/{2}_{3}{4}.png"
+            //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
+            filename = string.Format("{0}/Dataset/rgb/{1}_{2}_{3}.png"
+            , Application.persistentDataPath, currentTestAltitude, counter, overlapId);
         }
         else
         {
-            filename = string.Format("{0}/Dataset/rgb/{1}.png", Application.persistentDataPath, counter);
+            //filename = string.Format("{0}/Dataset/rgb/{1}_{2}{3}.png"
+            //, Application.persistentDataPath, counter, overlapRow, overlapColumn);
+            filename = string.Format("{0}/Dataset/rgb/{1}_{2}.png"
+            , Application.persistentDataPath, counter, overlapId);
         }
         System.IO.File.WriteAllBytes(filename, bytes);
 
@@ -600,15 +724,73 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             string boxFileName;
             if (altitudeTest)
             {
-                boxFileName = string.Format("{0}/Dataset/{1}/boxes/{2}.txt", Application.persistentDataPath, currentTestAltitude, counter);
+                //boxFileName = string.Format("{0}/Dataset/{1}/boxes/{2}_{3}{4}.txt"
+                //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
+                boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}_{3}.txt"
+                , Application.persistentDataPath, currentTestAltitude, counter, overlapId);
             }
             else
             {
-                boxFileName = string.Format("{0}/Dataset/boxes/{1}.txt", Application.persistentDataPath, counter);
+                boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}.txt"
+                , Application.persistentDataPath, counter, overlapId);
             }
             if (GetComponent<BoundingBox_Plants>())
-            { GetComponent<BoundingBox_Plants>().saveBoxes(newPlant, filename, boxFileName, classLabel); }
+            { GetComponent<BoundingBox_Plants>().saveBoxes(newPlant, filename, boxFileName, 
+            overlapWidth_0, overlapHeight_0, overlapWidth_1, overlapHeight_1); }
         }
+
+
+        if (overlapTest && !takeOnlyOnePOV && overlapRow==0 && overlapColumn == 1)
+        {
+            rt = new RenderTexture(width, height, 24);
+            GetComponent<Camera>().targetTexture = rt;
+            screenShot = new Texture2D(width, height, TextureFormat.RGB24, false);
+            GetComponent<Camera>().Render();
+            RenderTexture.active = rt;
+            screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+
+            GetComponent<Camera>().targetTexture = null;
+            RenderTexture.active = null;
+            Destroy(rt);
+
+            bytes = screenShot.EncodeToPNG();
+
+            if (altitudeTest)
+            {
+                filename = string.Format("{0}/Dataset/rgb/{1}_{2}.png"
+                , Application.persistentDataPath, currentTestAltitude, counter);
+            }
+            else
+            {
+                filename = string.Format("{0}/Dataset/rgb/{1}.png"
+                , Application.persistentDataPath, counter);
+            }
+            System.IO.File.WriteAllBytes(filename, bytes);
+
+            
+
+            if(SaveBoundingBoxes)
+            {
+                string boxFileName;
+                if (altitudeTest)
+                {
+                    boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}.txt"
+                    , Application.persistentDataPath, currentTestAltitude, counter);
+                }
+                else
+                {
+                    boxFileName = string.Format("{0}/Dataset/boxes/{1}.txt"
+                    , Application.persistentDataPath, counter);
+                }
+                if (GetComponent<BoundingBox_Plants>())
+                { GetComponent<BoundingBox_Plants>().saveBoxes(newPlant, filename, boxFileName, 
+                -1, -1, -1, -1); } //TODO remove class, it is being done somewhere else
+            }
+
+
+        }
+
+
 
 
     }
@@ -652,7 +834,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         RenderTexture rt;
         Texture2D screenShot;
-        if (overlapTest)
+        if (overlapTest || takeOnlyOnePOV)
         {
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;
@@ -680,13 +862,53 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         string filename;
         if (altitudeTest)
         {
-            filename = string.Format("{0}/Dataset/{1}/tag/{2}.png", Application.persistentDataPath, currentTestAltitude, counter);
+            //filename = string.Format("{0}/Dataset/{1}/tag/{2}_{3}{4}.png"
+            //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
+            filename = string.Format("{0}/Dataset/tag/{1}_{2}_{3}.png"
+            , Application.persistentDataPath, currentTestAltitude, counter, overlapId);
         }
         else
         {
-            filename = string.Format("{0}/Dataset/tag/{1}.png", Application.persistentDataPath, counter);
+            //filename = string.Format("{0}/Dataset/tag/{1}_{2}{3}.png"
+            //, Application.persistentDataPath, counter, overlapRow, overlapColumn);
+            filename = string.Format("{0}/Dataset/tag/{1}_{2}.png"
+            , Application.persistentDataPath, counter, overlapId);
         }
         System.IO.File.WriteAllBytes(filename, bytes);
+
+
+
+        if (overlapTest && !takeOnlyOnePOV && overlapRow==0 && overlapColumn == 1)
+        {
+            rt = new RenderTexture(width, height, 24);
+            GetComponent<Camera>().targetTexture = rt;
+            screenShot = new Texture2D(width, height, TextureFormat.RGB24, false);
+            GetComponent<Camera>().Render();
+            RenderTexture.active = rt;
+            screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+
+            GetComponent<Camera>().targetTexture = null;
+            RenderTexture.active = null;
+            Destroy(rt);
+
+            bytes = screenShot.EncodeToPNG();
+            if (altitudeTest)
+            {
+                filename = string.Format("{0}/Dataset/tag/{1}_{2}.png"
+                , Application.persistentDataPath, currentTestAltitude, counter);
+            }
+            else
+            {
+                filename = string.Format("{0}/Dataset/tag/{1}.png"
+                , Application.persistentDataPath, counter);
+            }
+            System.IO.File.WriteAllBytes(filename, bytes);
+
+
+        }
+
+
+
     }
 
 

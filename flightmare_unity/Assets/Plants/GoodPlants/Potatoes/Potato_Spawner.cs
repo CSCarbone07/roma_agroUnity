@@ -26,7 +26,9 @@ public class Potato_Spawner : SpawnerAndSwitch
     public GameObject[] stemLeaves_NIR;
     public GameObject[] stemLeaves_TAG;
 
-    public int maxStems = 7;
+    public int minStems = 7;
+    public int maxStems = 12;
+    private int totalStems = 7;
     public Vector3 stemPositionNoise = new Vector3(0, 0, 0);
     public Vector3 stemScale = new Vector3(1, 1, 1);
     public Vector3 leafRotation = new Vector3(0, 0, 0);
@@ -50,7 +52,7 @@ public class Potato_Spawner : SpawnerAndSwitch
     public List<int> createdPrefabHeadLeavesType;
 
     [HideInInspector]
-    public List<GameObject> plantComponents;
+    public List<GameObject> plantComponents;// = new List<GameObject>;
 
     protected Vector3 randomRotationValue;
     protected Quaternion newRotation;
@@ -62,6 +64,8 @@ public class Potato_Spawner : SpawnerAndSwitch
     // Start is called before the first frame update
     public override void Start()
     {
+
+
         //base.Start();
         if (SpawnOnStart)
         { Spawn(); }
@@ -74,10 +78,26 @@ public class Potato_Spawner : SpawnerAndSwitch
 
     }
 
+    public override void setPlantScale(float inScale)
+    {
+        print("set plant scale " + inScale);
+
+        stemScale.x += inScale;
+        stemScale.y += inScale;
+        stemScale.z += inScale;
+        
+        leafScale.x += (inScale * leafScale.x/stemScale.x);
+        leafScale.y += (inScale * leafScale.y/stemScale.y);
+        leafScale.z += (inScale * leafScale.z/stemScale.z);
+    }
+
+
     [ExecuteInEditMode]
     public override void Spawn()
     {
+        totalStems = UnityEngine.Random.Range(minStems,maxStems);
 
+        print("total stems " + totalStems);
 
         foreach (Transform child in transform) //this.gameObject.transform)
         {
@@ -89,13 +109,18 @@ public class Potato_Spawner : SpawnerAndSwitch
         //GameObject createdPrefabStem = new GameObject();
         createdPrefabStems.Clear();
         createdPrefabStemsType.Clear();
+        createdPrefabStemLeaves.Clear();
+        createdPrefabStemLeavesType.Clear();
+        createdPrefabHeadLeaves.Clear();
+        createdPrefabHeadLeavesType.Clear();
+        plantComponents.Clear();
 
         // Stem Spawn
         Vector3 tempPosition = this.transform.position;
         tempPosition[1] += 0.8f;
 
 
-        for (int x = 0; x < maxStems; x++)
+        for (int x = 0; x < totalStems; x++)
         {
             if (UnityEngine.Random.Range(0f, 10f) < 9.5f)
             {
@@ -106,7 +131,7 @@ public class Potato_Spawner : SpawnerAndSwitch
                 Vector3 randomPos = new Vector3(randomPosX, randomPosY, randomPosZ);
 
                 //Debug.Log("spawning leaf: " + x);
-                randomRotationValue = new Vector3(0f, x * 360.0f/maxStems, 0f);
+                randomRotationValue = new Vector3(0f, x * 360.0f/totalStems, 0f);
                 stemRotation[1] += UnityEngine.Random.Range(-15.0f, 15.0f);
                 //beetLeafRotation[0] += UnityEngine.Random.Range(-5.0f, 5.0f);
                 newRotation = Quaternion.Euler(stemRotation + randomRotationValue);
@@ -117,23 +142,15 @@ public class Potato_Spawner : SpawnerAndSwitch
                 createdPrefabStem = Instantiate(stems[typeOfStem], tempPosition + randomPos, newRotation);
 
                 createdPrefabStem.transform.localScale = stemScale * UnityEngine.Random.Range(0.5f, 1f);
-
-
-                createdPrefabStem.isStatic = true;
-                createdPrefabStem.SetActive(true);
-
+                //createdPrefabStem.isStatic = true;
+                //createdPrefabStem.SetActive(true);
                 createdPrefabStem.transform.SetParent(this.transform);
+
                 createdPrefabStems.Add(createdPrefabStem);
+                createdPrefabStemsType.Add(typeOfStem);
                 plantComponents.Add(createdPrefabStem);
             }
         }
-
-
-        createdPrefabStemLeaves.Clear();
-        createdPrefabStemLeavesType.Clear();
-        createdPrefabHeadLeaves.Clear();
-        createdPrefabHeadLeavesType.Clear();
-
 
         foreach (GameObject s in createdPrefabStems)
         {
@@ -152,11 +169,12 @@ public class Potato_Spawner : SpawnerAndSwitch
 
 
                     typeOfLeaf = Random.Range(0, stemLeaves.Length);
-                    createdPrefabStemLeavesType.Add(typeOfLeaf);
                     createdPrefabLeaf = Instantiate(stemLeaves[typeOfLeaf], s.transform.GetChild(l).position, newRotation);
-                    createdPrefabStemLeaves.Add(createdPrefabLeaf);
                     createdPrefabLeaf.transform.localScale = leafScale * UnityEngine.Random.Range(0.5f, 1f);
                     createdPrefabLeaf.transform.SetParent(this.transform);
+
+                    createdPrefabStemLeaves.Add(createdPrefabLeaf);
+                    createdPrefabStemLeavesType.Add(typeOfLeaf);
                     plantComponents.Add(createdPrefabLeaf);
 
 
@@ -166,12 +184,13 @@ public class Potato_Spawner : SpawnerAndSwitch
 
 
                     typeOfLeaf = Random.Range(0, stemLeaves.Length);
-                    createdPrefabStemLeavesType.Add(typeOfLeaf);
                     createdPrefabLeaf = Instantiate(stemLeaves[typeOfLeaf], s.transform.GetChild(l).position, newRotation);
-                    createdPrefabStemLeaves.Add(createdPrefabLeaf);
                     createdPrefabLeaf.transform.localScale = leafScale * UnityEngine.Random.Range(0.5f, 1f);
                     createdPrefabLeaf.transform.localScale = new Vector3(createdPrefabLeaf.transform.localScale.x, createdPrefabLeaf.transform.localScale.y * UnityEngine.Random.Range(0.75f, 1f), createdPrefabLeaf.transform.localScale.z);
                     createdPrefabLeaf.transform.SetParent(this.transform);
+
+                    createdPrefabStemLeaves.Add(createdPrefabLeaf);
+                    createdPrefabStemLeavesType.Add(typeOfLeaf);
                     plantComponents.Add(createdPrefabLeaf);
 
                 }
@@ -182,12 +201,12 @@ public class Potato_Spawner : SpawnerAndSwitch
             newRotation = Quaternion.Euler(headRotation + flipRotation + s.transform.GetChild(s.transform.childCount - 2).rotation.eulerAngles);
 
             typeOfLeaf = Random.Range(0, headLeaves.Length);
-            createdPrefabHeadLeavesType.Add(typeOfLeaf);
             createdPrefabLeaf = Instantiate(headLeaves[typeOfLeaf], s.transform.GetChild(s.transform.childCount - 2).position, newRotation);
-            createdPrefabHeadLeaves.Add(createdPrefabLeaf);
             createdPrefabLeaf.transform.localScale = leafScale * UnityEngine.Random.Range(0.75f, 1.25f);
             createdPrefabLeaf.transform.SetParent(this.transform);
 
+            createdPrefabHeadLeaves.Add(createdPrefabLeaf);
+            createdPrefabHeadLeavesType.Add(typeOfLeaf);
             plantComponents.Add(createdPrefabLeaf);
 
         }
@@ -209,19 +228,61 @@ public class Potato_Spawner : SpawnerAndSwitch
     {
         base.SwitchToRGB();
         /*
-        if (createdPrefabStems.Length > 0)
+        List<GameObject> newPlantStems = new List<GameObject>();
+        List<GameObject> newPlantStemLeaves = new List<GameObject>();
+        List<GameObject> newPlantHeadLeaves = new List<GameObject>();
+        */
+        if (createdPrefabStems.Count > 0)
         {
-            for (int x = 0; x < maxStems; x++)
+            for (int x = 0; x < createdPrefabStems.Count; x++)
             {
-                GameObject createdPrefabStem = Instantiate(beetLeaf[createdPrefabStemsType[x]], createdPrefabStems[x].transform.position, createdPrefabStems[x].transform.rotation);
-                //(beetLeaf_NIR[createdPrefabStemsType[x]], createdPrefabStems[x]);
-                createdPrefabStem.transform.SetParent(this.transform);
-                createdPrefabStem.transform.localScale = createdPrefabStems[x].transform.localScale;
-                Destroy(createdPrefabStems[x]);
-                createdPrefabStems[x] = createdPrefabStem;
-                //Debug.Log(createdPrefabStemsType[x]);
+            GameObject createdPrefab = Instantiate(stems[createdPrefabStemsType[x]], createdPrefabStems[x].transform.position, createdPrefabStems[x].transform.rotation);
+            createdPrefab.transform.SetParent(this.transform);
+            createdPrefab.transform.localScale = createdPrefabStems[x].transform.localScale;
+            Destroy(createdPrefabStems[x]);
+            createdPrefabStems[x] = createdPrefab;
+            //Debug.Log(createdPrefabStemsType[x]); 
             }
         }
+
+        if (createdPrefabStemLeaves.Count > 0)
+        {
+            for (int x = 0; x < createdPrefabStemLeaves.Count; x++)
+            {
+            GameObject createdPrefab = Instantiate(stemLeaves[createdPrefabStemLeavesType[x]], createdPrefabStemLeaves[x].transform.position, createdPrefabStemLeaves[x].transform.rotation);
+            createdPrefab.transform.SetParent(this.transform);
+            createdPrefab.transform.localScale = createdPrefabStemLeaves[x].transform.localScale;
+            Destroy(createdPrefabStemLeaves[x]);
+            createdPrefabStemLeaves[x] = createdPrefab;
+            //Debug.Log(createdPrefabStemsType[x]); 
+            }
+        }
+
+        if (createdPrefabHeadLeaves.Count > 0)
+        {
+            for (int x = 0; x < createdPrefabHeadLeaves.Count; x++)
+            {
+            GameObject createdPrefab = Instantiate(headLeaves[createdPrefabHeadLeavesType[x]], createdPrefabHeadLeaves[x].transform.position, createdPrefabHeadLeaves[x].transform.rotation);
+            createdPrefab.transform.SetParent(this.transform);
+            createdPrefab.transform.localScale = createdPrefabHeadLeaves[x].transform.localScale;
+            Destroy(createdPrefabHeadLeaves[x]);
+            createdPrefabHeadLeaves[x] = createdPrefab;
+            //Debug.Log(createdPrefabStemsType[x]); 
+            }
+        }
+
+        /*        
+        createdPrefabStem.Clear();
+        createdPrefabStem = null;
+        createdPrefabStem = newPlantStems;
+
+        createdPrefabStemLeaves.Clear();
+        createdPrefabStemLeaves = null;;
+        createdPrefabStemLeaves = newPlantStemLeaves;
+
+        createdPrefabHeadLeaves.Clear();
+        createdPrefabHeadLeaves = null;;
+        createdPrefabHeadLeaves = newPlantHeadLeaves;
         */
     }
     /*
@@ -249,21 +310,47 @@ public class Potato_Spawner : SpawnerAndSwitch
     public override void SwitchToTAG()
     {
         base.SwitchToTAG();
-        /*
+
         if (createdPrefabStems.Count > 0)
         {
             for (int x = 0; x < createdPrefabStems.Count; x++)
             {
-                GameObject createdPrefabStem = Instantiate(stems_TAG[createdPrefabStemsType[x]], createdPrefabStems[x].transform.position, createdPrefabStems[x].transform.rotation);
-                //(beetLeaf_NIR[createdPrefabStemsType[x]], createdPrefabStems[x]);
-                createdPrefabStem.transform.SetParent(this.transform);
-                createdPrefabStem.transform.localScale = createdPrefabStems[x].transform.localScale;
-                Destroy(createdPrefabStems[x]);
-                createdPrefabStems[x] = createdPrefabStem;
-                //Debug.Log(createdPrefabStemsType[x]);
+            GameObject createdPrefab = Instantiate(stems_TAG[createdPrefabStemsType[x]], createdPrefabStems[x].transform.position, createdPrefabStems[x].transform.rotation);
+            createdPrefab.transform.SetParent(this.transform);
+            createdPrefab.transform.localScale = createdPrefabStems[x].transform.localScale;
+            Destroy(createdPrefabStems[x]);
+            createdPrefabStems[x] = createdPrefab;
+            //Debug.Log(createdPrefabStemsType[x]); 
             }
         }
-        */
+
+        if (createdPrefabStemLeaves.Count > 0)
+        {
+            for (int x = 0; x < createdPrefabStemLeaves.Count; x++)
+            {
+            GameObject createdPrefab = Instantiate(stemLeaves_TAG[createdPrefabStemLeavesType[x]], createdPrefabStemLeaves[x].transform.position, createdPrefabStemLeaves[x].transform.rotation);
+            createdPrefab.transform.SetParent(this.transform);
+            createdPrefab.transform.localScale = createdPrefabStemLeaves[x].transform.localScale;
+            Destroy(createdPrefabStemLeaves[x]);
+            createdPrefabStemLeaves[x] = createdPrefab;
+            //Debug.Log(createdPrefabStemsType[x]); 
+            }
+        }
+
+        if (createdPrefabHeadLeaves.Count > 0)
+        {
+            for (int x = 0; x < createdPrefabHeadLeaves.Count; x++)
+            {
+            GameObject createdPrefab = Instantiate(headLeaves_TAG[createdPrefabHeadLeavesType[x]], createdPrefabHeadLeaves[x].transform.position, createdPrefabHeadLeaves[x].transform.rotation);
+            createdPrefab.transform.SetParent(this.transform);
+            createdPrefab.transform.localScale = createdPrefabHeadLeaves[x].transform.localScale;
+            Destroy(createdPrefabHeadLeaves[x]);
+            createdPrefabHeadLeaves[x] = createdPrefab;
+            //Debug.Log(createdPrefabStemsType[x]); 
+            }
+        }
+
+
     }
     /*
     public void getLeaves()

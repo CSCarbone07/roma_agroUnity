@@ -85,7 +85,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
     - _GlossMapScale: 1
-    - _Glossiness: 0.3
+    - _Glossiness: 0.4
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 2
@@ -95,7 +95,7 @@ Material:
     - _ReceiveShadows: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpecularIntensity: 0.125
+    - _SpecularIntensity: 2
     - _SrcBlend: 5
     - _Surface: 1
     - _UVSec: 0
@@ -105,9 +105,9 @@ Material:
     m_Colors:
     - Vector3_134C2393: {r: 0, g: 0, b: 0, a: 0}
     - Vector3_BE0C3CEF: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.90588236, g: 1, b: 0.9607843, a: 1}
+    - _Color: {r: 0.6509804, g: 0.83137256, b: 0.69803923, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
     - _plantBend: {r: 0, g: 0, b: 0, a: 0}
     - _positionOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

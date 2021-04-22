@@ -41,7 +41,7 @@ public class RandomLight : MonoBehaviour
     public void changeLight_intensity()
     {
         intensity = Random.Range(lowest_intensity_multiplier, highest_intensity_multiplier);
-        //print("change light " + intensity);
+        print("change light " + intensity);
 
         //lt.color = color * intensity;
         //lt.intensity = Mathf.PingPong(Time.time, intensity);

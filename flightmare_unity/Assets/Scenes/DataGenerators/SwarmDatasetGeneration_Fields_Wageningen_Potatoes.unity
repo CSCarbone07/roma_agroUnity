@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df9cafeae9b4461d8fed5db706a3843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowest_intensity_multiplier: 1
-  highest_intensity_multiplier: 1.5
-  noise_Illumination_rotation_min: {x: 60, y: -180, z: 0}
-  noise_Illumination_rotation_max: {x: 120, y: 180, z: 0}
+  lowest_intensity_multiplier: 0.95
+  highest_intensity_multiplier: 1.2
+  noise_Illumination_rotation_min: {x: 40, y: -180, z: 0}
+  noise_Illumination_rotation_max: {x: 140, y: 180, z: 0}
 --- !u!108 &1765163273
 Light:
   m_ObjectHideFlags: 0
@@ -216,6 +216,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1765163274
@@ -276,7 +277,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -321,20 +322,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
+  delayToSave: 1
+  delayToSwitch: 1
+  delayToRespawn: 1
   varyField: 1
   varyCamera_position: 1
-  noise_camera_position: {x: 5, y: 0, z: 5}
+  noise_camera_position: {x: 2, y: 0, z: 2}
   varyCamera_rotation: 1
   noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 0
-  varyIllumination_orientation: 0
-  altitudeTest: 1
+  varyIllumination_intensity: 1
+  varyIllumination_orientation: 1
+  altitudeTest: 0
   altitudes:
-  - 5
+  - 3
   - 10
   - 20
+  - 40
   overlapTest: 0
-  altitude: 10
+  takeOnlyOnePOV: 1
+  randomPOV: 0
+  altitude: 20
   Include_NIR: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: e987beb6aa8e3b0e3bb1a46e46d36ed2, type: 3}
   goodPlant: {fileID: 6820708235156757560, guid: cafd1d732f506acfe8002e76fd6cc824, type: 3}
@@ -355,14 +362,15 @@ MonoBehaviour:
   weedPlants_Scale:
   - {x: 1.2, y: 1.2, z: 1.2}
   terrain: {fileID: 8776146947587348574, guid: f5fe2fe9148cd54e1a71647b6e08743a, type: 3}
-  terrainOffset: {x: 28, y: -0.5, z: 35}
+  terrainOffset: {x: 27.5, y: -0.5, z: 35}
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  classLabel: 2
   minImageIndex: 1
-  maxImageIndex: 200
+  maxImageIndex: 400
   varyFieldInterval: 1
+  width: 3072
+  height: 3072
 --- !u!114 &1830221457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,7 +391,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 2
+  serializedVersion: 3
   m_GIWorkflowMode: 0
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 1
@@ -405,7 +413,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
   m_RealtimeResolution: 2
@@ -422,7 +430,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRRussianRouletteStartBounce: 2
+  m_PVRMinBounces: 1
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0

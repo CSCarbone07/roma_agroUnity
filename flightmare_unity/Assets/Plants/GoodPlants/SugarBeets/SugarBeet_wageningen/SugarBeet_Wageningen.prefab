@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3247680888802322304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8270237038419139273}
+  - component: {fileID: 6614214073316160531}
+  m_Layer: 0
+  m_Name: SugarBeet_Wageningen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8270237038419139273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247680888802322304}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.65769, y: -5.071598, z: -20.370848}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6614214073316160531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247680888802322304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b577002b0193c6eb64fdd2ca705b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectClass: 0
+  TestMaterial: {fileID: 0}
+  beetLeaf:
+  - {fileID: 1490443827435790035, guid: b7dbc691dc5945e15a925131f22fb753, type: 3}
+  - {fileID: 1490443827435790035, guid: a1c259d32c8cc9783b063370e8cda111, type: 3}
+  - {fileID: 1490443827435790035, guid: 52f905cacf5769ced864138966b76e30, type: 3}
+  - {fileID: 1490443827435790035, guid: efe5b11a36e3c46a38d68c1ea93dd57c, type: 3}
+  - {fileID: 1490443827435790035, guid: caf0e60a5b71eb47593de0c9428fd289, type: 3}
+  - {fileID: 1490443827435790035, guid: 63b81653c5e6a6aae8baef86639ed398, type: 3}
+  - {fileID: 1490443827435790035, guid: 1a5477c06e3918959878f58ffb2e2e23, type: 3}
+  - {fileID: 1490443827435790035, guid: 1d6febd2004bf06d7853da1fe2fa7ef3, type: 3}
+  beetLeaf_NIR:
+  - {fileID: 1238140388977307622, guid: 87f1cdd1c8f6a08b9b281ea3946ec3fa, type: 3}
+  - {fileID: 1332328213160821866, guid: 85bc5404e0f25529e9aa9ff730d7d76e, type: 3}
+  - {fileID: 6032416200391836145, guid: 59bc09f4ddf7694a69ea3b25a871b920, type: 3}
+  - {fileID: 8831057216449088491, guid: e437285a7f45a322881e5142ad8dee11, type: 3}
+  - {fileID: 28556158160944705, guid: 543a91d133ee23c6fb79332d05e0d609, type: 3}
+  beetLeaf_TAG:
+  - {fileID: 142349222154842326, guid: c3f54ddbb61d867a6b6cabd2a21b0359, type: 3}
+  - {fileID: 1444144811775593061, guid: 94fd7faa4c3ea593081c6eb60eaf761d, type: 3}
+  - {fileID: 4779964233065206619, guid: ccfbf85e81e013386b3ab1093c094daa, type: 3}
+  - {fileID: 4500361225593838011, guid: 9c0041c8a0cf3db44996ab2177a4f5c9, type: 3}
+  - {fileID: 4181554832231252336, guid: b4d117b8309a7d16b8ca96bd499c873d, type: 3}
+  - {fileID: 6382559642078948642, guid: 6a96e20a7b2458e1e86ea5c823172fdb, type: 3}
+  - {fileID: 6341663946384302464, guid: 0c5c74deba2b9f92da307e7d006ea0c2, type: 3}
+  - {fileID: 9084767957120394030, guid: 3ac12de75ee3ddcafaaf2d418511ced2, type: 3}
+  maxBeetLeafAmount: 4
+  amountRandomess: 1
+  beetLeafScale: {x: 0.14, y: 0.14, z: 0.14}
+  createdPrefabLeaves: []
+  createdPrefabLeavesType: 
+  beetLeafRotation: {x: 200, y: 0, z: -90}
+  rend: []
+  thisRend: {fileID: 0}

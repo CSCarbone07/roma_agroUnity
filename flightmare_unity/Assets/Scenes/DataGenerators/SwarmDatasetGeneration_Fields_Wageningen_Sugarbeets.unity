@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df9cafeae9b4461d8fed5db706a3843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowest_intensity_multiplier: 1
-  highest_intensity_multiplier: 1.5
-  noise_Illumination_rotation_min: {x: 60, y: -180, z: 0}
-  noise_Illumination_rotation_max: {x: 120, y: 180, z: 0}
+  lowest_intensity_multiplier: 0.95
+  highest_intensity_multiplier: 1.2
+  noise_Illumination_rotation_min: {x: 40, y: -180, z: 0}
+  noise_Illumination_rotation_max: {x: 140, y: 180, z: 0}
 --- !u!108 &1765163273
 Light:
   m_ObjectHideFlags: 0
@@ -168,8 +168,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.85882354, a: 1}
-  m_Intensity: 0.95
+  m_Color: {r: 1, g: 0.98039216, b: 0.8745098, a: 1}
+  m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
@@ -216,6 +216,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1765163274
@@ -276,7 +277,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -302,7 +303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830221450}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20, y: 5, z: 20}
+  m_LocalPosition: {x: 20, y: 20, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -321,26 +322,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  varyField: 1
+  delayToSave: 1
+  delayToSwitch: 1
+  delayToRespawn: 1
+  varyField: 0
   varyCamera_position: 1
-  noise_camera_position: {x: 5, y: 0, z: 5}
-  varyCamera_rotation: 1
+  noise_camera_position: {x: 2, y: 0, z: 2}
+  varyCamera_rotation: 0
   noise_camera_rotation: {x: 0, y: 180, z: 0}
   varyIllumination_intensity: 0
   varyIllumination_orientation: 0
   altitudeTest: 0
   altitudes:
-  - 5
+  - 3
+  - 10
   - 20
+  - 40
   overlapTest: 0
-  altitude: 10
+  takeOnlyCenter: 1
+  randomPOV: 0
+  altitude: 20
   Include_NIR: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 233f564ac47e1d091958be5be47ec365, type: 3}
-  goodPlant: {fileID: 3247680888802322304, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
-  goodPlant_Offset: {x: 0, y: -0.6, z: 0}
+  goodPlant: {fileID: 3247680888802322304, guid: b0ddee45a628e3dc4a68b0abf5a6f0df, type: 3}
+  goodPlant_Offset: {x: 0, y: 0, z: 0}
   goodPlantScale: {x: 1, y: 1, z: 1}
-  textWeedSpawner: {fileID: 2262129528714445665, guid: d6ba619572568b47191e6bd867f29856, type: 3}
-  textWeed_Offset: {x: 0, y: 0.1, z: 0}
+  textWeedSpawner: {fileID: 0}
+  textWeed_Offset: {x: 0, y: 0, z: 0}
   WeedNumber: 100
   weedPlantSpawner: {fileID: 0}
   weedPlants:
@@ -360,8 +368,10 @@ MonoBehaviour:
   SaveBoxes: 0
   classLabel: 1
   minImageIndex: 1
-  maxImageIndex: 30
+  maxImageIndex: 400
   varyFieldInterval: 1
+  width: 3072
+  height: 3072
 --- !u!114 &1830221457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +392,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 2
+  serializedVersion: 3
   m_GIWorkflowMode: 0
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 1
@@ -404,7 +414,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
   m_RealtimeResolution: 2
@@ -421,7 +431,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRRussianRouletteStartBounce: 2
+  m_PVRMinBounces: 1
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0
