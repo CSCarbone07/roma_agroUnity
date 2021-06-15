@@ -339,13 +339,13 @@ MonoBehaviour:
   - 20
   - 40
   overlapTest: 0
-  takeOnlyCenter: 1
+  takeOnlyOnePOV: 1
   randomPOV: 1
   altitude: 20
   Include_NIR: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 233f564ac47e1d091958be5be47ec365, type: 3}
   goodPlant: {fileID: 3247680888802322304, guid: b0ddee45a628e3dc4a68b0abf5a6f0df, type: 3}
-  goodPlant_Offset: {x: 0, y: 0, z: 0}
+  goodPlant_Offset: {x: 0, y: 0.1, z: 0}
   goodPlantScale: {x: 1, y: 1, z: 1}
   textWeedSpawner: {fileID: 0}
   textWeed_Offset: {x: 0, y: 0, z: 0}
@@ -366,7 +366,6 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  classLabel: 1
   minImageIndex: 1
   maxImageIndex: 400
   varyFieldInterval: 1

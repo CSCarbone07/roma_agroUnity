@@ -303,7 +303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830221450}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20, y: 21.5, z: 20}
+  m_LocalPosition: {x: 20, y: 20, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -321,26 +321,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 1
-  delayToSave: 1
-  delayToSwitch: 2
-  delayToRespawn: 1
+  seed: 940
+  delayToSave: 2
+  delayToSwitch: 4
+  delayToRespawn: 4
   varyField: 1
   varyCamera_position: 1
   noise_camera_position: {x: 2, y: 0, z: 2}
-  varyCamera_rotation: 1
+  varyCamera_rotation: 0
   noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 1
-  varyIllumination_orientation: 1
+  varyIllumination_intensity: 0
+  varyIllumination_orientation: 0
   altitudeTest: 0
   altitudes:
   - 3
   - 10
   - 20
   - 40
-  overlapTest: 0
+  overlapTest: 1
   takeOnlyOnePOV: 1
-  randomPOV: 1
+  randomPOV: 0
   altitude: 20
   Include_NIR: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 233f564ac47e1d091958be5be47ec365, type: 3}
@@ -366,8 +366,8 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 1
-  maxImageIndex: 400
+  minImageIndex: 95
+  maxImageIndex: 100
   varyFieldInterval: 1
   width: 3072
   height: 3072

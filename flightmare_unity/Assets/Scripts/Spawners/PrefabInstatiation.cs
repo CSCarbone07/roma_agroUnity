@@ -107,10 +107,11 @@ public class PrefabInstatiation : MonoBehaviour
                     for (int x = 0; x < gridX; x++)
                     {
                         //randomRotationValue = new Vector3(Random.Range(-90.0f, 90.0f)* addRandomRotationX, Random.Range(-90.0f, 90.0f) * addRandomRotationY, Random.Range(-90.0f, 90.0f) * addRandomRotationZ));
+                        /*
                         addRandomRotation = new Vector3(addRandomRotationX, addRandomRotationY, addRandomRotationZ);
                         randomRotationValue = addRandomRotation * (Random.Range(-180.0f, 180.0f));
                         newRotation = Quaternion.Euler(Rotation + randomRotationValue);
-
+                        */
                         if ((Density / 100) >= Random.Range(0.0f, 1.0f))
                         {
                             Vector3 newPositionRandomness = new Vector3(Random.Range(-positionRandomness.x, positionRandomness.x),
@@ -133,8 +134,16 @@ public class PrefabInstatiation : MonoBehaviour
                             if (createdPrefab.GetComponent<SpawnerAndSwitch>())
                             {
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().setPlantScale(Random.Range(-scaleRandomness, scaleRandomness));
-                                createdPrefab.transform.rotation = newRotation;
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().Spawn();
+
+                                addRandomRotation = new Vector3(Random.Range(-addRandomRotationX,addRandomRotationX), Random.Range(-addRandomRotationY,addRandomRotationY), Random.Range(-addRandomRotationZ,addRandomRotationZ));
+                                randomRotationValue = addRandomRotation * (180.0f);//(Random.Range(-180.0f, 180.0f));
+                                //randomRotationValue = addRandomRotation;
+                                newRotation = Quaternion.Euler(Rotation + randomRotationValue);
+
+                                createdPrefab.transform.rotation = newRotation;
+
+
                             }
                             //createdPrefab.transform.localScale = Scale + newScaleRandomness;
 

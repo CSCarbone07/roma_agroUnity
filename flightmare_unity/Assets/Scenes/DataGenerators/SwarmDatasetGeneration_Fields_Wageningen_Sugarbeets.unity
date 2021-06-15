@@ -325,13 +325,13 @@ MonoBehaviour:
   delayToSave: 1
   delayToSwitch: 1
   delayToRespawn: 1
-  varyField: 0
+  varyField: 1
   varyCamera_position: 1
   noise_camera_position: {x: 2, y: 0, z: 2}
-  varyCamera_rotation: 0
+  varyCamera_rotation: 1
   noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 0
-  varyIllumination_orientation: 0
+  varyIllumination_intensity: 1
+  varyIllumination_orientation: 1
   altitudeTest: 0
   altitudes:
   - 3
@@ -339,7 +339,7 @@ MonoBehaviour:
   - 20
   - 40
   overlapTest: 0
-  takeOnlyCenter: 1
+  takeOnlyOnePOV: 1
   randomPOV: 0
   altitude: 20
   Include_NIR: 0
@@ -366,9 +366,8 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  classLabel: 1
   minImageIndex: 1
-  maxImageIndex: 400
+  maxImageIndex: 137
   varyFieldInterval: 1
   width: 3072
   height: 3072

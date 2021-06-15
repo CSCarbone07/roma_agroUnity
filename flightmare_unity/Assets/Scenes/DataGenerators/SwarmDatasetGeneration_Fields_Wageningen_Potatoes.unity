@@ -322,16 +322,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  delayToSave: 1
-  delayToSwitch: 1
-  delayToRespawn: 1
+  delayToSave: 2
+  delayToSwitch: 4
+  delayToRespawn: 4
   varyField: 1
   varyCamera_position: 1
   noise_camera_position: {x: 2, y: 0, z: 2}
-  varyCamera_rotation: 1
+  varyCamera_rotation: 0
   noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 1
-  varyIllumination_orientation: 1
+  varyIllumination_intensity: 0
+  varyIllumination_orientation: 0
   altitudeTest: 0
   altitudes:
   - 3

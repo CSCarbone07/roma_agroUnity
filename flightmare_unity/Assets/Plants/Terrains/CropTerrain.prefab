@@ -57,10 +57,12 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a8cd12d9a12a75aa795507f2e7df5b68, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,6 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &8776146947587348575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -118,4 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5eec3aee33973888e17fe6909555d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectClass: 0
+  terrain_RGB: {fileID: 0}
   terrain_NIR: {fileID: 2100000, guid: 97165f8f09a4c7bec93fe7a463e4daf4, type: 2}
+  terrain_TAG: {fileID: 0}
