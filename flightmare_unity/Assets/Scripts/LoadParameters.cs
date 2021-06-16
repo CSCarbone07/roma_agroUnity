@@ -25,6 +25,9 @@ public class LoadParameters : MonoBehaviour
         string data = System.IO.File.ReadAllText(json_file);
         ParsedDistributionFromJSON plant_object = JsonUtility.FromJson<ParsedDistributionFromJSON>(data);
 
+        // If seed is 0, set seed to null (random seed)
+        int? seed = (plant_object.seed == 0)? null : (int?)plant_object.seed;
+
         // Create distributions
         BaseDistribution distribution;
         switch(plant_object.distribution_type)
@@ -32,7 +35,8 @@ public class LoadParameters : MonoBehaviour
             case "gaussian":
                 distribution = new GaussianDistribution(
                     plant_object.gaussian_position_mean, 
-                    plant_object.gaussian_position_std
+                    plant_object.gaussian_position_std,
+                    seed
                 );
                 break;
             case "patch_gaussian":
@@ -40,11 +44,14 @@ public class LoadParameters : MonoBehaviour
                     plant_object.patch_size_mean, 
                     plant_object.patch_size_std, 
                     plant_object.patch_position_std_mean, 
-                    plant_object.patch_position_std_std
+                    plant_object.patch_position_std_std,
+                    seed
                 );
                 break;
             case "random":
-                distribution = new RandomDistribution();
+                distribution = new RandomDistribution(
+                    seed
+                );
                 break;
             default:
                 Debug.Log("Distribution type of " + plant_object.name + " unknown: " 
@@ -81,6 +88,7 @@ public class ParsedDistributionFromJSON{
     public string name;
     public string distribution_type;
     public int n_plants;
+    public int seed;
 
     // Variables for the patch Gaussian distribution
     public int patch_size_mean;

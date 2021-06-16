@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RandomDistribution : BaseDistribution
 {
-    public RandomDistribution(int seed = 1): base(seed){}
+    public RandomDistribution(int? seed = null): base(seed){}
 
     public override Vector2 getNextPosition() 
     {   
@@ -12,8 +12,8 @@ public class RandomDistribution : BaseDistribution
         Vector4 field_dimensions = getFieldMinMax();
 
         Vector2 random_position = new Vector2(
-            Random.Range(field_dimensions[0], field_dimensions[1]), 
-            Random.Range(field_dimensions[2], field_dimensions[3])
+            UnityEngine.Random.Range(field_dimensions[0], field_dimensions[1]), 
+            UnityEngine.Random.Range(field_dimensions[2], field_dimensions[3])
         );
         
         // Add to the list

@@ -6,13 +6,13 @@ public class GaussianDistribution : BaseDistribution
 {
     private float gaussian_position_mean, gaussian_position_std;
 
-    public GaussianDistribution(int seed = 1) : base(seed)
+    public GaussianDistribution(int? seed = null) : base(seed)
     {
         gaussian_position_mean = 0f;
         gaussian_position_std = 0f;
     }
 
-    public GaussianDistribution(float gaussian_position_mean, float gaussian_position_std, int seed = 1) : base(seed)
+    public GaussianDistribution(float gaussian_position_mean, float gaussian_position_std, int? seed = null) : base(seed)
     {
         this.gaussian_position_mean = gaussian_position_mean;
         this.gaussian_position_std = gaussian_position_std;
@@ -39,8 +39,8 @@ public class GaussianDistribution : BaseDistribution
     public static float NextGaussian() {
         float v1, v2, s;
         do {
-            v1 = 2.0f * Random.Range(0f, 1f) - 1.0f;
-            v2 = 2.0f * Random.Range(0f, 1f) - 1.0f;
+            v1 = 2.0f * UnityEngine.Random.Range(0f, 1f) - 1.0f;
+            v2 = 2.0f * UnityEngine.Random.Range(0f, 1f) - 1.0f;
             s = v1 * v1 + v2 * v2;
         } while (s >= 1.0f || s == 0f);
 

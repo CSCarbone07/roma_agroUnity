@@ -9,7 +9,7 @@ public class PatchGaussianDistribution : GaussianDistribution
     private PlantPatch current_patch;
     private int i = 0;
 
-    public PatchGaussianDistribution(int seed = 1) : base(seed)
+    public PatchGaussianDistribution(int? seed = null) : base(seed)
     {
         patch_size_mean = 0;
         patch_size_std = 0;
@@ -24,7 +24,7 @@ public class PatchGaussianDistribution : GaussianDistribution
         int patch_size_std, 
         float patch_position_std_mean, 
         float patch_position_std_std, 
-        int seed = 1
+        int? seed = null
     ) : base(seed)
     {
         this.patch_size_mean = patch_size_mean;
@@ -49,8 +49,8 @@ public class PatchGaussianDistribution : GaussianDistribution
         {
             size=(int)patch_size,
             position_mean = new Vector2(
-                Random.Range(field_dimensions[0], field_dimensions[1]), 
-                Random.Range(field_dimensions[2], field_dimensions[3])
+                UnityEngine.Random.Range(field_dimensions[0], field_dimensions[1]), 
+                UnityEngine.Random.Range(field_dimensions[2], field_dimensions[3])
             ),
             position_std = new Vector2(position_std_x, position_std_y)
         };

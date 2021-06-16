@@ -10,9 +10,15 @@ public abstract class BaseDistribution
 
     public List<Vector2> generated_positions = new List<Vector2>();
 
-    protected BaseDistribution(int seed = 1) 
+    protected BaseDistribution(int? seed = null) 
     {
-        Random.seed = seed;
+        if(seed is int seed_) {
+            UnityEngine.Random.seed = seed_;
+            Debug.Log("Using seed " + seed_);
+        } else {
+            UnityEngine.Random.seed = System.Environment.TickCount;   
+        }
+
     }
 
     public Vector4 getFieldMinMax()
