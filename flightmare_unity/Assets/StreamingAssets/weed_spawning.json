@@ -1,0 +1,9 @@
+{
+    "name": "weeds",
+    "distribution_type": "patch_gaussian",
+    "n_plants": 100,
+    "patch_size_mean": 20,
+    "patch_size_std": 10,
+    "patch_position_std_mean": 1.0,
+    "patch_position_std_std": 1.0
+}

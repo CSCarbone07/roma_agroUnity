@@ -1,0 +1,5 @@
+{
+    "name": "potatoes",
+    "distribution_type": "gaussian",
+    "n_plants": 100
+}
