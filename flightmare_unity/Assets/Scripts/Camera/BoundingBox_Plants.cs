@@ -249,6 +249,7 @@ public class BoundingBox_Plants : MonoBehaviour
                 + w_0 + "w_0 + " + h_0 + "h_0 + "
                 + w_1 + "w_1 + " + h_1 + "h_1.");
                 */
+                
                 w_trimmed_0 = w_0;
                 h_trimmed_0 = h_0;
                 w_trimmed_1 = w_1;

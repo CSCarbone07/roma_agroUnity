@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5eec3aee33973888e17fe6909555d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectClass: -1
   terrain_RGB: {fileID: 2100000, guid: a58979d65add8c452916280139e25d15, type: 2}
   terrain_NIR: {fileID: 2100000, guid: a58979d65add8c452916280139e25d15, type: 2}
   terrain_TAG: {fileID: 2100000, guid: e31fe99349cf2cd42b705e73d38f5115, type: 2}
+  positionRandomness: {x: 2, y: 0, z: 2}

@@ -37,6 +37,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private bool overlapTestStart = true;
     public bool takeOnlyOnePOV = false;
     public bool randomPOV = false;
+    public float forcedFOV = 0;
+    public float forcedShiftDistance = 0;
+    public int forcedWidth = 0;
+    public int forcedHeight = 0;
+    
     private int overlapId = 0;
     public float altitude = 10;
     private int overlapColumn = -1;
@@ -347,6 +352,27 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         this.transform.position = cameraInitialPosition + currentNoisePosition;
         altitude = this.transform.position.y;
 
+        float fov;
+        float shiftDistance;
+
+        if(forcedFOV>0)
+        {
+            fov = forcedFOV;
+        }
+        else
+        {
+            fov = GetComponent<Camera>().fieldOfView;
+        }
+
+        if(forcedShiftDistance>0)
+        {
+            shiftDistance = forcedShiftDistance;
+        }
+        else
+        {
+            shiftDistance = 2 * altitude * Mathf.Tan((fov/2)* Mathf.Deg2Rad);
+        }
+
 
         if (overlapTest)
         {
@@ -362,19 +388,51 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             
             
             overlapTestStart = false;
-            float fov = GetComponent<Camera>().fieldOfView;
-            float shiftDistance = 2 * altitude * Mathf.Tan((fov/2)* Mathf.Deg2Rad);
+
             Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
             movingVector = myRotateY(movingVector, -this.transform.eulerAngles.y);
             this.transform.position = cameraInitialPosition + currentNoisePosition + movingVector;
             //-1 0 1
             //2 1 0
-            overlapWidth_0 =((width / 3) * (1-overlapColumn));
-            overlapWidth_1 =((width / 3) * (2-overlapColumn));
 
-            overlapHeight_0 = ((height / 3) * (1-overlapRow));
-            overlapHeight_1 = ((height / 3) * (2-overlapRow));
+            if(overlapTest || takeOnlyOnePOV)
+            {
+                if(forcedWidth == 0 && forcedHeight ==0)
+                {
+                    overlapWidth_0 =((width / 3) * (1-overlapColumn));
+                    overlapWidth_1 =((width / 3) * (2-overlapColumn));
 
+                    overlapHeight_0 = ((height / 3) * (1-overlapRow));
+                    overlapHeight_1 = ((height / 3) * (2-overlapRow));
+                }
+                else
+                {
+                    int trimWidth = width - forcedWidth;
+                    int trimHeight = height - forcedHeight;
+
+                    overlapWidth_0 =((forcedWidth / 3) * (1-overlapColumn))+trimWidth/2;
+                    overlapWidth_1 =((forcedWidth / 3) * (2-overlapColumn))+trimWidth/2;
+
+                    overlapHeight_0 = ((forcedHeight / 3) * (1-overlapRow))+trimHeight/2;
+                    overlapHeight_1 = ((forcedHeight / 3) * (2-overlapRow))+trimHeight/2;
+                    /*
+                    print("altitude: " + altitude);
+                    print("width: " + width);
+                    print("height: " + height);
+                    print("forcedWidth: " + forcedWidth);
+                    print("forcedHeight: " + forcedHeight);
+                    print("trimWidth: " + trimWidth);
+                    print("trimHeight: " + trimHeight);
+                    print("overlapColumn: " + overlapColumn);
+                    print("overlapRow: " + overlapRow); 
+                    print("overlapWidth_0: " + overlapWidth_0);
+                    print("overlapWidth_1: " + overlapWidth_1);
+                    print("overlapHeight_0: " + overlapHeight_0);
+                    print("overlapHeight_1: " + overlapHeight_1);
+                    */
+
+                }
+            }
 
             //print("Camera moved to position: " + this.transform.position);
             //print("Camera moved by: " + movingVector);
@@ -401,8 +459,6 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
                 overlapId = (overlapColumn + 2) + (overlapRow+1)*3;
 
-                float fov = GetComponent<Camera>().fieldOfView;
-                float shiftDistance = 2 * altitude * Mathf.Tan((fov/2)* Mathf.Deg2Rad);
                 Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
                 movingVector = myRotateY(movingVector, -this.transform.eulerAngles.y);
                 this.transform.position = cameraInitialPosition + currentNoisePosition + movingVector;
@@ -414,16 +470,40 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 overlapId = 5;
             }
 
-
             overlapWidth_0 =((width / 3) * (1-overlapColumn));
             overlapWidth_1 =((width / 3) * (2-overlapColumn));
 
             overlapHeight_0 = ((height / 3) * (1-overlapRow));
             overlapHeight_1 = ((height / 3) * (2-overlapRow));
-            
+
+
         }
 
+/*
+        if(overlapTest || takeOnlyOnePOV)
+        {
+            if(forcedWidth == 0 && forcedHeight ==0)
+            {
+                overlapWidth_0 =((width / 3) * (1-overlapColumn));
+                overlapWidth_1 =((width / 3) * (2-overlapColumn));
 
+                overlapHeight_0 = ((height / 3) * (1-overlapRow));
+                overlapHeight_1 = ((height / 3) * (2-overlapRow));
+            }
+            else
+            {
+                int trimWidth = width - forcedWidth;
+                int trimHeight = height - forcedHeight;
+
+                overlapWidth_0 =((forcedWidth / 3) * (1-overlapColumn))+trimWidth/2;
+                overlapWidth_1 =((forcedWidth / 3) * (2-overlapColumn))+trimWidth/2;
+
+                overlapHeight_0 = ((forcedHeight / 3) * (1-overlapRow))+forcedHeight/2;
+                overlapHeight_1 = ((forcedHeight / 3) * (2-overlapRow))+forcedHeight/2;
+            }
+        }
+
+*/
         accumulatedDelay = 0;
 
         if (TakeScreenshots)
@@ -678,7 +758,14 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         {
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;
-            screenShot = new Texture2D(width/3, height/3, TextureFormat.RGB24, false);
+            if(forcedWidth == 0 && forcedHeight == 0)
+            {
+                screenShot = new Texture2D(width/3, height/3, TextureFormat.RGB24, false);
+            }
+            else
+            {
+                screenShot = new Texture2D(forcedWidth/3, forcedHeight/3, TextureFormat.RGB24, false);
+            }
             GetComponent<Camera>().Render();
             RenderTexture.active = rt;
             screenShot.ReadPixels(new Rect(overlapWidth_0, overlapHeight_0, overlapWidth_1, overlapHeight_1), 0, 0, false);
@@ -804,7 +891,15 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         {
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;
-            screenShot = new Texture2D(width / 3, height / 3, TextureFormat.RGB24, false);
+            //screenShot = new Texture2D(width / 3, height / 3, TextureFormat.RGB24, false);
+            if(forcedWidth == 0 && forcedHeight == 0)
+            {
+                screenShot = new Texture2D(width/3, height/3, TextureFormat.RGB24, false);
+            }
+            else
+            {
+                screenShot = new Texture2D(forcedWidth/3, forcedHeight/3, TextureFormat.RGB24, false);
+            }
             GetComponent<Camera>().Render();
             RenderTexture.active = rt;
             screenShot.ReadPixels(new Rect(overlapWidth_0, overlapHeight_0, overlapWidth_1, overlapHeight_1), 0, 0, false);

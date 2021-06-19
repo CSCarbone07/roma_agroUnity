@@ -341,11 +341,15 @@ MonoBehaviour:
   overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 1
+  forcedFOV: 0
+  forcedShiftDistance: 0
+  forcedWidth: 0
+  forcedHeight: 0
   altitude: 20
   Include_NIR: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 233f564ac47e1d091958be5be47ec365, type: 3}
   goodPlant: {fileID: 3247680888802322304, guid: b0ddee45a628e3dc4a68b0abf5a6f0df, type: 3}
-  goodPlant_Offset: {x: 0, y: 0.1, z: 0}
+  goodPlant_Offset: {x: 0, y: 0, z: 0}
   goodPlantScale: {x: 1, y: 1, z: 1}
   textWeedSpawner: {fileID: 0}
   textWeed_Offset: {x: 0, y: 0, z: 0}

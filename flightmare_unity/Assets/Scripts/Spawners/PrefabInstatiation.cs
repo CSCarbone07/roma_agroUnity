@@ -13,6 +13,8 @@ public class PrefabInstatiation : MonoBehaviour
     public bool useSeed = false;
     public int seed = 0;
 
+    public Vector3 overallPositionRandomness = new Vector3(0, 0, 0);
+
     private Vector3 myPosition;// = transform.position;
     private List<GameObject> createdPrefabs = new List<GameObject>();
     public float gridX = 5f;
@@ -51,7 +53,7 @@ public class PrefabInstatiation : MonoBehaviour
     */
 
     public float Density = 100;
-
+    public float ForcedAmount = 0;
 
 
 
@@ -76,6 +78,9 @@ public class PrefabInstatiation : MonoBehaviour
         {
             GameObject.DestroyImmediate(o);
         }
+
+        Vector3 newOverallPositionRandomness = new Vector3(Random.Range(-overallPositionRandomness.x, overallPositionRandomness.x),
+        Random.Range(-overallPositionRandomness.y, overallPositionRandomness.y), Random.Range(-overallPositionRandomness.z, overallPositionRandomness.z));
 
         //print("Instatiating prefabs");
         print(inGameObject);
@@ -112,12 +117,12 @@ public class PrefabInstatiation : MonoBehaviour
                         randomRotationValue = addRandomRotation * (Random.Range(-180.0f, 180.0f));
                         newRotation = Quaternion.Euler(Rotation + randomRotationValue);
                         */
-                        if ((Density / 100) >= Random.Range(0.0f, 1.0f))
+                        if (ForcedAmount>0 || (Density / 100) >= Random.Range(0.0f, 1.0f))
                         {
                             Vector3 newPositionRandomness = new Vector3(Random.Range(-positionRandomness.x, positionRandomness.x),
                             Random.Range(-positionRandomness.y, positionRandomness.y), Random.Range(-positionRandomness.z, positionRandomness.z));
 
-                            Vector3 pos = new Vector3(x * spacingX, 0, y * spacingY) + myPosition + newPositionRandomness + positionOffset;
+                            Vector3 pos = new Vector3(x * spacingX, 0, y * spacingY) + myPosition + newPositionRandomness + positionOffset + newOverallPositionRandomness;
                             GameObject createdPrefab = Instantiate(prefab, pos, Quaternion.Euler(Vector3.zero));
                             //print("Debugging3");
                             createdPrefabs.Add(createdPrefab);
@@ -136,16 +141,19 @@ public class PrefabInstatiation : MonoBehaviour
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().setPlantScale(Random.Range(-scaleRandomness, scaleRandomness));
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().Spawn();
 
-                                addRandomRotation = new Vector3(Random.Range(-addRandomRotationX,addRandomRotationX), Random.Range(-addRandomRotationY,addRandomRotationY), Random.Range(-addRandomRotationZ,addRandomRotationZ));
-                                randomRotationValue = addRandomRotation * (180.0f);//(Random.Range(-180.0f, 180.0f));
-                                //randomRotationValue = addRandomRotation;
-                                newRotation = Quaternion.Euler(Rotation + randomRotationValue);
 
-                                createdPrefab.transform.rotation = newRotation;
 
 
                             }
-                            //createdPrefab.transform.localScale = Scale + newScaleRandomness;
+                            createdPrefab.transform.localScale = Scale;// + newScaleRandomness;
+                            
+                            addRandomRotation = new Vector3(Random.Range(-addRandomRotationX,addRandomRotationX), Random.Range(-addRandomRotationY,addRandomRotationY), Random.Range(-addRandomRotationZ,addRandomRotationZ));
+                            randomRotationValue = addRandomRotation * (180.0f);//(Random.Range(-180.0f, 180.0f));
+                            //randomRotationValue = addRandomRotation;
+                            print(randomRotationValue);
+                            newRotation = Quaternion.Euler(Rotation + randomRotationValue);
+
+                            createdPrefab.transform.rotation = newRotation;
 
                         }
                     }
@@ -163,6 +171,23 @@ public class PrefabInstatiation : MonoBehaviour
             child.transform.localScale = Scale + newScaleRandomness;
         }
         */
+
+        if(ForcedAmount > 0)
+        {
+            while(ForcedAmount < createdPrefabs.Count)
+            {
+                //createdPrefabs.RemoveAt(Random.Range(0,createdPrefabs.Count));
+                int indexToDestroy = Random.Range(0,createdPrefabs.Count);
+                GameObject objectToDestroy = createdPrefabs[indexToDestroy]; 
+                createdPrefabs.RemoveAt(indexToDestroy);
+                Destroy(objectToDestroy);
+
+                print("removing object " + createdPrefabs.Count);
+            }
+        }
+
+
+
         return createdPrefabs;
     }
 
