@@ -395,44 +395,43 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             //-1 0 1
             //2 1 0
 
-            if(overlapTest || takeOnlyOnePOV)
+
+            if(forcedWidth == 0 && forcedHeight ==0)
             {
-                if(forcedWidth == 0 && forcedHeight ==0)
-                {
-                    overlapWidth_0 =((width / 3) * (1-overlapColumn));
-                    overlapWidth_1 =((width / 3) * (2-overlapColumn));
+                overlapWidth_0 =((width / 3) * (1-overlapColumn));
+                overlapWidth_1 =((width / 3) * (2-overlapColumn));
 
-                    overlapHeight_0 = ((height / 3) * (1-overlapRow));
-                    overlapHeight_1 = ((height / 3) * (2-overlapRow));
-                }
-                else
-                {
-                    int trimWidth = width - forcedWidth;
-                    int trimHeight = height - forcedHeight;
-
-                    overlapWidth_0 =((forcedWidth / 3) * (1-overlapColumn))+trimWidth/2;
-                    overlapWidth_1 =((forcedWidth / 3) * (2-overlapColumn))+trimWidth/2;
-
-                    overlapHeight_0 = ((forcedHeight / 3) * (1-overlapRow))+trimHeight/2;
-                    overlapHeight_1 = ((forcedHeight / 3) * (2-overlapRow))+trimHeight/2;
-                    /*
-                    print("altitude: " + altitude);
-                    print("width: " + width);
-                    print("height: " + height);
-                    print("forcedWidth: " + forcedWidth);
-                    print("forcedHeight: " + forcedHeight);
-                    print("trimWidth: " + trimWidth);
-                    print("trimHeight: " + trimHeight);
-                    print("overlapColumn: " + overlapColumn);
-                    print("overlapRow: " + overlapRow); 
-                    print("overlapWidth_0: " + overlapWidth_0);
-                    print("overlapWidth_1: " + overlapWidth_1);
-                    print("overlapHeight_0: " + overlapHeight_0);
-                    print("overlapHeight_1: " + overlapHeight_1);
-                    */
-
-                }
+                overlapHeight_0 = ((height / 3) * (1-overlapRow));
+                overlapHeight_1 = ((height / 3) * (2-overlapRow));
             }
+            else
+            {
+                int trimWidth = width - forcedWidth;
+                int trimHeight = height - forcedHeight;
+
+                overlapWidth_0 =((forcedWidth / 3) * (1-overlapColumn))+trimWidth/2;
+                overlapWidth_1 =((forcedWidth / 3) * (2-overlapColumn))+trimWidth/2;
+
+                overlapHeight_0 = ((forcedHeight / 3) * (1-overlapRow))+trimHeight/2;
+                overlapHeight_1 = ((forcedHeight / 3) * (2-overlapRow))+trimHeight/2;
+                /*
+                print("altitude: " + altitude);
+                print("width: " + width);
+                print("height: " + height);
+                print("forcedWidth: " + forcedWidth);
+                print("forcedHeight: " + forcedHeight);
+                print("trimWidth: " + trimWidth);
+                print("trimHeight: " + trimHeight);
+                print("overlapColumn: " + overlapColumn);
+                print("overlapRow: " + overlapRow); 
+                print("overlapWidth_0: " + overlapWidth_0);
+                print("overlapWidth_1: " + overlapWidth_1);
+                print("overlapHeight_0: " + overlapHeight_0);
+                print("overlapHeight_1: " + overlapHeight_1);
+                */
+
+            }
+            
 
             //print("Camera moved to position: " + this.transform.position);
             //print("Camera moved by: " + movingVector);
@@ -470,11 +469,41 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 overlapId = 5;
             }
 
-            overlapWidth_0 =((width / 3) * (1-overlapColumn));
-            overlapWidth_1 =((width / 3) * (2-overlapColumn));
+            if(forcedWidth == 0 && forcedHeight ==0)
+            {
+                overlapWidth_0 =((width / 3) * (1-overlapColumn));
+                overlapWidth_1 =((width / 3) * (2-overlapColumn));
 
-            overlapHeight_0 = ((height / 3) * (1-overlapRow));
-            overlapHeight_1 = ((height / 3) * (2-overlapRow));
+                overlapHeight_0 = ((height / 3) * (1-overlapRow));
+                overlapHeight_1 = ((height / 3) * (2-overlapRow));
+            }
+            else
+            {
+                int trimWidth = width - forcedWidth;
+                int trimHeight = height - forcedHeight;
+
+                overlapWidth_0 =((forcedWidth / 3) * (1-overlapColumn))+trimWidth/2;
+                overlapWidth_1 =((forcedWidth / 3) * (2-overlapColumn))+trimWidth/2;
+
+                overlapHeight_0 = ((forcedHeight / 3) * (1-overlapRow))+trimHeight/2;
+                overlapHeight_1 = ((forcedHeight / 3) * (2-overlapRow))+trimHeight/2;
+                /*
+                print("altitude: " + altitude);
+                print("width: " + width);
+                print("height: " + height);
+                print("forcedWidth: " + forcedWidth);
+                print("forcedHeight: " + forcedHeight);
+                print("trimWidth: " + trimWidth);
+                print("trimHeight: " + trimHeight);
+                print("overlapColumn: " + overlapColumn);
+                print("overlapRow: " + overlapRow); 
+                print("overlapWidth_0: " + overlapWidth_0);
+                print("overlapWidth_1: " + overlapWidth_1);
+                print("overlapHeight_0: " + overlapHeight_0);
+                print("overlapHeight_1: " + overlapHeight_1);
+                */
+
+            }
 
 
         }

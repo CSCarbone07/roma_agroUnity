@@ -342,14 +342,14 @@ MonoBehaviour:
   takeOnlyOnePOV: 1
   randomPOV: 1
   forcedFOV: 61.927513
-  forcedShiftDistance: 6
+  forcedShiftDistance: 0
   forcedWidth: 792
   forcedHeight: 792
   altitude: 5
   Include_NIR: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 7041def5975e97725864c92d3183e799, type: 3}
   goodPlant: {fileID: 6253421786915150476, guid: b4c817e93809231529f18da9f11381a1, type: 3}
-  goodPlant_Offset: {x: 0, y: 0, z: 0}
+  goodPlant_Offset: {x: -6, y: 0, z: -6}
   goodPlantScale: {x: 1, y: 1, z: 1}
   textWeedSpawner: {fileID: 0}
   textWeed_Offset: {x: 0, y: 0, z: 0}

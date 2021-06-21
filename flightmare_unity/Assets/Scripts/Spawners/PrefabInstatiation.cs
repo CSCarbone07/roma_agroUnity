@@ -53,7 +53,7 @@ public class PrefabInstatiation : MonoBehaviour
     */
 
     public float Density = 100;
-    public float ForcedAmount = 0;
+    public float ForcedAmount = -1;
 
 
 
@@ -104,7 +104,7 @@ public class PrefabInstatiation : MonoBehaviour
             }
             //print("Debugging2");
 
-            if (regenerate)
+            if (regenerate && ForcedAmount != 0)
             {
 
                 for (int y = 0; y < gridY; y++)
