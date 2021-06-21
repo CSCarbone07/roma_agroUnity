@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4333507836982010}
   - component: {fileID: 33222977125096512}
   - component: {fileID: 23579725177664088}
+  - component: {fileID: 7401239703556375404}
   m_Layer: 0
   m_Name: CarboardBox
   m_TagString: Untagged
@@ -82,6 +83,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7401239703556375404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192641458597302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea43af3ed40de9da9dd9f836c5e8ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectClass: 0
 --- !u!1 &2274227554006736083
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,6 +46,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   useSeed: 0
   seed: 0
+  overallPositionRandomness: {x: 0, y: 0, z: 0}
   gridX: 4
   gridY: 4
   spacingX: 0.5
@@ -57,7 +58,7 @@ MonoBehaviour:
   addRandomRotationX: 0
   addRandomRotationY: 1
   addRandomRotationZ: 0
-  scaleRandomness: 0
+  scaleRandomness: 0.05
   Density: 100
   ForcedAmount: 5
   updateInstantiation: 0

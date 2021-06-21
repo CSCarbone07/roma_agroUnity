@@ -10,15 +10,15 @@ PrefabInstance:
     - target: {fileID: 4091826073740472126, guid: e324d3f80d99bfd489b4a3ace7ae3e0c, type: 3}
       propertyPath: terrain_NIR
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 90d33b48de8f76a1a8d08c21e34f2a24, type: 2}
     - target: {fileID: 4091826073740472126, guid: e324d3f80d99bfd489b4a3ace7ae3e0c, type: 3}
       propertyPath: terrain_RGB
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 90d33b48de8f76a1a8d08c21e34f2a24, type: 2}
     - target: {fileID: 4091826073740472126, guid: e324d3f80d99bfd489b4a3ace7ae3e0c, type: 3}
       propertyPath: terrain_TAG
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 90d33b48de8f76a1a8d08c21e34f2a24, type: 2}
     - target: {fileID: 4091826073740472126, guid: e324d3f80d99bfd489b4a3ace7ae3e0c, type: 3}
       propertyPath: positionRandomness.x
       value: 2
