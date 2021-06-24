@@ -14,6 +14,8 @@ public class PrefabInstatiation : MonoBehaviour
     public int seed = 0;
 
     public Vector3 overallPositionRandomness = new Vector3(0, 0, 0);
+    public Vector3 overallRotationRandomness = new Vector3(0, 0, 0);
+
 
     private Vector3 myPosition;// = transform.position;
     private List<GameObject> createdPrefabs = new List<GameObject>();
@@ -81,6 +83,10 @@ public class PrefabInstatiation : MonoBehaviour
 
         Vector3 newOverallPositionRandomness = new Vector3(Random.Range(-overallPositionRandomness.x, overallPositionRandomness.x),
         Random.Range(-overallPositionRandomness.y, overallPositionRandomness.y), Random.Range(-overallPositionRandomness.z, overallPositionRandomness.z));
+
+        Vector3 newOverallRotationRandomness = new Vector3(Random.Range(-overallRotationRandomness.x, overallRotationRandomness.x),
+        Random.Range(-overallRotationRandomness.y, overallRotationRandomness.y), Random.Range(-overallRotationRandomness.z, overallRotationRandomness.z));
+
 
         //print("Instatiating prefabs");
         print(inGameObject);
@@ -150,8 +156,8 @@ public class PrefabInstatiation : MonoBehaviour
                             addRandomRotation = new Vector3(Random.Range(-addRandomRotationX,addRandomRotationX), Random.Range(-addRandomRotationY,addRandomRotationY), Random.Range(-addRandomRotationZ,addRandomRotationZ));
                             randomRotationValue = addRandomRotation * (180.0f);//(Random.Range(-180.0f, 180.0f));
                             //randomRotationValue = addRandomRotation;
-                            print(randomRotationValue);
-                            newRotation = Quaternion.Euler(Rotation + randomRotationValue);
+                            //print(randomRotationValue);
+                            newRotation = Quaternion.Euler(Rotation + newOverallRotationRandomness + randomRotationValue);
 
                             createdPrefab.transform.rotation = newRotation;
 

@@ -326,7 +326,7 @@ MonoBehaviour:
   delayToSwitch: 4
   delayToRespawn: 1
   varyField: 1
-  varyCamera_position: 1
+  varyCamera_position: 0
   noise_camera_position: {x: 0, y: 0, z: 0}
   varyCamera_rotation: 1
   noise_camera_rotation: {x: 0, y: 180, z: 0}
@@ -371,7 +371,7 @@ MonoBehaviour:
   SaveBoundingBoxes: 1
   SaveBoxes: 0
   minImageIndex: 1
-  maxImageIndex: 100
+  maxImageIndex: 200
   varyFieldInterval: 1
   width: 1600
   height: 1200
