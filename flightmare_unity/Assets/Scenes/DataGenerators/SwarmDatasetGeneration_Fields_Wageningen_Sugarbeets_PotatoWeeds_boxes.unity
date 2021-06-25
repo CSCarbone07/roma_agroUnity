@@ -322,8 +322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  delayToSave: 4
-  delayToSwitch: 4
+  delayToSave: 2
+  delayToSwitch: 2
   delayToRespawn: 1
   varyField: 1
   varyCamera_position: 0
@@ -338,9 +338,9 @@ MonoBehaviour:
   - 10
   - 20
   - 40
-  overlapTest: 1
-  takeOnlyOnePOV: 0
-  randomPOV: 0
+  overlapTest: 0
+  takeOnlyOnePOV: 1
+  randomPOV: 1
   forcedFOV: 73.73979
   forcedShiftDistance: 0
   forcedWidth: 990
@@ -348,7 +348,7 @@ MonoBehaviour:
   altitude: 5
   Include_NIR: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 326c68b4f5b16cc138443ea695e77a92, type: 3}
-  goodPlant: {fileID: 1192641458597302, guid: a06ebe76805e15af696d7d02897f4350, type: 3}
+  goodPlant: {fileID: 4780572060926278114, guid: 23a99c0c937a84feab59f39bf6b24b2b, type: 3}
   goodPlant_Offset: {x: 2.7666667, y: 0.15, z: 2.7666667}
   goodPlantScale: {x: 1, y: 1, z: 1}
   textWeedSpawner: {fileID: 0}

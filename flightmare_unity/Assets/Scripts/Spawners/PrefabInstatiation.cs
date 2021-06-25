@@ -55,9 +55,13 @@ public class PrefabInstatiation : MonoBehaviour
     */
 
     public float Density = 100;
-    public float ForcedAmount = -1;
+    public int ForcedAmountLow = -1;
+    public int ForcedAmountHigh = -1;
+    private int current_forcedAmount = -1;
 
-
+    public int sub_ForcedAmountLow = -1;
+    public int sub_ForcedAmountHigh = -1;
+    private int sub_current_forcedAmount = -1;
 
     public bool updateInstantiation = false;    // Click to update instances
     //private bool canUpdate = true;
@@ -80,6 +84,17 @@ public class PrefabInstatiation : MonoBehaviour
         {
             GameObject.DestroyImmediate(o);
         }
+
+        current_forcedAmount = ForcedAmountLow;
+
+        if(ForcedAmountLow > 0 && ForcedAmountHigh > ForcedAmountLow)
+        {current_forcedAmount = Random.Range(ForcedAmountLow, ForcedAmountHigh+1);}
+
+        sub_current_forcedAmount = sub_ForcedAmountLow;
+
+        if(sub_ForcedAmountLow > 0 && sub_ForcedAmountHigh > sub_ForcedAmountLow)
+        {sub_current_forcedAmount = Random.Range(sub_ForcedAmountLow, sub_ForcedAmountHigh+1);}
+
 
         Vector3 newOverallPositionRandomness = new Vector3(Random.Range(-overallPositionRandomness.x, overallPositionRandomness.x),
         Random.Range(-overallPositionRandomness.y, overallPositionRandomness.y), Random.Range(-overallPositionRandomness.z, overallPositionRandomness.z));
@@ -110,7 +125,7 @@ public class PrefabInstatiation : MonoBehaviour
             }
             //print("Debugging2");
 
-            if (regenerate && ForcedAmount != 0)
+            if (regenerate && current_forcedAmount != 0)
             {
 
                 for (int y = 0; y < gridY; y++)
@@ -123,7 +138,7 @@ public class PrefabInstatiation : MonoBehaviour
                         randomRotationValue = addRandomRotation * (Random.Range(-180.0f, 180.0f));
                         newRotation = Quaternion.Euler(Rotation + randomRotationValue);
                         */
-                        if (ForcedAmount>0 || (Density / 100) >= Random.Range(0.0f, 1.0f))
+                        if (current_forcedAmount>0 || (Density / 100) >= Random.Range(0.0f, 1.0f))
                         {
                             Vector3 newPositionRandomness = new Vector3(Random.Range(-positionRandomness.x, positionRandomness.x),
                             Random.Range(-positionRandomness.y, positionRandomness.y), Random.Range(-positionRandomness.z, positionRandomness.z));
@@ -146,9 +161,6 @@ public class PrefabInstatiation : MonoBehaviour
                             {
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().setPlantScale(Random.Range(-scaleRandomness, scaleRandomness));
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().Spawn();
-
-
-
 
                             }
                             createdPrefab.transform.localScale = Scale;// + newScaleRandomness;
@@ -178,9 +190,9 @@ public class PrefabInstatiation : MonoBehaviour
         }
         */
 
-        if(ForcedAmount > 0)
+        if(current_forcedAmount > 0)
         {
-            while(ForcedAmount < createdPrefabs.Count)
+            while(current_forcedAmount < createdPrefabs.Count)
             {
                 //createdPrefabs.RemoveAt(Random.Range(0,createdPrefabs.Count));
                 int indexToDestroy = Random.Range(0,createdPrefabs.Count);
@@ -188,11 +200,38 @@ public class PrefabInstatiation : MonoBehaviour
                 createdPrefabs.RemoveAt(indexToDestroy);
                 Destroy(objectToDestroy);
 
-                print("removing object " + createdPrefabs.Count);
+                //print("removing object " + createdPrefabs.Count);
             }
         }
 
+        if(sub_current_forcedAmount > 0)
+        {
+            //List<GameObject> objectsToUnspawn = new List<GameObject>();
+            List<GameObject> objectsToUnspawn = createdPrefabs;
 
+            /*
+            foreach (GameObject o in createdPrefabs)
+            {
+                objectsToUnspawn.Add(new GameObject(o));
+            }
+            */
+            while(sub_current_forcedAmount < objectsToUnspawn.Count)
+            {
+                int indexToUnspwan = Random.Range(0,objectsToUnspawn.Count);
+                GameObject objectToUnspawn = objectsToUnspawn[indexToUnspwan]; 
+                objectsToUnspawn.RemoveAt(indexToUnspwan);
+                objectToUnspawn.GetComponent<SpawnerAndSwitch>().Unspawn();
+
+                //print("unspawning object " + objectsToUnspawn.Count);
+                //print("unspawning object " + createdPrefabs.Count);
+            }
+
+
+
+
+        }
+
+        print("created prefabs " + createdPrefabs.Count);
 
         return createdPrefabs;
     }

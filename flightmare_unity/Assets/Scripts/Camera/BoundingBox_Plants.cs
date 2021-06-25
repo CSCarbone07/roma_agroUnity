@@ -32,8 +32,9 @@ public class BoundingBox_Plants : MonoBehaviour
     public void setPlantSpawner(List<GameObject> inPlants)
     {
         //plants = null;
+        //plants.Clear();
         plants = inPlants;
-        print("plants reference set");
+        print("plants reference set " + inPlants.Count);
     }
 
     void OnGUI()

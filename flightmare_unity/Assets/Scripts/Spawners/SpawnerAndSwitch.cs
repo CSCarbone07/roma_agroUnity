@@ -31,6 +31,11 @@ public class SpawnerAndSwitch : MonoBehaviour
 
     }
 
+    public virtual void Unspawn()
+    {
+
+    }
+
     void SetAllChildrenStatic(Transform ob)
     {
         foreach (Transform child in ob)//.GetComponentsInChildren<Transform>())

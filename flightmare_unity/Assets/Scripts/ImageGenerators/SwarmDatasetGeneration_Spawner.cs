@@ -647,6 +647,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         Vector3 plant_start_pos = goodPlant_Offset;
         Vector3 weed_start_pos = weedPlants_Offset[0];
 
+
         if(goodPlantSpawner!=null)
         { 
             if (spawned_goodPlantSpawner == null)
