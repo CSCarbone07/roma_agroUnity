@@ -5,6 +5,9 @@ using UnityEngine;
 public class SpawnerAndSwitch : MonoBehaviour
 {
     public string objectClass = "-1";
+    
+    [HideInInspector]
+    public bool hasBeenSpawned = true;
 
 
     // Start is called before the first frame update

@@ -347,6 +347,7 @@ MonoBehaviour:
   forcedHeight: 990
   altitude: 5
   Include_NIR: 0
+  Include_TAG: 1
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 326c68b4f5b16cc138443ea695e77a92, type: 3}
   goodPlant: {fileID: 4780572060926278114, guid: 23a99c0c937a84feab59f39bf6b24b2b, type: 3}
   goodPlant_Offset: {x: 2.7666667, y: 0.15, z: 2.7666667}

@@ -1,4 +1,4 @@
-﻿Shader "Plant/Plain Color With Alpha"
+﻿Shader "Plant/Unlit Color With Alpha"
 {
     Properties
     {
@@ -19,6 +19,7 @@
 
         Pass
         {
+            Lighting Off
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag

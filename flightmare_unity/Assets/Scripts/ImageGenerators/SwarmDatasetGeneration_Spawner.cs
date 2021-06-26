@@ -54,6 +54,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     
 
     public bool Include_NIR = false;
+    public bool Include_TAG = false;
+
     private bool firstSpawn = true;
 
     public GameObject goodPlantSpawner;
@@ -461,6 +463,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
                 movingVector = myRotateY(movingVector, -this.transform.eulerAngles.y);
                 this.transform.position = cameraInitialPosition + currentNoisePosition + movingVector;
+
             }
             else
             {
@@ -557,14 +560,16 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
-
-        accumulatedDelay += delayToSwitch;
-        Invoke("SwitchToTAG", accumulatedDelay);
-        if (TakeScreenshots)
+        if(Include_TAG)
         {
-            //Invoke("saveTAG", 1.5f);
-            accumulatedDelay += delayToSave;
-            Invoke("SaveTAG", accumulatedDelay);
+            accumulatedDelay += delayToSwitch;
+            Invoke("SwitchToTAG", accumulatedDelay);
+            if (TakeScreenshots)
+            {
+                //Invoke("saveTAG", 1.5f);
+                accumulatedDelay += delayToSave;
+                Invoke("SaveTAG", accumulatedDelay);
+            }
         }
 
 

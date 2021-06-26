@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33222977125096512}
   - component: {fileID: 23579725177664088}
   m_Layer: 0
-  m_Name: CarboardBox
+  m_Name: CarboardBox_tag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9cd1ecfc28ab2bf9a821dadeaaae71f9, type: 2}
+  - {fileID: 2100000, guid: 7fa93dcb6b78602a2b5256b2febeb327, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

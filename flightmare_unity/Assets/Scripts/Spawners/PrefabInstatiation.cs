@@ -157,6 +157,16 @@ public class PrefabInstatiation : MonoBehaviour
                             //Vector3 newRandomness = new Vector3(Random.Range(0.0f, scaleRandomness.X), Random.Range(0.0f, scaleRandomness.Y), Random.Range(0.0f, scaleRandomness.Z));
                             //Vector3 newScaleRandomness = new Vector3(Random.Range(-scaleRandomnessX, scaleRandomnessX), Random.Range(-scaleRandomnessY, scaleRandomnessY), Random.Range(-scaleRandomnessZ, scaleRandomnessZ));
 
+
+                            addRandomRotation = new Vector3(Random.Range(-addRandomRotationX,addRandomRotationX), Random.Range(-addRandomRotationY,addRandomRotationY), Random.Range(-addRandomRotationZ,addRandomRotationZ));
+                            randomRotationValue = addRandomRotation * (180.0f);//(Random.Range(-180.0f, 180.0f));
+                            //randomRotationValue = addRandomRotation;
+                            //print(randomRotationValue);
+                            newRotation = Quaternion.Euler(Rotation + newOverallRotationRandomness + randomRotationValue);
+
+                            createdPrefab.transform.rotation = newRotation;
+
+
                             if (createdPrefab.GetComponent<SpawnerAndSwitch>())
                             {
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().setPlantScale(Random.Range(-scaleRandomness, scaleRandomness));
@@ -165,13 +175,7 @@ public class PrefabInstatiation : MonoBehaviour
                             }
                             createdPrefab.transform.localScale = Scale;// + newScaleRandomness;
                             
-                            addRandomRotation = new Vector3(Random.Range(-addRandomRotationX,addRandomRotationX), Random.Range(-addRandomRotationY,addRandomRotationY), Random.Range(-addRandomRotationZ,addRandomRotationZ));
-                            randomRotationValue = addRandomRotation * (180.0f);//(Random.Range(-180.0f, 180.0f));
-                            //randomRotationValue = addRandomRotation;
-                            //print(randomRotationValue);
-                            newRotation = Quaternion.Euler(Rotation + newOverallRotationRandomness + randomRotationValue);
 
-                            createdPrefab.transform.rotation = newRotation;
 
                         }
                     }
@@ -206,15 +210,15 @@ public class PrefabInstatiation : MonoBehaviour
 
         if(sub_current_forcedAmount > 0)
         {
-            //List<GameObject> objectsToUnspawn = new List<GameObject>();
-            List<GameObject> objectsToUnspawn = createdPrefabs;
+            List<GameObject> objectsToUnspawn = new List<GameObject>();
+            //List<GameObject> objectsToUnspawn = createdPrefabs;
 
-            /*
+            
             foreach (GameObject o in createdPrefabs)
             {
-                objectsToUnspawn.Add(new GameObject(o));
+                objectsToUnspawn.Add(o);
             }
-            */
+            
             while(sub_current_forcedAmount < objectsToUnspawn.Count)
             {
                 int indexToUnspwan = Random.Range(0,objectsToUnspawn.Count);
@@ -225,9 +229,6 @@ public class PrefabInstatiation : MonoBehaviour
                 //print("unspawning object " + objectsToUnspawn.Count);
                 //print("unspawning object " + createdPrefabs.Count);
             }
-
-
-
 
         }
 
