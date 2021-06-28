@@ -87,12 +87,12 @@ public class PrefabInstatiation : MonoBehaviour
 
         current_forcedAmount = ForcedAmountLow;
 
-        if(ForcedAmountLow > 0 && ForcedAmountHigh > ForcedAmountLow)
+        if(ForcedAmountLow >= 0 && ForcedAmountHigh > ForcedAmountLow)
         {current_forcedAmount = Random.Range(ForcedAmountLow, ForcedAmountHigh+1);}
 
         sub_current_forcedAmount = sub_ForcedAmountLow;
 
-        if(sub_ForcedAmountLow > 0 && sub_ForcedAmountHigh > sub_ForcedAmountLow)
+        if(sub_ForcedAmountLow >= 0 && sub_ForcedAmountHigh > sub_ForcedAmountLow)
         {sub_current_forcedAmount = Random.Range(sub_ForcedAmountLow, sub_ForcedAmountHigh+1);}
 
 
@@ -208,7 +208,7 @@ public class PrefabInstatiation : MonoBehaviour
             }
         }
 
-        if(sub_current_forcedAmount > 0)
+        if(sub_current_forcedAmount >= 0)
         {
             List<GameObject> objectsToUnspawn = new List<GameObject>();
             //List<GameObject> objectsToUnspawn = createdPrefabs;
