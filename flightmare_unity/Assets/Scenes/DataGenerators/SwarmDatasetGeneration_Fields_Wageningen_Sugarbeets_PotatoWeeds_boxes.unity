@@ -322,8 +322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  delayToSave: 2
-  delayToSwitch: 2
+  delayToSave: 1
+  delayToSwitch: 1
   delayToRespawn: 1
   varyField: 1
   varyCamera_position: 0
@@ -371,8 +371,8 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 1
-  maxImageIndex: 100
+  minImageIndex: 201
+  maxImageIndex: 600
   varyFieldInterval: 1
   width: 1600
   height: 1200

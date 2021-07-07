@@ -47,6 +47,7 @@ MonoBehaviour:
   useSeed: 0
   seed: 0
   overallPositionRandomness: {x: 0, y: 0, z: 0}
+  overallRotationRandomness: {x: 0, y: 0, z: 0}
   gridX: 4
   gridY: 4
   spacingX: 0.5
@@ -60,5 +61,8 @@ MonoBehaviour:
   addRandomRotationZ: 0
   scaleRandomness: 0.05
   Density: 100
-  ForcedAmount: 0
+  ForcedAmountLow: 0
+  ForcedAmountHigh: -1
+  sub_ForcedAmountLow: -1
+  sub_ForcedAmountHigh: -1
   updateInstantiation: 0

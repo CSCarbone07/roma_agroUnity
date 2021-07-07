@@ -322,8 +322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  delayToSave: 2
-  delayToSwitch: 2
+  delayToSave: 1
+  delayToSwitch: 1
   delayToRespawn: 1
   varyField: 1
   varyCamera_position: 0
@@ -348,18 +348,18 @@ MonoBehaviour:
   altitude: 5
   Include_NIR: 0
   Include_TAG: 0
-  goodPlantSpawner: {fileID: 3441688999748511668, guid: 7041def5975e97725864c92d3183e799, type: 3}
+  goodPlantSpawner: {fileID: 3441688999748511668, guid: d7d506c76afebf096ac4ee6f5677c82a, type: 3}
   goodPlant: {fileID: 6253421786915150476, guid: b4c817e93809231529f18da9f11381a1, type: 3}
   goodPlant_Offset: {x: -6, y: 0, z: -6}
   goodPlantScale: {x: 1, y: 1, z: 1}
   textWeedSpawner: {fileID: 0}
   textWeed_Offset: {x: 0, y: 0, z: 0}
   WeedNumber: 100
-  weedPlantSpawner: {fileID: 3441688999748511668, guid: 7d7af3318431248a6873f9a37b4cda06, type: 3}
+  weedPlantSpawner: {fileID: 3441688999748511668, guid: eed33022f4693c84291b97fb405ade36, type: 3}
   weedPlants:
   - {fileID: 3014408685066868621, guid: 6edda5b20e866e8ceac17d14f3d089be, type: 3}
   weedPlants_Offset:
-  - {x: 2.1, y: -0.75, z: 2.1}
+  - {x: 2.1, y: -0.4, z: 2.1}
   weedPlants_Rotation_Min:
   - {x: 180, y: -180, z: 0}
   weedPlants_Rotation_Max:
@@ -371,7 +371,7 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 201
+  minImageIndex: 1
   maxImageIndex: 600
   varyFieldInterval: 1
   width: 1600
