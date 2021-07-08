@@ -61,7 +61,7 @@ MonoBehaviour:
   addRandomRotationZ: 0
   scaleRandomness: 0.05
   Density: 100
-  ForcedAmountLow: 1
+  ForcedAmountLow: 3
   ForcedAmountHigh: -1
   sub_ForcedAmountLow: -1
   sub_ForcedAmountHigh: -1

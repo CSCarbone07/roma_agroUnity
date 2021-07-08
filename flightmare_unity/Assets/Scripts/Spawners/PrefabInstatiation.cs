@@ -15,7 +15,9 @@ public class PrefabInstatiation : MonoBehaviour
 
     public Vector3 overallPositionRandomness = new Vector3(0, 0, 0);
     public Vector3 overallRotationRandomness = new Vector3(0, 0, 0);
-
+    
+    private Vector3 newOverallPositionRandomness = new Vector3(0, 0, 0);
+    private Vector3 newOverallRotationRandomness = new Vector3(0, 0, 0);
 
     private Vector3 myPosition;// = transform.position;
     private List<GameObject> createdPrefabs = new List<GameObject>();
@@ -68,7 +70,6 @@ public class PrefabInstatiation : MonoBehaviour
     private bool regenerate = true;
 
 
-
     public List<GameObject> procedural_Instantiate(GameObject inGameObject)
     {
         //gameObject.isStatic = true;
@@ -96,14 +97,15 @@ public class PrefabInstatiation : MonoBehaviour
         {sub_current_forcedAmount = Random.Range(sub_ForcedAmountLow, sub_ForcedAmountHigh+1);}
 
 
-        Vector3 newOverallPositionRandomness = new Vector3(Random.Range(-overallPositionRandomness.x, overallPositionRandomness.x),
+        newOverallPositionRandomness = new Vector3(Random.Range(-overallPositionRandomness.x, overallPositionRandomness.x),
         Random.Range(-overallPositionRandomness.y, overallPositionRandomness.y), Random.Range(-overallPositionRandomness.z, overallPositionRandomness.z));
 
-        Vector3 newOverallRotationRandomness = new Vector3(Random.Range(-overallRotationRandomness.x, overallRotationRandomness.x),
+        newOverallRotationRandomness = new Vector3(Random.Range(-overallRotationRandomness.x, overallRotationRandomness.x),
         Random.Range(-overallRotationRandomness.y, overallRotationRandomness.y), Random.Range(-overallRotationRandomness.z, overallRotationRandomness.z));
 
 
-        //print("Instatiating prefabs");
+        print("Instatiating prefabs");
+        print("Overall rotation " + newOverallRotationRandomness);
         print(inGameObject);
         if (inGameObject != null)
         {
@@ -293,4 +295,14 @@ public class PrefabInstatiation : MonoBehaviour
 
         //print(this.gameObject.name);
     }
+
+    public Vector3 getCurrentOverallRotation()
+    {
+        return newOverallRotationRandomness;
+    }
+
 }
+
+
+
+

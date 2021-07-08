@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 
 public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 {
+    private bool DEBUG_ALL = false;
 
     private Vector3 cameraInitialPosition;
 
@@ -37,12 +38,15 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private bool overlapTestStart = true;
     public bool takeOnlyOnePOV = false;
     public bool randomPOV = false;
+    public int overlapId_Distance = -2;
+    private int overlapNum_selectedBasedOnDistance = -1;
+    private int overlapNum = 0;
+
     public float forcedFOV = 0;
     public float forcedShiftDistance = 0;
     public int forcedWidth = 0;
     public int forcedHeight = 0;
     
-    private int overlapId = 0;
     public float altitude = 10;
     private int overlapColumn = -1;
     private int overlapRow = -1;
@@ -293,6 +297,15 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         }
 
+        if (overlapId_Distance >= 0)
+        {
+            setOverlapId_basedOnOverallRotation();
+        }
+        if(overlapId_Distance == -1)
+        {
+            overlapNum_selectedBasedOnDistance = 5;
+        }
+
         if (varyCamera_rotation && (firstSpawn || 
         (overlapTestStart && (!altitudeTest || altitudeId == altitudesSize)) ))
         {
@@ -378,17 +391,17 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         if (overlapTest)
         {
-            print("Increasing overlap id from " + overlapId);
+            print("Increasing overlap id from " + overlapNum);
 
-            overlapId++;
+            overlapNum++;
             if (overlapTestStart)
             {
                 //UnityEditor.EditorApplication.isPlaying = false;
                 overlapRow = -1;
-                overlapId = 1;
+                overlapNum = 1;
             }
             
-            
+
             overlapTestStart = false;
 
             Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
@@ -454,23 +467,31 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         {
             if(randomPOV)
             {
-
                 overlapColumn = UnityEngine.Random.Range(-1, 2);
                 overlapRow = UnityEngine.Random.Range(-1, 2);
-
-                overlapId = (overlapColumn + 2) + (overlapRow+1)*3;
-
-                Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
-                movingVector = myRotateY(movingVector, -this.transform.eulerAngles.y);
-                this.transform.position = cameraInitialPosition + currentNoisePosition + movingVector;
-
             }
             else
             {
-                overlapColumn = 0;
-                overlapRow = 0;
-                overlapId = 5;
+                if(overlapNum_selectedBasedOnDistance >= -1)
+                {
+                    overlapColumn = (overlapNum_selectedBasedOnDistance-1 - ((overlapNum_selectedBasedOnDistance-1)/3)*3)-1;
+                    overlapRow = ((overlapNum_selectedBasedOnDistance-1)/3) - 1;
+                }
+                else
+                {
+                    overlapColumn = 0;
+                    overlapRow = 0;
+                }
             }
+
+
+
+            Vector3 movingVector = new Vector3((shiftDistance / 3.0f) * overlapColumn, 0, (shiftDistance / 3.0f) * overlapRow);
+            movingVector = myRotateY(movingVector, -this.transform.eulerAngles.y);
+            this.transform.position = cameraInitialPosition + currentNoisePosition + movingVector;
+
+            overlapNum = (overlapColumn + 2) + (overlapRow+1)*3;
+            if (DEBUG_ALL) {print("used overlap id " + overlapNum);}
 
             if(forcedWidth == 0 && forcedHeight ==0)
             {
@@ -536,6 +557,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         }
 
 */
+
+        
+
         accumulatedDelay = 0;
 
         if (TakeScreenshots)
@@ -828,14 +852,14 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             //filename = string.Format("{0}/Dataset/{1}/rgb/{2}_{3}{4}.png"
             //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
             filename = string.Format("{0}/Dataset/rgb/{1}_{2}_{3}.png"
-            , Application.persistentDataPath, currentTestAltitude, counter, overlapId);
+            , Application.persistentDataPath, currentTestAltitude, counter, overlapNum);
         }
         else
         {
             //filename = string.Format("{0}/Dataset/rgb/{1}_{2}{3}.png"
             //, Application.persistentDataPath, counter, overlapRow, overlapColumn);
             filename = string.Format("{0}/Dataset/rgb/{1}_{2}.png"
-            , Application.persistentDataPath, counter, overlapId);
+            , Application.persistentDataPath, counter, overlapNum);
         }
         System.IO.File.WriteAllBytes(filename, bytes);
 
@@ -849,12 +873,12 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 //boxFileName = string.Format("{0}/Dataset/{1}/boxes/{2}_{3}{4}.txt"
                 //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
                 boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}_{3}.txt"
-                , Application.persistentDataPath, currentTestAltitude, counter, overlapId);
+                , Application.persistentDataPath, currentTestAltitude, counter, overlapNum);
             }
             else
             {
                 boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}.txt"
-                , Application.persistentDataPath, counter, overlapId);
+                , Application.persistentDataPath, counter, overlapNum);
             }
             if (GetComponent<BoundingBox_Plants>())
             { GetComponent<BoundingBox_Plants>().saveBoxes(newPlant, filename, boxFileName, 
@@ -995,14 +1019,14 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             //filename = string.Format("{0}/Dataset/{1}/tag/{2}_{3}{4}.png"
             //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
             filename = string.Format("{0}/Dataset/tag/{1}_{2}_{3}.png"
-            , Application.persistentDataPath, currentTestAltitude, counter, overlapId);
+            , Application.persistentDataPath, currentTestAltitude, counter, overlapNum);
         }
         else
         {
             //filename = string.Format("{0}/Dataset/tag/{1}_{2}{3}.png"
             //, Application.persistentDataPath, counter, overlapRow, overlapColumn);
             filename = string.Format("{0}/Dataset/tag/{1}_{2}.png"
-            , Application.persistentDataPath, counter, overlapId);
+            , Application.persistentDataPath, counter, overlapNum);
         }
         System.IO.File.WriteAllBytes(filename, bytes);
 
@@ -1302,6 +1326,115 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         return createdPrefabPlant;
     }
 
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+    /// OVERLAP IDS HANDLING ///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+
+    private void setOverlapId_basedOnOverallRotation()
+    {
+        int closestMappedId = -1;
+        
+        float current_overallRotationRandomness = 500;
+        if(spawned_goodPlantSpawner != null)
+        {
+            //Vector3 current_overallRotationRandomness = spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().getCurrentOverallRotation();
+            current_overallRotationRandomness = spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().getCurrentOverallRotation().y;
+            //current_overallRotationRandomness.y;
+        }
+        else
+        {
+            return;
+        }
+
+        // POVs are normally organized for camera positioning like this
+        /* 
+        789
+        456
+        123
+        */
+        // Now remaping to clock wise for easier coding to locate POVs based on rotation, starting from center right
+        /*
+        567
+        4X0
+        321
+        */
+        List<int> remappedNums = new List<int>();
+        remappedNums.Add(6);
+        remappedNums.Add(3);
+        remappedNums.Add(2);
+        remappedNums.Add(1);
+        remappedNums.Add(4);
+        remappedNums.Add(7);
+        remappedNums.Add(8);
+        remappedNums.Add(9);
+        
+        float rotationStep = 45.0f;
+        float currentLoopAngle = -22.5f;
+
+        if (DEBUG_ALL) {print("going over mapped ids for current_overallRotationRandomness " + current_overallRotationRandomness);}
+
+        for (int i = 0; i < remappedNums.Count; i++) 
+        {
+            if (DEBUG_ALL)print("iterating over angle " + currentLoopAngle + " in it " + i);
+            if(current_overallRotationRandomness >= currentLoopAngle 
+                && current_overallRotationRandomness < (currentLoopAngle+rotationStep)
+            )
+            {
+                closestMappedId = i;
+                //closestId = remappedNums(i+1);
+                if (DEBUG_ALL) {print("closest Mapped id found " + i + " at angle " + currentLoopAngle);}
+            }
+            if((currentLoopAngle + rotationStep) > 180)
+            {
+                currentLoopAngle = -202.5f;
+                if(current_overallRotationRandomness >= currentLoopAngle 
+                && current_overallRotationRandomness < (currentLoopAngle+rotationStep)
+                )
+                {
+                    closestMappedId = i;
+                    if (DEBUG_ALL) {print("closest Mapped id found " + i + " at angle " + currentLoopAngle);}
+                }
+            }
+
+
+            currentLoopAngle += rotationStep;
+        }
+        if (DEBUG_ALL) {print("remapped ids angle loop finished");}
+
+
+        if(overlapId_Distance == 0)
+        {
+            overlapNum_selectedBasedOnDistance = remappedNums[closestMappedId];
+        }
+        
+        
+        int Direction = 1 + (-2 *Random.Range(0,2));
+ 
+
+        if(overlapId_Distance >= 1)
+        {
+            
+            int selectedId = closestMappedId + overlapId_Distance * Direction;
+            
+            if(selectedId > remappedNums.Count-1)
+            {
+                selectedId -= remappedNums.Count;
+            }
+            if(selectedId < 0)
+
+            {
+                selectedId += remappedNums.Count;
+            }
+
+            overlapNum_selectedBasedOnDistance = remappedNums[selectedId];
+            
+        }
+
+        if (DEBUG_ALL) {print("selected overlap id " + overlapNum_selectedBasedOnDistance );}
+        
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////////
