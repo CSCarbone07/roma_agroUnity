@@ -55,6 +55,34 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private int overlapHeight_0 = -1;
     private int overlapHeight_1 = -1;
 
+
+    public bool useForcedAmounts_goodPlant = false;
+    
+    public bool iterateUp_goodPlant = true;
+    public bool iterateUp_goodPlant_finished = false;
+
+    public int resetImgId_duringForcedAmounts = 0;
+
+    public int ForcedAmountLow_goodPlant = -1;
+    public int ForcedAmountHigh_goodPlant = -1;
+    private int current_ForcedAmountLow_goodPlant = -1;
+
+    public int sub_ForcedAmountLow_goodPlant = -1;
+    public int sub_ForcedAmountHigh_goodPlant = -1;
+    private int current_sub_ForcedAmountLow_goodPlant = -1;
+
+
+    public bool useForcedAmounts_badPlant = false;
+    public bool iterateUp_badPlant = true;
+
+    public int resetImgId_duringForcedSubAmounts = 0;
+    
+    public int ForcedAmountLow_badPlant = -1;
+    public int ForcedAmountHigh_badPlant = -1;
+
+    public int sub_ForcedAmountLow_badPlant = -1;
+    public int sub_ForcedAmountHigh_badPlant = -1;
+
     
 
     public bool Include_NIR = false;
@@ -676,6 +704,52 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         Vector3 plant_start_pos = goodPlant_Offset;
         Vector3 weed_start_pos = weedPlants_Offset[0];
 
+        if(useForcedAmounts_goodPlant)
+        {
+            if(iterateUp_goodPlant)
+            {
+                
+                if(current_ForcedAmountLow_goodPlant == -1 && current_sub_ForcedAmountLow_goodPlant ==-1)
+                {
+                    current_ForcedAmountLow_goodPlant = 0;
+                    current_sub_ForcedAmountLow_goodPlant = 0;
+                }
+                else
+                {
+                    print ("iterating. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
+                    print ("iterating. forced low " +  ForcedAmountLow_goodPlant + " forced sub low " + sub_ForcedAmountLow_goodPlant);
+
+                    if(current_ForcedAmountLow_goodPlant == ForcedAmountLow_goodPlant && current_sub_ForcedAmountLow_goodPlant == sub_ForcedAmountLow_goodPlant)
+                    {
+                        current_ForcedAmountLow_goodPlant = 0;
+                        current_sub_ForcedAmountLow_goodPlant = 0;
+                    }
+                    else
+                    {
+                        counter --;
+
+                        if(current_sub_ForcedAmountLow_goodPlant == current_ForcedAmountLow_goodPlant)
+                        {
+                            current_ForcedAmountLow_goodPlant ++;
+                            current_sub_ForcedAmountLow_goodPlant = 0;
+                        }
+                        else
+                        {
+                            current_sub_ForcedAmountLow_goodPlant ++;
+                        }
+                    }
+
+                }
+             
+            }
+            else
+            {
+                current_ForcedAmountLow_goodPlant = ForcedAmountLow_goodPlant;
+                current_sub_ForcedAmountLow_goodPlant = sub_ForcedAmountLow_goodPlant;
+            }
+
+        }
+
 
         if(goodPlantSpawner!=null)
         { 
@@ -685,6 +759,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
             if (spawned_goodPlantSpawner != null)
             {
+                if(useForcedAmounts_goodPlant)
+                {spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().setForcedAmounts(current_ForcedAmountLow_goodPlant, ForcedAmountHigh_goodPlant, current_sub_ForcedAmountLow_goodPlant, sub_ForcedAmountHigh_goodPlant);}
                 newPlant = spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().procedural_Instantiate(goodPlant);
                 if(GetComponent<BoundingBox_Plants>() != null)
                 {
@@ -731,6 +807,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         {
             GetComponent<BoundingBox_Plants>().setPlantSpawner(allPlants);
         }
+
+
 
 
     }
@@ -860,6 +938,12 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             //, Application.persistentDataPath, counter, overlapRow, overlapColumn);
             filename = string.Format("{0}/Dataset/rgb/{1}_{2}.png"
             , Application.persistentDataPath, counter, overlapNum);
+
+            if(useForcedAmounts_goodPlant)
+            {
+            filename = string.Format("{0}/Dataset/rgb/{1}_{2}_{3}.png"
+            , Application.persistentDataPath, counter, current_ForcedAmountLow_goodPlant, current_sub_ForcedAmountLow_goodPlant);
+            }
         }
         System.IO.File.WriteAllBytes(filename, bytes);
 
@@ -879,6 +963,13 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             {
                 boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}.txt"
                 , Application.persistentDataPath, counter, overlapNum);
+                
+                if(useForcedAmounts_goodPlant)
+                {
+                boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}_{3}.txt"
+                , Application.persistentDataPath, counter, current_ForcedAmountLow_goodPlant, current_sub_ForcedAmountLow_goodPlant);
+                }
+
             }
             if (GetComponent<BoundingBox_Plants>())
             { GetComponent<BoundingBox_Plants>().saveBoxes(newPlant, filename, boxFileName, 

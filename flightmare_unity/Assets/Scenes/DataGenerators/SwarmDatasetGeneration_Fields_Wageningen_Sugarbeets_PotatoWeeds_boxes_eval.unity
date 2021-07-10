@@ -341,12 +341,27 @@ MonoBehaviour:
   overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 0
-  overlapId_Distance: 0
+  overlapId_Distance: 3
   forcedFOV: 73.73979
   forcedShiftDistance: 0
   forcedWidth: 990
   forcedHeight: 990
   altitude: 5
+  useForcedAmounts_goodPlant: 1
+  iterateUp_goodPlant: 1
+  iterateUp_goodPlant_finished: 0
+  resetImgId_duringForcedAmounts: 0
+  ForcedAmountLow_goodPlant: 9
+  ForcedAmountHigh_goodPlant: -1
+  sub_ForcedAmountLow_goodPlant: 9
+  sub_ForcedAmountHigh_goodPlant: -1
+  useForcedAmounts_badPlant: 0
+  iterateUp_badPlant: 0
+  resetImgId_duringForcedSubAmounts: 0
+  ForcedAmountLow_badPlant: 0
+  ForcedAmountHigh_badPlant: -1
+  sub_ForcedAmountLow_badPlant: 0
+  sub_ForcedAmountHigh_badPlant: -1
   Include_NIR: 0
   Include_TAG: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 326c68b4f5b16cc138443ea695e77a92, type: 3}

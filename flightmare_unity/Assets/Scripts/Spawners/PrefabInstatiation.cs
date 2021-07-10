@@ -296,10 +296,30 @@ public class PrefabInstatiation : MonoBehaviour
         //print(this.gameObject.name);
     }
 
+    public void setForcedAmounts(int inLow, int inHigh, int inLow_sub, int inHigh_sub)
+    {
+        ForcedAmountLow = inLow;
+        ForcedAmountHigh = inHigh;
+
+        sub_ForcedAmountLow = inLow_sub;
+        sub_ForcedAmountHigh = inHigh_sub;
+    }
+
     public Vector3 getCurrentOverallRotation()
     {
         return newOverallRotationRandomness;
     }
+
+    public int getCurrent_current_forcedAmount()
+    {
+        return current_forcedAmount;
+    }
+
+    public int getCurrent_sub_current_forcedAmount()
+    {
+        return sub_current_forcedAmount;
+    }
+
 
 }
 
