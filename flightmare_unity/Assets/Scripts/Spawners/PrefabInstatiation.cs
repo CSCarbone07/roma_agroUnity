@@ -20,7 +20,7 @@ public class PrefabInstatiation : MonoBehaviour
     private Vector3 newOverallRotationRandomness = new Vector3(0, 0, 0);
 
     private Vector3 myPosition;// = transform.position;
-    private List<GameObject> createdPrefabs = new List<GameObject>();
+    protected List<GameObject> createdPrefabs = new List<GameObject>();
     public float gridX = 5f;
     public float gridY = 5f;
     public float spacingX = 2f;
@@ -70,7 +70,7 @@ public class PrefabInstatiation : MonoBehaviour
     private bool regenerate = true;
 
 
-    public List<GameObject> procedural_Instantiate(GameObject inGameObject)
+    public virtual List<GameObject> procedural_Instantiate(GameObject inGameObject)
     {
         //gameObject.isStatic = true;
 
@@ -239,16 +239,25 @@ public class PrefabInstatiation : MonoBehaviour
         return createdPrefabs;
     }
 
+    public List<GameObject> get_createdPrefabs()
+    {
+        return createdPrefabs;
+    }
+
+    void spwanInstance()
+    {
+        
+    }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         if (useSeed)
         { Random.seed = seed; }
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     //void OnRenderObject()
     {
 

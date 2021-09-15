@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class LoadParameters : MonoBehaviour
 {
     public bool IsLoaded { get; private set;}
@@ -13,7 +14,7 @@ public class LoadParameters : MonoBehaviour
     private string potato_distribution_path = System.IO.Path.Combine(Application.streamingAssetsPath, "potato_spawning.json");
 
     // Start is called before the first frame update
-    void Start() {
+    public void Start() {
         weedDistribution = LoadDistributionFromJson(weed_distribution_path);
         potatoDistribution = LoadDistributionFromJson(potato_distribution_path);
 
@@ -60,6 +61,9 @@ public class LoadParameters : MonoBehaviour
                 break;
         }
 
+        //loadFieldParameters(distribution);
+        //distribution.setFieldMinMax(plant_object.min_x, plant_object.max_x, plant_object.min_y, plant_object.max_y);
+
         // Create distribution object
         PlantDistribution plant_distribution = new PlantDistribution
         {
@@ -71,6 +75,14 @@ public class LoadParameters : MonoBehaviour
 
         return plant_distribution;
     }
+
+    /*
+    void loadFieldParameters(BaseDistribution inDistribution)
+    {
+        inDistribution.setFieldMinMax(plant_object.min_x, plant_object.max_x, plant_object.min_y, plant_object.max_y);
+    }
+    */
+
 }
   
 [System.Serializable]
@@ -87,6 +99,10 @@ public class ParsedDistributionFromJSON{
     // Variables that are common
     public string name;
     public string distribution_type;
+    public float min_x; 
+    public float max_x; 
+    public float min_y; 
+    public float max_y; 
     public int n_plants;
     public int seed;
 

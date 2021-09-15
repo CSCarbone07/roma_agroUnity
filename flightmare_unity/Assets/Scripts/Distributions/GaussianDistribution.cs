@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GaussianDistribution : BaseDistribution
 {
-    private float gaussian_position_mean, gaussian_position_std;
+    private float gaussian_position_mean;
+    private float gaussian_position_std;
 
     public GaussianDistribution(int? seed = null) : base(seed)
     {
@@ -59,6 +60,9 @@ public class GaussianDistribution : BaseDistribution
         float x;
         do {
             x = NextGaussian(mean, std);
+            //Debug.Log("getting next gaussian with mean, std and x " + mean + ", " + std + ", " + x );
+            //Debug.Log("getting next gaussian with min and max " + min + ", " + max );
+
         } while (x < min || x > max);
         return x;
     }

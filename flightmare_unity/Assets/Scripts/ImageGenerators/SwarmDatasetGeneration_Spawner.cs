@@ -808,9 +808,6 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             GetComponent<BoundingBox_Plants>().setPlantSpawner(allPlants);
         }
 
-
-
-
     }
 
     private void SwitchToRGB()
