@@ -17,13 +17,12 @@ public class CellSpawner : MonoBehaviour
     //public float spacingX = 2f;
     //public float spacingY = 2f;
     public int max_prefabs= 12;
+
+    // Positioning variables
     public Vector3 Rotation; //for rotating the mesh in case the mesh is upside down or something else
-    public Vector3 Scale = new Vector3(1.0f, 1.0f, 1.0f);
+    public Vector3 Scale = new Vector3(1.0f, 1.0f, 1.0f); 
     private Quaternion newRotation;
-
-
     public Vector3 positionRandomness = new Vector3(0, 0, 0);
-
     private Vector3 addRandomRotation;
 
     [Range(0.0f, 1.0f)]
@@ -49,9 +48,6 @@ public class CellSpawner : MonoBehaviour
     */
 
     public float Density = 100.0f;
-
-
-
 
     public bool updateInstantiation = false;    // Click to update instances
     //private bool canUpdate = true;

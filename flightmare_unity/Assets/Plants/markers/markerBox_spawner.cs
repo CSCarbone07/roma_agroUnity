@@ -75,11 +75,11 @@ public class markerBox_spawner : SpawnerAndSwitch
         hasBeenSpawned = false;
         if(spawnedMarker != null)
         {
-            Destroy(spawnedMarker);
+            DestroyImmediate(spawnedMarker);
         }
         if(boudningBox != null)
         {
-            Destroy(boudningBox);
+            DestroyImmediate(boudningBox);
         }
     }
 
@@ -96,7 +96,7 @@ public class markerBox_spawner : SpawnerAndSwitch
         GameObject spawnedInstance = Instantiate(box_rgb, current_box.transform.position, current_box.transform.rotation, this.transform);
         //spawnedInstance.transform.SetParent(this.transform);
         spawnedInstance.transform.localScale = current_box.transform.localScale;
-        Destroy(current_box);
+        DestroyImmediate(current_box);
         current_box = spawnedInstance;
         //Debug.Log(createdPrefabLeavesType[x]);
 
@@ -132,8 +132,8 @@ public class markerBox_spawner : SpawnerAndSwitch
         
         //spawnedInstance.transform.SetParent(this.transform);
         spawnedInstance.transform.localScale = current_box.transform.localScale;
-        Destroy(current_box);
-        Destroy(spawnedMarker);
+        DestroyImmediate(current_box);
+        DestroyImmediate(spawnedMarker);
         current_box = spawnedInstance;
 
     }

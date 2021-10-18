@@ -294,7 +294,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     
     void dataLoop()
     {
+	#if UNITY_EDITOR
         EditorUtility.UnloadUnusedAssetsImmediate();
+	#endif
         GC.Collect();
 
         Debug.Log("spawning");
@@ -651,7 +653,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     
         if(counter > maxImageIndex)// && (!altitudeTest || altitudeId == altitudesSize))
         {
-            UnityEditor.EditorApplication.isPlaying = false;
+	  #if UNITY_EDITOR  
+	  UnityEditor.EditorApplication.isPlaying = false;
+	  #endif
         }
     }
 
@@ -687,7 +691,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
+	#if UNITY_EDITOR
         EditorUtility.UnloadUnusedAssetsImmediate();
+	#endif
         GC.Collect();
 
     }
@@ -1300,6 +1306,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private string GUIRectWithObject(GameObject go, cls cls) //compute bounding box from camera view
     {
+	#if UNITY_EDITOR	
         Renderer[] rr = go.GetComponentsInChildren<Renderer>();
         Bounds b = rr[0].bounds;
         foreach (Renderer r in rr) { b.Encapsulate(r.bounds); }
@@ -1308,7 +1315,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         //Vector3 cen = go.GetComponent<Renderer>().bounds.center;
         //Vector3 ext = go.GetComponent<Renderer>().bounds.extents;
-        Vector2[] extentPoints = new Vector2[8]
+
+	Vector2[] extentPoints = new Vector2[8]
         {
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y-ext.y, cen.z-ext.z)),
          HandleUtility.WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y-ext.y, cen.z-ext.z)),
@@ -1344,6 +1352,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             species = "0";
         }
         return species + " " + x.ToString() + " " + y.ToString() + " " + w.ToString() + " " + h.ToString();
+	#else
+	return "none";
+	#endif
     }
 
     private void SaveBoundingBox(string[] content)

@@ -71,6 +71,12 @@ namespace RPGFlightmare
     public GameObject PointCloudSaved;
     public InputField input_ip;
     public bool enable_flying_cam = false;
+
+    // This line is not doing effect, the camera resolution must be set from the ROS side in
+    // camera_rgb.cpp file
+    // public int camera_resolution_width = 1600;
+    // public int camera_resolution_height = 1200;
+
     // default scenes and assets
     private string topLevelSceneName = "Top_Level_Scene";
 
@@ -136,7 +142,10 @@ namespace RPGFlightmare
         // obstacle_perturbation_file = GetArg("-obstacle-perturbation-file", "");
         // Disable fullscreen.
         Screen.fullScreen = false;
-        Screen.SetResolution(1024, 768, false);
+	// This line is not doing effect, the camera resolution must be set from the ROS side in
+	// flight_pilot.cpp file at the function setCameras
+	//Screen.SetResolution(camera_resolution_width, camera_resolution_height, false);
+	Screen.SetResolution(1024, 768, false);
       }
       else
       {

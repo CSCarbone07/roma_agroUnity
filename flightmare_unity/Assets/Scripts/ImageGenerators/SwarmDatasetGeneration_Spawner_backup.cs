@@ -281,7 +281,9 @@ public class SwarmDatasetGeneration_Spawner_backup
         counter++;
         if(counter >= 1001)
         {
-            UnityEditor.EditorApplication.isPlaying = false;
+	  #if UNITY_EDITOR
+	  UnityEditor.EditorApplication.isPlaying = false;
+	  #endif
         }
     }
 
@@ -717,6 +719,7 @@ public class SwarmDatasetGeneration_Spawner_backup
 
     private string GUIRectWithObject(GameObject go, cls cls) //compute bounding box from camera view
     {
+	#if UNITY_EDITOR	
         Renderer[] rr = go.GetComponentsInChildren<Renderer>();
         Bounds b = rr[0].bounds;
         foreach (Renderer r in rr) { b.Encapsulate(r.bounds); }
@@ -760,7 +763,10 @@ public class SwarmDatasetGeneration_Spawner_backup
         {
             species = "0";
         }
-        return species + " " + x.ToString() + " " + y.ToString() + " " + w.ToString() + " " + h.ToString();
+	return species + " " + x.ToString() + " " + y.ToString() + " " + w.ToString() + " " + h.ToString();
+	#else
+	return "none" ;
+	#endif
     }
 
     private void SaveBoundingBox(string[] content)

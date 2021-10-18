@@ -417,6 +417,7 @@ public class CropWeedGeneration: MonoBehaviour
 
     private string GUIRectWithObject(GameObject go, cls cls) //compute bounding box from camera view
     {
+	#if UNITY_EDITOR	
         Renderer[] rr = go.GetComponentsInChildren<Renderer>();
         Bounds b = rr[0].bounds;
         foreach (Renderer r in rr) { b.Encapsulate(r.bounds); }
@@ -451,16 +452,20 @@ public class CropWeedGeneration: MonoBehaviour
         w = Mathf.Clamp(max.x, 0f, width - 1f);
         h = Mathf.Clamp(max.y, 0f, height - 1f);
 
-        string species = null;
+        string currentSpecies = null;
         if (cls == cls.Crop)
         {
-            species = "1";
+            currentSpecies = "1";
         }
         else
         {
-            species = "0";
+            currentSpecies = "0";
         }
-        return species + " " + x.ToString() + " " + y.ToString() + " " + w.ToString() + " " + h.ToString();
+	return currentSpecies + " " + x.ToString() + " " + y.ToString() + " " + w.ToString() + " " + h.ToString();
+	
+	#else
+	return "none";
+	#endif
     }
 
     private void SaveBoundingBox(string[] content)

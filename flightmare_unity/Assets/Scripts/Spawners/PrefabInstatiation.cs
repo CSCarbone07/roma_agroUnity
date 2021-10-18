@@ -204,7 +204,7 @@ public class PrefabInstatiation : MonoBehaviour
                 int indexToDestroy = Random.Range(0,createdPrefabs.Count);
                 GameObject objectToDestroy = createdPrefabs[indexToDestroy]; 
                 createdPrefabs.RemoveAt(indexToDestroy);
-                Destroy(objectToDestroy);
+                DestroyImmediate(objectToDestroy);
 
                 //print("removing object " + createdPrefabs.Count);
             }

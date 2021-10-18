@@ -30,6 +30,16 @@ public class readerSpawner : MonoBehaviour
     private List<GameObject> spawnedInstances = new List<GameObject>();
     private List<GameObject> spawnedUtilities = new List<GameObject>();
 
+    // Variables to specify the amount of boxes (for box experiment) spawned in every cell (low is determined by
+    // the targets there need to be present in the cell)
+    private int ForcedAmountLow = -1;
+    public int ForcedAmountHigh = -1;
+
+    // Variable to specify the amount targets, this is setup later based on the generated utility
+    // for the field
+    private int sub_ForcedAmountLow = -1;
+    private int sub_ForcedAmountHigh = -1;
+
 
     public bool updateInstantiation = false;    // Click to update instances
 
@@ -60,7 +70,8 @@ public class readerSpawner : MonoBehaviour
 
 
 
-    [MenuItem("Tools/Read file")]
+    // TODO menuitem is causing an error on build
+    //[MenuItem("Tools/Read file")]
     public void readFile(string inString)
     {
         string fileString;
@@ -135,7 +146,6 @@ public class readerSpawner : MonoBehaviour
                 cell_id = (int)temp_numbers[1];
                 //Debug.Log("id assigned " + cell_id.ToString());
 
-                //cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale + scale/2, 0.0f, temp_numbers[3] * scale + scale / 2));
                 cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale, altitudeOffset, temp_numbers[3] * scale));
                 //Debug.Log("coordinates assigned");
 
@@ -183,18 +193,43 @@ public class readerSpawner : MonoBehaviour
         //print(cells_density.Count.ToString());
         for (int i = 0; i < cells_density.Count; i++)
         {
-            if (cells_density[i]>0)
-            {
-                GameObject spawnedObject = Instantiate(spawner, cells_coordinates[i], zeroRot);
-                spawnedObject.transform.SetParent(this.gameObject.transform);
-                spawnedObject.GetComponent<CellSpawner>().cell_id = i;
-                spawnedObject.GetComponent<CellSpawner>().Density = cells_density[i]*100.0f/ maxDensity;
-                List<GameObject> newUtilities = spawnedObject.GetComponent<CellSpawner>().procedural_Instantiate(null);
-                spawnedUtilities.AddRange(newUtilities);
-                spawnedInstances.Add(spawnedObject);
-                //spawnedInstances.
-                //print("spawning cell " + i.ToString() + " in position " + cells_coordinates[i]);
+	    // Spawn spawner in case boxes without targets will be included
+	    GameObject spawnedObject = Instantiate(spawner, cells_coordinates[i], zeroRot);
+	    spawnedObject.transform.SetParent(this.gameObject.transform);
+          
+	    if (cells_density[i]>0)
+            {               
+		// spawn utilities with normal cell spawner 
+                if(spawnedObject.GetComponent<CellSpawner>() != null)
+		{
+		  spawnedObject.GetComponent<CellSpawner>().cell_id = i;
+		  spawnedObject.GetComponent<CellSpawner>().Density = cells_density[i]*100.0f/ maxDensity;
+		  List<GameObject> newUtilities = spawnedObject.GetComponent<CellSpawner>().procedural_Instantiate(null);
+		  
+		  // Save spawned utilities in a variable
+		  spawnedUtilities.AddRange(newUtilities);
+		} 
             }
+	    
+	    // Spawn utilities using the prefab instantiation, this is used mostly for the box cases
+	    // where there can be boxes but no utility target
+	    if(spawnedObject.GetComponent<PrefabInstatiation>() != null)
+	    {
+	      sub_ForcedAmountLow = (int)cells_density[i];
+	      sub_ForcedAmountHigh = (int)cells_density[i];
+	      ForcedAmountLow = (int)cells_density[i];
+
+	      print("Spawning with cell density " + (int)cells_density[i]);
+
+	      spawnedObject.GetComponent<PrefabInstatiation>().setForcedAmounts(ForcedAmountLow, ForcedAmountHigh, sub_ForcedAmountLow, sub_ForcedAmountHigh);
+	      List<GameObject> newUtilities = spawnedObject.GetComponent<PrefabInstatiation>().procedural_Instantiate(null);
+	      
+	      // Save spawned utilities in a variable
+	      spawnedUtilities.AddRange(newUtilities);
+	    }
+
+	    spawnedInstances.Add(spawnedObject);
+	    //print("spawning cell " + i.ToString() + " in position " + cells_coordinates[i]);
         }
 
         //this.GetComponent<>().SwitchToTAG();

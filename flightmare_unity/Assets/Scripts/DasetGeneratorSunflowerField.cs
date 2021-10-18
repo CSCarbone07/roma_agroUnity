@@ -383,6 +383,7 @@ public class DasetGeneratorSunflowerField : MonoBehaviour
 
     private string GUIRectWithObject(GameObject go, cls cls) //compute bounding box from camera view
     {
+	#if UNITY_EDITOR
         Renderer[] rr = go.GetComponentsInChildren<Renderer>();
         Bounds b = rr[0].bounds;
         foreach (Renderer r in rr) { b.Encapsulate(r.bounds); }
@@ -428,6 +429,9 @@ public class DasetGeneratorSunflowerField : MonoBehaviour
             species = "0";
         }
         return species + " " + x.ToString() + " " + y.ToString() + " " + w.ToString() + " " + h.ToString();
+	#else
+	return "none";
+	#endif
     }
 
     private void SaveBoundingBox(string[] content)

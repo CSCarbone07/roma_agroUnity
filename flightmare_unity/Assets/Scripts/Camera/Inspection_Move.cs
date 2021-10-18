@@ -71,7 +71,9 @@ public class Inspection_Move : MonoBehaviour
             if (this.transform.position.z + offset.z > limit.z)
             {
                 Application.Quit();
-                UnityEditor.EditorApplication.isPlaying = false;
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+		#endif
             }
             else
             {

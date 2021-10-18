@@ -231,6 +231,7 @@ public class PlantGroundSpawn_1 : MonoBehaviour
 
     private Rect GUIRectWithObject(GameObject go) //compute bounding box from camera view
     {
+	#if UNITY_EDITOR	
         //TODO consider also the children object
         // maybe something like:
         /*
@@ -262,6 +263,9 @@ public class PlantGroundSpawn_1 : MonoBehaviour
             max = Vector2.Max(max, v);
         }
         return new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
+	#else
+	return new Rect(0,0,0,0);
+	#endif
     }
 
     private void SaveBoundingBox()

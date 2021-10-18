@@ -277,7 +277,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 84.54
+  field of view: 84.54738
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 5446
+  seed: 1
   delayToSave: 1
   delayToSwitch: 1
   delayToRespawn: 1
@@ -341,11 +341,11 @@ MonoBehaviour:
   overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 0
-  overlapId_Distance: 3
+  overlapId_Distance: 0
   forcedFOV: 73.73979
   forcedShiftDistance: 0
-  forcedWidth: 990
-  forcedHeight: 990
+  forcedWidth: 272
+  forcedHeight: 272
   altitude: 5
   useForcedAmounts_goodPlant: 1
   iterateUp_goodPlant: 1
@@ -387,7 +387,7 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 100
+  minImageIndex: 1
   maxImageIndex: 601
   varyFieldInterval: 1
   width: 1600

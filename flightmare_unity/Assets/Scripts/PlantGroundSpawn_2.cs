@@ -313,6 +313,7 @@ public class PlantGroundSpawn_2 : MonoBehaviour
 
     private string GUIRectWithObject(GameObject go, cls cls) //compute bounding box from camera view
     {
+	#if UNITY_EDITOR	
         //TODO consider also the children object
         // maybe something like:
 
@@ -360,6 +361,10 @@ public class PlantGroundSpawn_2 : MonoBehaviour
             species = "0";
         }
         return species + " " + x.ToString() + " " + y.ToString() + " " + w.ToString() + " " + h.ToString();
+	#else
+	return "none";
+	#endif
+
     }
 
     private void SaveBoundingBox(string[] content)
