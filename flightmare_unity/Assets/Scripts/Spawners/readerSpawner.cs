@@ -23,8 +23,10 @@ public class readerSpawner : MonoBehaviour
     public bool readSeed = true;
     public int seed = 0;
     public float altitudeOffset = 0;
+    public int borderExclusion = 0;   // This is to exclude spawning in the outer layer of the world. Used for missions were agent sees multiple cells
     private List<Vector3> cells_coordinates = new List<Vector3>();
     private List<float> cells_density = new List<float>();
+    private Vector3 world_maxCoordinates = new Vector3(0, 0, 0);
 
     public GameObject spawner;
     private List<GameObject> spawnedInstances = new List<GameObject>();
@@ -85,7 +87,7 @@ public class readerSpawner : MonoBehaviour
         }
 
         //Get the path of the Game data folder
-        m_Path = Application.dataPath;
+        m_Path = Application.dataPath + "/";
 
         //Output the Game data path to the console
         Debug.Log("dataPath : " + m_Path);
@@ -148,6 +150,16 @@ public class readerSpawner : MonoBehaviour
 
                 cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale, altitudeOffset, temp_numbers[3] * scale));
                 //Debug.Log("coordinates assigned");
+	
+		// Update max world coordinates
+		if(world_maxCoordinates[0] < temp_numbers[2])
+		{
+		  world_maxCoordinates[0] = temp_numbers[2];
+		}
+		if(world_maxCoordinates[2] < temp_numbers[3])
+		{
+		  world_maxCoordinates[2] = temp_numbers[3];
+		}
 
                 cells_density.Insert(cell_id, temp_numbers[4]);
                 //Debug.Log(cells_density[cell_id].ToString());
@@ -157,6 +169,8 @@ public class readerSpawner : MonoBehaviour
 
         //Debug.Log(reader.ReadToEnd());
         Debug.Log("file read finished");
+        Debug.Log("file read max coordinates " + world_maxCoordinates[0] + "x + " + world_maxCoordinates[1] + "y + " + world_maxCoordinates[2] + "z");
+
         reader.Close();
 
         spawnObjects();
@@ -189,10 +203,16 @@ public class readerSpawner : MonoBehaviour
         spawnedUtilities.Clear();
         Quaternion zeroRot = Quaternion.Euler(0, 0, 0);
 
+	float exclusion = borderExclusion * scale;
         //foreach (Vector3 o in cells_coordinates)
         //print(cells_density.Count.ToString());
         for (int i = 0; i < cells_density.Count; i++)
         {
+	  // Skip spawning if outer layer is excluded 
+	  print("Spawning coordinates " + cells_coordinates[i][0] + "x + " + cells_coordinates[i][1] + "x + " + cells_coordinates[i][2] + "z + " );
+	  if(borderExclusion == 0 || (cells_coordinates[i][0] >= exclusion && cells_coordinates[i][2] >= exclusion 
+		&& cells_coordinates[i][0] <= (world_maxCoordinates[0]*scale - exclusion) && cells_coordinates[i][2] <= (world_maxCoordinates[2]*scale - exclusion)))
+	  {
 	    // Spawn spawner in case boxes without targets will be included
 	    GameObject spawnedObject = Instantiate(spawner, cells_coordinates[i], zeroRot);
 	    spawnedObject.transform.SetParent(this.gameObject.transform);
@@ -230,10 +250,10 @@ public class readerSpawner : MonoBehaviour
 
 	    spawnedInstances.Add(spawnedObject);
 	    //print("spawning cell " + i.ToString() + " in position " + cells_coordinates[i]);
-        }
+	  }
 
         //this.GetComponent<>().SwitchToTAG();
-
+	}
     }
 
     public List<GameObject> getCellObjects()
