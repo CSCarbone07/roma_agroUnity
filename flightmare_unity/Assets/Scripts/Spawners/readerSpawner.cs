@@ -23,7 +23,9 @@ public class readerSpawner : MonoBehaviour
     public bool readSeed = true;
     public int seed = 0;
     public float altitudeOffset = 0;
+    public Vector3 worldOffset = new Vector3(0,0,0);
     public int borderExclusion = 0;   // This is to exclude spawning in the outer layer of the world. Used for missions were agent sees multiple cells
+    public bool includeNonUtility = false;   // This is to include boxes where there is no utility markers 
     private List<Vector3> cells_coordinates = new List<Vector3>();
     private List<float> cells_density = new List<float>();
     private Vector3 world_maxCoordinates = new Vector3(0, 0, 0);
@@ -34,6 +36,7 @@ public class readerSpawner : MonoBehaviour
 
     // Variables to specify the amount of boxes (for box experiment) spawned in every cell (low is determined by
     // the targets there need to be present in the cell)
+    public bool forceHighAmount = true;
     private int ForcedAmountLow = -1;
     public int ForcedAmountHigh = -1;
 
@@ -214,7 +217,7 @@ public class readerSpawner : MonoBehaviour
 		&& cells_coordinates[i][0] <= (world_maxCoordinates[0]*scale - exclusion) && cells_coordinates[i][2] <= (world_maxCoordinates[2]*scale - exclusion)))
 	  {
 	    // Spawn spawner in case boxes without targets will be included
-	    GameObject spawnedObject = Instantiate(spawner, cells_coordinates[i], zeroRot);
+	    GameObject spawnedObject = Instantiate(spawner, cells_coordinates[i] + worldOffset, zeroRot);
 	    spawnedObject.transform.SetParent(this.gameObject.transform);
           
 	    if (cells_density[i]>0)
@@ -233,11 +236,13 @@ public class readerSpawner : MonoBehaviour
 	    
 	    // Spawn utilities using the prefab instantiation, this is used mostly for the box cases
 	    // where there can be boxes but no utility target
-	    if(spawnedObject.GetComponent<PrefabInstatiation>() != null)
+	    if(spawnedObject.GetComponent<PrefabInstatiation>() != null && (includeNonUtility || cells_density[i] > 0))
 	    {
 	      sub_ForcedAmountLow = (int)cells_density[i];
 	      sub_ForcedAmountHigh = (int)cells_density[i];
 	      ForcedAmountLow = (int)cells_density[i];
+	      if(!forceHighAmount)
+	      {ForcedAmountHigh = (int)cells_density[i];}
 
 	      print("Spawning with cell density " + (int)cells_density[i]);
 
