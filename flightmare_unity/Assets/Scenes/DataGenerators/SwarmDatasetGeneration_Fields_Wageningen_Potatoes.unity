@@ -328,10 +328,10 @@ MonoBehaviour:
   varyField: 1
   varyCamera_position: 1
   noise_camera_position: {x: 2, y: 0, z: 2}
-  varyCamera_rotation: 0
+  varyCamera_rotation: 1
   noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 0
-  varyIllumination_orientation: 0
+  varyIllumination_intensity: 1
+  varyIllumination_orientation: 1
   altitudeTest: 0
   altitudes:
   - 3
@@ -341,8 +341,25 @@ MonoBehaviour:
   overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 0
+  overlapId_Distance: -1
+  forcedFOV: 0
+  forcedShiftDistance: 0
+  forcedWidth: 0
+  forcedHeight: 0
   altitude: 20
+  useForcedAmounts_goodPlant: 0
+  resetImgId_duringForcedAmounts: 0
+  ForcedAmountLow_goodPlant: -1
+  ForcedAmountHigh_goodPlant: -1
+  sub_ForcedAmountLow_goodPlant: -1
+  sub_ForcedAmountHigh_goodPlant: -1
+  resetImgId_duringForcedSubAmounts: 0
+  ForcedAmountLow_badPlant: -1
+  ForcedAmountHigh_badPlant: -1
+  sub_ForcedAmountLow_badPlant: -1
+  sub_ForcedAmountHigh_badPlant: -1
   Include_NIR: 0
+  Include_TAG: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: e987beb6aa8e3b0e3bb1a46e46d36ed2, type: 3}
   goodPlant: {fileID: 6820708235156757560, guid: cafd1d732f506acfe8002e76fd6cc824, type: 3}
   goodPlant_Offset: {x: 0, y: -0.7, z: 0}
@@ -367,7 +384,7 @@ MonoBehaviour:
   SaveBoundingBoxes: 1
   SaveBoxes: 0
   minImageIndex: 1
-  maxImageIndex: 400
+  maxImageIndex: 500
   varyFieldInterval: 1
   width: 3072
   height: 3072

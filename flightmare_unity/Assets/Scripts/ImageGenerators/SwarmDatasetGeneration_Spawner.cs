@@ -38,7 +38,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private bool overlapTestStart = true;
     public bool takeOnlyOnePOV = false;
     public bool randomPOV = false;
-    public int overlapId_Distance = -2;
+    public int overlapId_Distance = -1; //-1 for it to be ignored in other tests. (NEED DOUBLE CHECKING)
     private int overlapNum_selectedBasedOnDistance = -1;
     private int overlapNum = 0;
 
@@ -58,8 +58,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     public bool useForcedAmounts_goodPlant = false;
     
-    public bool iterateUp_goodPlant = true;
-    public bool iterateUp_goodPlant_finished = false;
+    private bool iterateUp_goodPlant = true;
+    private bool iterateUp_goodPlant_finished = false;
 
     public int resetImgId_duringForcedAmounts = 0;
 
@@ -72,8 +72,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private int current_sub_ForcedAmountLow_goodPlant = -1;
 
 
-    public bool useForcedAmounts_badPlant = false;
-    public bool iterateUp_badPlant = true;
+    private bool useForcedAmounts_badPlant = false;
+    private bool iterateUp_badPlant = true;
 
     public int resetImgId_duringForcedSubAmounts = 0;
     
@@ -541,7 +541,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
                 overlapHeight_0 = ((forcedHeight / 3) * (1-overlapRow))+trimHeight/2;
                 overlapHeight_1 = ((forcedHeight / 3) * (2-overlapRow))+trimHeight/2;
-                /*
+                
                 print("altitude: " + altitude);
                 print("width: " + width);
                 print("height: " + height);
@@ -555,7 +555,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 print("overlapWidth_1: " + overlapWidth_1);
                 print("overlapHeight_0: " + overlapHeight_0);
                 print("overlapHeight_1: " + overlapHeight_1);
-                */
+                
 
             }
 
