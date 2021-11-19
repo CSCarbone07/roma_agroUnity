@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b577002b0193c6eb64fdd2ca705b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectClass: 0
+  hasBeenSpawned: 1
   TestMaterial: {fileID: 0}
   beetLeaf:
   - {fileID: 9170169963816570324, guid: 88a91af770d4fd11b86f7b465f921c2b, type: 3}
@@ -63,6 +65,7 @@ MonoBehaviour:
   - {fileID: 5127679453002315072, guid: 9c7a7e0624012b674a744ef64f342c3e, type: 3}
   - {fileID: 2048132706755274770, guid: 64fe119c8d71cd1ff9ba90b371f89a60, type: 3}
   maxBeetLeafAmount: 7
+  amountRandomess: 0
   beetLeafScale: {x: 0.1, y: 0.1, z: 0.1}
   createdPrefabLeaves: []
   createdPrefabLeavesType: 

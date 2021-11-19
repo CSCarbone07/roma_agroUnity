@@ -384,10 +384,10 @@ MonoBehaviour:
   SaveBoundingBoxes: 1
   SaveBoxes: 0
   minImageIndex: 1
-  maxImageIndex: 500
+  maxImageIndex: 400
   varyFieldInterval: 1
-  width: 3072
-  height: 3072
+  width: 6144
+  height: 6144
 --- !u!114 &1830221457
 MonoBehaviour:
   m_ObjectHideFlags: 0
