@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 {
-    private bool DEBUG_ALL = false;
+    private bool DEBUG_ALL = true;
 
     private Vector3 cameraInitialPosition;
 
@@ -39,7 +39,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     public bool takeOnlyOnePOV = false;
     public bool randomPOV = false;
     public int overlapId_Distance = -1; //-1 for it to be ignored in other tests. (NEED DOUBLE CHECKING)
-    private int overlapNum_selectedBasedOnDistance = -1;
+    private int overlapNum_selectedBasedOnDistance = -2; // -1 to select central POV, -2 to ignore. Ignored by default in overlap test
+    private List<int> distancesInPOVsIds = new List<int>();
+    private int overlapNum_forImageSaving = -2;
     private int overlapNum = 0;
 
     public float forcedFOV = 0;
@@ -58,7 +60,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     public bool useForcedAmounts_goodPlant = false;
     
-    private bool iterateUp_goodPlant = true;
+    public bool iterateUp_goodPlant = true; //true to spawn boxes with targets up to the "ForcedAmountLow_goodPlant" and the "sub_ForcedAmountLow_goodPlant". If true these values must be above 0 as well as the "ForcedAmountHigh_goodPlant" and the "sub_ForcedAmountHigh_goodPlant"
     private bool iterateUp_goodPlant_finished = false;
 
     public int resetImgId_duringForcedAmounts = 0;
@@ -588,7 +590,8 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
 */
 
-        
+
+	print("loop finished, setting material and respawn delays");
 
         accumulatedDelay = 0;
 
@@ -626,6 +629,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
+	print("materials invoked");
 
         //if (varyField || (varyFieldInterval > 0 && counter % varyFieldInterval == 0))
         if ((varyField && (varyFieldInterval > 0 && counter > 0 && (counter) % varyFieldInterval == 0)) 
@@ -641,7 +645,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             accumulatedDelay += delayToRespawn;
             Invoke("dataLoop", accumulatedDelay);
         }
-        firstSpawn = false;
+	
+	print("respawns invoked");
+        
+	firstSpawn = false;
 
     }
 
@@ -710,42 +717,53 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         Vector3 plant_start_pos = goodPlant_Offset;
         Vector3 weed_start_pos = weedPlants_Offset[0];
 
+	print("spawning all");
+
         if(useForcedAmounts_goodPlant)
         {
+	  //print("forced plants iteration, overlap column " + overlapColumn + " overlapRow " + overlapRow + " overlapNum " + overlapNum);
+	  // Considering both overlapNums for first sim spawn and loops
+	   
+
+	  if(!overlapTest || (overlapNum == 0) || (overlapNum == 9 ))
+	  {
             if(iterateUp_goodPlant)
-            {
-                
+            { 
                 if(current_ForcedAmountLow_goodPlant == -1 && current_sub_ForcedAmountLow_goodPlant ==-1)
                 {
                     current_ForcedAmountLow_goodPlant = 0;
                     current_sub_ForcedAmountLow_goodPlant = 0;
                 }
-                else
-                {
-                    print ("iterating. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
-                    print ("iterating. forced low " +  ForcedAmountLow_goodPlant + " forced sub low " + sub_ForcedAmountLow_goodPlant);
+		else
+		{
+		  if(!(current_ForcedAmountLow_goodPlant == -1 && current_sub_ForcedAmountLow_goodPlant ==-1))
+		  {
+		      // This restarts the counting of the forced spawns. 
+		      //if(current_ForcedAmountLow_goodPlant == ForcedAmountLow_goodPlant && current_sub_ForcedAmountLow_goodPlant == sub_ForcedAmountLow_goodPlant)
+		      if(current_ForcedAmountLow_goodPlant == ForcedAmountLow_goodPlant && current_sub_ForcedAmountLow_goodPlant == sub_ForcedAmountLow_goodPlant)
+		      {
+			  current_ForcedAmountLow_goodPlant = 0;
+			  current_sub_ForcedAmountLow_goodPlant = 0;
+		      }
+		      else
+		      {
+			  // This drops the counter back for simulation 
+			  counter --;
 
-                    if(current_ForcedAmountLow_goodPlant == ForcedAmountLow_goodPlant && current_sub_ForcedAmountLow_goodPlant == sub_ForcedAmountLow_goodPlant)
-                    {
-                        current_ForcedAmountLow_goodPlant = 0;
-                        current_sub_ForcedAmountLow_goodPlant = 0;
-                    }
-                    else
-                    {
-                        counter --;
-
-                        if(current_sub_ForcedAmountLow_goodPlant == current_ForcedAmountLow_goodPlant)
-                        {
-                            current_ForcedAmountLow_goodPlant ++;
-                            current_sub_ForcedAmountLow_goodPlant = 0;
-                        }
-                        else
-                        {
-                            current_sub_ForcedAmountLow_goodPlant ++;
-                        }
-                    }
-
-                }
+			  if(current_sub_ForcedAmountLow_goodPlant == current_ForcedAmountLow_goodPlant)
+			  {
+			      current_ForcedAmountLow_goodPlant ++;
+			      current_sub_ForcedAmountLow_goodPlant = 0;
+			  }
+			  else
+			  {
+			      current_sub_ForcedAmountLow_goodPlant ++;
+			  }
+		      }
+		  }
+		}
+		print ("iterating. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
+		print ("iterating. forced low " +  ForcedAmountLow_goodPlant + " forced sub low " + sub_ForcedAmountLow_goodPlant);
              
             }
             else
@@ -753,28 +771,30 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 current_ForcedAmountLow_goodPlant = ForcedAmountLow_goodPlant;
                 current_sub_ForcedAmountLow_goodPlant = sub_ForcedAmountLow_goodPlant;
             }
-
+	  }
         }
 
+        print ("Spawning plant. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
 
         if(goodPlantSpawner!=null)
         { 
-            if (spawned_goodPlantSpawner == null)
+            if(spawned_goodPlantSpawner == null)
             {
                 spawned_goodPlantSpawner = Instantiate(goodPlantSpawner, plant_start_pos, Quaternion.Euler(0, 0, 0));
-            }
-            if (spawned_goodPlantSpawner != null)
-            {
+	    }
+	    if(spawned_goodPlantSpawner != null)
+	    { 
                 if(useForcedAmounts_goodPlant)
                 {spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().setForcedAmounts(current_ForcedAmountLow_goodPlant, ForcedAmountHigh_goodPlant, current_sub_ForcedAmountLow_goodPlant, sub_ForcedAmountHigh_goodPlant);}
                 newPlant = spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().procedural_Instantiate(goodPlant);
-                if(GetComponent<BoundingBox_Plants>() != null)
+                if(GetComponent<BoundingBox_Plants>() != null && newPlant != null)
                 {
                     //allPlants.Clear();
                     allPlants = newPlant;
                 }
             }
         }
+	print("good plant spawned");
         if (weedPlantSpawner != null)
         {
             if (spawned_weedPlantSpawner == null)
@@ -809,10 +829,15 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
-        if(GetComponent<BoundingBox_Plants>() != null && (spawned_goodPlantSpawner != null || spawned_textWeedSpawner != null))
+        if(GetComponent<BoundingBox_Plants>() != null && allPlants.Count>0 && (spawned_goodPlantSpawner != null || spawned_textWeedSpawner != null))
         {
             GetComponent<BoundingBox_Plants>().setPlantSpawner(allPlants);
         }
+	  
+	if(overlapTest && useForcedAmounts_goodPlant)
+	{
+	  getOverlapId_basedOnOverallRotation();
+	}
 
     }
 
@@ -892,7 +917,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void SaveRGB() //mode can be type.Image or type.Mask
     {
-        RenderTexture rt;
+	print("Saving rgb with counter " + counter + " CFALG " + current_sub_ForcedAmountLow_goodPlant + " CFASLG " 
+	    + current_sub_ForcedAmountLow_goodPlant + " overlapNum " + overlapNum);
+        
+	RenderTexture rt;
         Texture2D screenShot;
         if (overlapTest || takeOnlyOnePOV)
         {
@@ -927,16 +955,28 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         byte[] bytes = screenShot.EncodeToPNG();
         //string filename = ScreenshotName(mode, field);
-        string filename;
-        if (altitudeTest)
+        string filename = "rgb variable not assigned";
+        if (altitudeTest && !overlapTest)
         {
             //filename = string.Format("{0}/Dataset/{1}/rgb/{2}_{3}{4}.png"
             //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
             filename = string.Format("{0}/Dataset/rgb/{1}_{2}_{3}.png"
             , Application.persistentDataPath, currentTestAltitude, counter, overlapNum);
         }
-        else
-        {
+        if (!altitudeTest && overlapTest)
+	{
+            filename = string.Format("{0}/Dataset/rgb/{1}_{2}.png"
+            , Application.persistentDataPath, counter, overlapNum);
+
+            if(useForcedAmounts_goodPlant)
+            {
+            filename = string.Format("{0}/Dataset/rgb/{1}_{2}_{3}_{4}_{5}.png"
+            , Application.persistentDataPath, counter, overlapNum, current_ForcedAmountLow_goodPlant, current_sub_ForcedAmountLow_goodPlant, distancesInPOVsIds[overlapNum - 1]);
+            }
+
+	}
+        if(!altitudeTest && !overlapTest)
+	{
             //filename = string.Format("{0}/Dataset/rgb/{1}_{2}{3}.png"
             //, Application.persistentDataPath, counter, overlapRow, overlapColumn);
             filename = string.Format("{0}/Dataset/rgb/{1}_{2}.png"
@@ -948,21 +988,34 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             , Application.persistentDataPath, counter, current_ForcedAmountLow_goodPlant, current_sub_ForcedAmountLow_goodPlant);
             }
         }
+
         System.IO.File.WriteAllBytes(filename, bytes);
 
         
 
         if(SaveBoundingBoxes)
         {
-            string boxFileName;
-            if (altitudeTest)
+            string boxFileName = "box variable not assigned";
+            if (altitudeTest && !overlapTest)
             {
                 //boxFileName = string.Format("{0}/Dataset/{1}/boxes/{2}_{3}{4}.txt"
                 //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
                 boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}_{3}.txt"
                 , Application.persistentDataPath, currentTestAltitude, counter, overlapNum);
             }
-            else
+	    if (!altitudeTest && overlapTest)
+	    {
+                boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}.txt"
+                , Application.persistentDataPath, counter, overlapNum);
+                
+                if(useForcedAmounts_goodPlant)
+                {
+                boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}_{3}_{4}_{5}.txt"
+		, Application.persistentDataPath, counter, overlapNum, current_ForcedAmountLow_goodPlant, current_sub_ForcedAmountLow_goodPlant, distancesInPOVsIds[overlapNum - 1]);
+                }
+
+	    }
+	    if(!altitudeTest && !overlapTest)
             {
                 boxFileName = string.Format("{0}/Dataset/boxes/{1}_{2}.txt"
                 , Application.persistentDataPath, counter, overlapNum);
@@ -1430,6 +1483,104 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////
     /// OVERLAP IDS HANDLING ///////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////
+
+    private void getOverlapId_basedOnOverallRotation()
+    {
+	distancesInPOVsIds.Clear();
+        for (int i = 0; i < 9; i++)
+	{distancesInPOVsIds.Add(-1);}
+        
+	int closestMappedId = -1;
+        
+        float current_overallRotationRandomness = 500;
+        if(spawned_goodPlantSpawner != null)
+        {
+            //Vector3 current_overallRotationRandomness = spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().getCurrentOverallRotation();
+            current_overallRotationRandomness = spawned_goodPlantSpawner.GetComponent<PrefabInstatiation>().getCurrentOverallRotation().y;
+            //current_overallRotationRandomness.y;
+        }
+        else
+        {
+            return;
+        }
+
+
+
+        // POVs are normally organized for camera positioning like this
+        /* 
+        789
+        456
+        123
+        */
+        // Now remaping to clock wise for easier coding to locate POVs based on rotation, starting from center right
+        /*
+        567
+        4X0
+        321
+        */
+        List<int> remappedNums = new List<int>();
+        remappedNums.Add(6);
+        remappedNums.Add(3);
+        remappedNums.Add(2);
+        remappedNums.Add(1);
+        remappedNums.Add(4);
+        remappedNums.Add(7);
+        remappedNums.Add(8);
+        remappedNums.Add(9);
+ 
+        float rotationStep = 45.0f;
+        float currentLoopAngle = -22.5f;
+
+        if (DEBUG_ALL) {print("going over mapped ids for current_overallRotationRandomness " + current_overallRotationRandomness);}
+
+        for (int i = 0; i < remappedNums.Count; i++) 
+        {
+            if (DEBUG_ALL)print("iterating over angle " + currentLoopAngle + " in it " + i);
+            if(current_overallRotationRandomness >= currentLoopAngle 
+                && current_overallRotationRandomness < (currentLoopAngle+rotationStep)
+            )
+            {
+                closestMappedId = i;
+                if (DEBUG_ALL) {print("closest Mapped id found " + i + " at angle " + currentLoopAngle);}
+            }
+            if((currentLoopAngle + rotationStep) > 180)
+            {
+                currentLoopAngle = -202.5f;
+                if(current_overallRotationRandomness >= currentLoopAngle 
+                && current_overallRotationRandomness < (currentLoopAngle+rotationStep)
+                )
+                {
+                    closestMappedId = i;
+                    if (DEBUG_ALL) {print("closest Mapped id found " + i + " at angle " + currentLoopAngle);}
+                }
+            }
+
+
+            currentLoopAngle += rotationStep;
+        }
+	distancesInPOVsIds[remappedNums[closestMappedId]-1] = 0;
+        if (DEBUG_ALL) {print("remapped ids angle loop finished");}
+
+	for(int i = 0; i < 3; i++)
+	{
+	  int nextId_cw = closestMappedId + (i + 1);
+	  int nextId_cc = closestMappedId - (i + 1);
+	  
+	  if(nextId_cw > remappedNums.Count-1)
+	  {
+	      nextId_cw -= remappedNums.Count;
+	  }
+	  if(nextId_cc < 0)
+	  {
+	      nextId_cc += remappedNums.Count;
+	  }
+
+	  distancesInPOVsIds[remappedNums[nextId_cw]-1]=i+1;
+	  distancesInPOVsIds[remappedNums[nextId_cc]-1]=i+1;
+	}
+
+	
+    } 
 
     private void setOverlapId_basedOnOverallRotation()
     {

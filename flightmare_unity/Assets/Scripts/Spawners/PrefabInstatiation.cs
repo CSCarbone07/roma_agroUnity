@@ -104,7 +104,7 @@ public class PrefabInstatiation : MonoBehaviour
         Random.Range(-overallRotationRandomness.y, overallRotationRandomness.y), Random.Range(-overallRotationRandomness.z, overallRotationRandomness.z));
 
 
-        print("Instatiating prefabs");
+        print("Instatiating prefabs. current forced amount " + current_forcedAmount + " sub_current_forcedAmount " + sub_current_forcedAmount);
         print("Overall rotation " + newOverallRotationRandomness);
         print(inGameObject);
         if (inGameObject != null)
@@ -195,9 +195,12 @@ public class PrefabInstatiation : MonoBehaviour
             child.transform.localScale = Scale + newScaleRandomness;
         }
         */
+	
+	print("main prefabs instantiated");
 
         if(current_forcedAmount > 0)
         {
+	    print("removing extra prefabs " + createdPrefabs.Count);
             while(current_forcedAmount < createdPrefabs.Count)
             {
                 //createdPrefabs.RemoveAt(Random.Range(0,createdPrefabs.Count));
@@ -206,20 +209,23 @@ public class PrefabInstatiation : MonoBehaviour
                 createdPrefabs.RemoveAt(indexToDestroy);
                 DestroyImmediate(objectToDestroy);
 
-                //print("removing object " + createdPrefabs.Count);
+                print("removing object " + createdPrefabs.Count);
             }
         }
 
-        if(sub_current_forcedAmount >= 0)
+        if(sub_current_forcedAmount >= 0 && current_forcedAmount > 0)
         {
+	    print("removing extra sub prefabs");
+
             List<GameObject> objectsToUnspawn = new List<GameObject>();
             //List<GameObject> objectsToUnspawn = createdPrefabs;
-
-            
+	    //
             foreach (GameObject o in createdPrefabs)
             {
                 objectsToUnspawn.Add(o);
             }
+	    
+	    print("created extra sub prefabs " + objectsToUnspawn.Count + " sub_current_forcedAmount " + sub_current_forcedAmount);
             
             while(sub_current_forcedAmount < objectsToUnspawn.Count)
             {
@@ -228,13 +234,18 @@ public class PrefabInstatiation : MonoBehaviour
                 objectsToUnspawn.RemoveAt(indexToUnspwan);
                 objectToUnspawn.GetComponent<SpawnerAndSwitch>().Unspawn();
 
-                //print("unspawning object " + objectsToUnspawn.Count);
-                //print("unspawning object " + createdPrefabs.Count);
+                print("unspawning extra sub prefab " + objectsToUnspawn.Count);
+                print("unspawning extra sub prefab " + createdPrefabs.Count);
             }
 
         }
 
-        print("created prefabs " + createdPrefabs.Count);
+	print("sub prefabs instantiated");
+        
+	if(current_forcedAmount > 0)
+	{print("created prefabs " + createdPrefabs.Count);}
+
+	print("returning prefabs");
 
         return createdPrefabs;
     }
@@ -307,6 +318,7 @@ public class PrefabInstatiation : MonoBehaviour
 
     public void setForcedAmounts(int inLow, int inHigh, int inLow_sub, int inHigh_sub)
     {
+	print("setting forced amounts. inLow " + inLow + " inHigh " + inHigh + " inLow_sub " + inLow_sub + " inHigh_sub " + inHigh_sub);
         ForcedAmountLow = inLow;
         ForcedAmountHigh = inHigh;
 

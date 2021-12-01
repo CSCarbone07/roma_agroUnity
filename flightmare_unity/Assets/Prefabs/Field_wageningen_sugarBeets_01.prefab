@@ -55,7 +55,7 @@ MonoBehaviour:
   Rotation: {x: 0, y: 0, z: 0}
   Scale: {x: 1, y: 1, z: 1}
   positionOffset: {x: 0, y: -0.8, z: 0}
-  positionRandomness: {x: 0, y: 0, z: 0.15}
+  positionRandomness: {x: 0, y: 0, z: 0.075}
   addRandomRotationX: 0
   addRandomRotationY: 1
   addRandomRotationZ: 0

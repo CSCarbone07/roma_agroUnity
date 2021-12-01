@@ -321,17 +321,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 401
+  seed: 1
   delayToSave: 1
   delayToSwitch: 1
   delayToRespawn: 1
   varyField: 1
   varyCamera_position: 1
   noise_camera_position: {x: 2, y: 0, z: 2}
-  varyCamera_rotation: 0
+  varyCamera_rotation: 1
   noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 0
-  varyIllumination_orientation: 0
+  varyIllumination_intensity: 1
+  varyIllumination_orientation: 1
   altitudeTest: 0
   altitudes:
   - 3
@@ -348,6 +348,7 @@ MonoBehaviour:
   forcedHeight: 0
   altitude: 20
   useForcedAmounts_goodPlant: 0
+  iterateUp_goodPlant: 1
   resetImgId_duringForcedAmounts: 0
   ForcedAmountLow_goodPlant: -1
   ForcedAmountHigh_goodPlant: -1
@@ -383,8 +384,8 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 401
-  maxImageIndex: 500
+  minImageIndex: 1
+  maxImageIndex: 1600
   varyFieldInterval: 1
   width: 6144
   height: 6144

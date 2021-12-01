@@ -26,6 +26,8 @@ public class readerSpawner : MonoBehaviour
     public Vector3 worldOffset = new Vector3(0,0,0);
     public int borderExclusion = 0;   // This is to exclude spawning in the outer layer of the world. Used for missions were agent sees multiple cells
     public bool includeNonUtility = false;   // This is to include boxes where there is no utility markers 
+    public float nonUtilityDensity = 100;   // This is to include boxes where there is no utility markers 
+    public int nonUtilityMaxCount = 9;   // This is to include boxes where there is no utility markers 
     private List<Vector3> cells_coordinates = new List<Vector3>();
     private List<float> cells_density = new List<float>();
     private Vector3 world_maxCoordinates = new Vector3(0, 0, 0);
@@ -236,13 +238,18 @@ public class readerSpawner : MonoBehaviour
 	    
 	    // Spawn utilities using the prefab instantiation, this is used mostly for the box cases
 	    // where there can be boxes but no utility target
-	    if(spawnedObject.GetComponent<PrefabInstatiation>() != null && (includeNonUtility || cells_density[i] > 0))
+	    if(spawnedObject.GetComponent<PrefabInstatiation>() != null && (cells_density[i] > 0 || (includeNonUtility && (nonUtilityDensity / 100) >= Random.Range(0.0f, 1.0f))))
 	    {
 	      sub_ForcedAmountLow = (int)cells_density[i];
 	      sub_ForcedAmountHigh = (int)cells_density[i];
 	      ForcedAmountLow = (int)cells_density[i];
 	      if(!forceHighAmount)
 	      {ForcedAmountHigh = (int)cells_density[i];}
+
+	      if(includeNonUtility)
+	      {
+		ForcedAmountHigh = nonUtilityMaxCount;
+	      }
 
 	      print("Spawning with cell density " + (int)cells_density[i]);
 
