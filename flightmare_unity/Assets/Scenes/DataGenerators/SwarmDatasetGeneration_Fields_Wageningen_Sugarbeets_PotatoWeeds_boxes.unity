@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 1
+  seed: 500000
   delayToSave: 1
   delayToSwitch: 1
   delayToRespawn: 1
@@ -338,19 +338,32 @@ MonoBehaviour:
   - 10
   - 20
   - 40
-  overlapTest: 0
+  overlapTest: 1
   takeOnlyOnePOV: 1
-  randomPOV: 1
+  randomPOV: 0
+  overlapId_Distance: -1
   forcedFOV: 73.73979
   forcedShiftDistance: 0
   forcedWidth: 990
   forcedHeight: 990
   altitude: 5
+  useForcedAmounts_goodPlant: 1
+  iterateUp_goodPlant: 1
+  resetImgId_duringForcedAmounts: 0
+  ForcedAmountLow_goodPlant: 9
+  ForcedAmountHigh_goodPlant: -1
+  sub_ForcedAmountLow_goodPlant: 9
+  sub_ForcedAmountHigh_goodPlant: -1
+  resetImgId_duringForcedSubAmounts: 0
+  ForcedAmountLow_badPlant: -1
+  ForcedAmountHigh_badPlant: -1
+  sub_ForcedAmountLow_badPlant: -1
+  sub_ForcedAmountHigh_badPlant: -1
   Include_NIR: 0
-  Include_TAG: 1
+  Include_TAG: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 326c68b4f5b16cc138443ea695e77a92, type: 3}
   goodPlant: {fileID: 4780572060926278114, guid: 23a99c0c937a84feab59f39bf6b24b2b, type: 3}
-  goodPlant_Offset: {x: 2.7666667, y: 0.15, z: 2.7666667}
+  goodPlant_Offset: {x: 3, y: 0.15, z: 3}
   goodPlantScale: {x: 1, y: 1, z: 1}
   textWeedSpawner: {fileID: 0}
   textWeed_Offset: {x: 0, y: 0, z: 0}
@@ -371,7 +384,7 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 201
+  minImageIndex: 500
   maxImageIndex: 600
   varyFieldInterval: 1
   width: 1600

@@ -303,7 +303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830221450}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 20, y: 26.5, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -321,13 +321,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 940
+  seed: 1
   delayToSave: 2
   delayToSwitch: 4
   delayToRespawn: 4
   varyField: 1
   varyCamera_position: 1
-  noise_camera_position: {x: 2, y: 0, z: 2}
+  noise_camera_position: {x: 2, y: 23.5, z: 2}
   varyCamera_rotation: 0
   noise_camera_rotation: {x: 0, y: 180, z: 0}
   varyIllumination_intensity: 0
@@ -338,11 +338,29 @@ MonoBehaviour:
   - 10
   - 20
   - 40
-  overlapTest: 1
+  overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 0
+  overlapId_Distance: -1
+  forcedFOV: 0
+  forcedShiftDistance: 0
+  forcedWidth: 0
+  forcedHeight: 0
   altitude: 20
+  useForcedAmounts_goodPlant: 0
+  iterateUp_goodPlant: 0
+  resetImgId_duringForcedAmounts: 0
+  ForcedAmountLow_goodPlant: -1
+  ForcedAmountHigh_goodPlant: -1
+  sub_ForcedAmountLow_goodPlant: -1
+  sub_ForcedAmountHigh_goodPlant: -1
+  resetImgId_duringForcedSubAmounts: 0
+  ForcedAmountLow_badPlant: -1
+  ForcedAmountHigh_badPlant: -1
+  sub_ForcedAmountLow_badPlant: -1
+  sub_ForcedAmountHigh_badPlant: -1
   Include_NIR: 0
+  Include_TAG: 0
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 233f564ac47e1d091958be5be47ec365, type: 3}
   goodPlant: {fileID: 6253421786915150476, guid: b4c817e93809231529f18da9f11381a1, type: 3}
   goodPlant_Offset: {x: 0, y: 0.2, z: 0}
@@ -366,8 +384,8 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 95
-  maxImageIndex: 100
+  minImageIndex: 801
+  maxImageIndex: 1600
   varyFieldInterval: 1
   width: 3072
   height: 3072

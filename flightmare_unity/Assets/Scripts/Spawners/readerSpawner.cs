@@ -118,6 +118,12 @@ public class readerSpawner : MonoBehaviour
 
         cells_coordinates.Clear();
         cells_density.Clear();
+	for (int i = 0; i < lines.Length; i++)
+	{
+	  cells_coordinates.Add(new Vector3(0,0,0));
+	  cells_density.Add(0); 
+	}
+
         int cell_id = 0;
 
         if((useSeed && readSeed) || !Application.isEditor)
@@ -153,8 +159,8 @@ public class readerSpawner : MonoBehaviour
                 cell_id = (int)temp_numbers[1];
                 //Debug.Log("id assigned " + cell_id.ToString());
 
-                cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale, altitudeOffset, temp_numbers[3] * scale));
-                //Debug.Log("coordinates assigned");
+		//cells_coordinates.Insert(cell_id, new Vector3(temp_numbers[2] * scale, altitudeOffset, temp_numbers[3] * scale));
+		cells_coordinates[cell_id] = new Vector3(temp_numbers[2] * scale, altitudeOffset, temp_numbers[3] * scale);
 	
 		// Update max world coordinates
 		if(world_maxCoordinates[0] < temp_numbers[2])
@@ -166,8 +172,10 @@ public class readerSpawner : MonoBehaviour
 		  world_maxCoordinates[2] = temp_numbers[3];
 		}
 
-                cells_density.Insert(cell_id, temp_numbers[4]);
+		//cells_density.Insert(cell_id, temp_numbers[4]);
+		cells_density[cell_id] = temp_numbers[4];
                 //Debug.Log(cells_density[cell_id].ToString());
+                Debug.Log("reading cell " + cell_id + " with coordinates " + cells_coordinates[cell_id].x.ToString() + "x + " + cells_coordinates[cell_id].y.ToString() + "y + " + cells_coordinates[cell_id].z.ToString() + "z and density " + cells_density[cell_id]);
             }
 
         }
@@ -214,7 +222,7 @@ public class readerSpawner : MonoBehaviour
         for (int i = 0; i < cells_density.Count; i++)
         {
 	  // Skip spawning if outer layer is excluded 
-	  print("Spawning coordinates " + cells_coordinates[i][0] + "x + " + cells_coordinates[i][1] + "x + " + cells_coordinates[i][2] + "z + " );
+	  print("Spawning cell id " + i + " at coordinates " + cells_coordinates[i][0] + "x + " + cells_coordinates[i][1] + "x + " + cells_coordinates[i][2] + "z with density " + cells_density[i]);
 	  if(borderExclusion == 0 || (cells_coordinates[i][0] >= exclusion && cells_coordinates[i][2] >= exclusion 
 		&& cells_coordinates[i][0] <= (world_maxCoordinates[0]*scale - exclusion) && cells_coordinates[i][2] <= (world_maxCoordinates[2]*scale - exclusion)))
 	  {
