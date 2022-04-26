@@ -338,10 +338,10 @@ MonoBehaviour:
   - 10
   - 20
   - 40
-  overlapTest: 1
+  overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 0
-  overlapId_Distance: -1
+  overlapId_Distance: 0
   forcedFOV: 73.73979
   forcedShiftDistance: 0
   forcedWidth: 990
@@ -384,7 +384,7 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 500
+  minImageIndex: 501
   maxImageIndex: 600
   varyFieldInterval: 1
   width: 1600
