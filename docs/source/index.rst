@@ -6,28 +6,30 @@
 Welcome to AgroUnity's documentation!
 =====================================
 
+AgroUnity is a photorealistic simulator based on the video game engine Unity.
 
-Testing URLs
-
+This documentation is a user guide on how to use the AgroUnity simulator.
 
 Installation
 ------------
 
 For installation refer to our wiki within the github repository:
 
-`Installation Guide <https://github.com/CSCarbone07/roma_quad_ai/wiki/Installation#installation>`_
-
-:agroSwarm_website:`install`
-
-:agroSwarm_mapping:`install`
-
-:agroSwarm_website:`None`
+`Installation Guide <https://github.com/CSCarbone07/roma_agroUnity/wiki/Installation>`_
 
 
-this is an install :agroSwarm_website:`install` button
+Demonstration Webpage
+---------------------
 
-this is an install :agroSwarm_website:``
+For a performance preview on what AgroUnity can do please visit the project website. 
 
+`Project Website <https://cscarbone07.github.io/roma_agroUnity/>`_
+
+Simulator guide
+---------------
+
+If you have the AgroUnity simulator installed and would like to get more information on how to handle the simulator, 
+then continue reading the documentation in this website.
 
 .. toctree::
    :maxdepth: 2
