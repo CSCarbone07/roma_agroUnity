@@ -55,7 +55,7 @@ html_static_path = ['_static']
 
 
 extlinks = {
-        'agroSwarm_website': ('https://cscarbone07.github.io/roma_quad_ai/', None),
+        'agroSwarm_website': ('https://cscarbone07.github.io/roma_quad_ai/', 'Issue '),
         'agroSwarm_website': ('https://cscarbone07.github.io/roma_agroUnity/', None)
         }
 

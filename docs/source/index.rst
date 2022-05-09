@@ -10,22 +10,23 @@ Welcome to AgroUnity's documentation!
 Testing URLs
 
 
+Installation
+------------
+
 For installation refer to our wiki within the github repository:
 
 `Installation Guide <https://github.com/CSCarbone07/roma_quad_ai/wiki/Installation#installation>`_
 
 :agroSwarm_website:`install`
 
-:agroSwarm_website:``
+:agroSwarm_website:None
+
+:agroSwarm_website:`None`
+
+
+this is an install :agroSwarm_website:`install` button
 
 this is an install :agroSwarm_website:``
-
-this is an install :agroSwarm_website:`` button
-
-this is an install :agroSwarm_website:``
-install
-
-`Intallation <:agroSwarm_website:``>`_
 
 
 .. toctree::
