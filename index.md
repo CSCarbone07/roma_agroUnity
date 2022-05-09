@@ -46,11 +46,9 @@ The performance of AgriUnity has been tested on multiple scientific experiments 
 
 * [Augmentation of Sunflower-Weed Segmentation Classification with Unity Generated Imagery Including Near Infrared Sensor Data](https://rd.springer.com/chapter/10.1007/978-3-030-84811-8_3)
 
-## Capbilities
-
 In our simulator we have been able to photorealisticly simulate **sugar beets**, **potatoes** and **sunflowers**. Preview images are shown on the following images:
 
-![Simulated plants screenshot](https://github.com/CSCarbone07/roma_agroUnity/tree/gh-pages/images/plants_screenshot.png)
+![Simulated plants screenshot](images/plants_screenshot.png)
 
 With procedural TODO
 
