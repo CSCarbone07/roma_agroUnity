@@ -1,37 +1,40 @@
-## Welcome to GitHub Pages
+# Welcome to AgroUnity
 
-You can use the [editor on GitHub](https://github.com/CSCarbone07/roma_agroUnity/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+AgroUnity is a photorealistic simulator developed for the generation of precision agriculture imagery for training of convolutional neural networks (CNNs) to be implemented in autonomous robots in farms.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Reference websites
 
-### Markdown
+This webpage gives a demonstration of what AgroUnity can do.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+For installation visit AgroUnity's github wiki.
 
-```markdown
-Syntax highlighted code block
+For use documentation visit AgroUnity's readthedocs documentation.
 
-# Header 1
-## Header 2
-### Header 3
+## Publications
 
-- Bulleted
-- List
+The performance of AgriUnity has been tested on multiple scientific experiments during the PhD development of Carlos Carbone in La Sapienza University of Rome. The results have been published in the following papers
 
-1. Numbered
-2. List
+* [Simulation of near Infrared Sensor in Unity for Plant-weed Segmentation Classification](https://www.semanticscholar.org/paper/Simulation-of-near-Infrared-Sensor-in-Unity-for-Carbone-Potena/1999b23a7080c7248477f6da1a8b8b260eb7b918)
 
-**Bold** and _Italic_ and `Code` text
+* [Augmentation of Sunflower-Weed Segmentation Classification with Unity Generated Imagery Including Near Infrared Sensor Data](https://rd.springer.com/chapter/10.1007/978-3-030-84811-8_3)
 
-[Link](url) and ![Image](src)
-```
+## Capbilities
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+In our simulator we have been able to photorealisticly simulate **sugar beets**, **potatoes** and **sunflowers**. Preview images are shown on the following images:
 
-### Jekyll Themes
+TODO
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/CSCarbone07/roma_agroUnity/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+With procedural 
 
-### Support or Contact
+In the simulator you can create your own fields. We are currently working on developing a more user friendly setup for custom fields
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Other simulators
+
+We developed AgriUnity to work in tandem with a swarm simulator that combines Gazebo with Unity. We call this simulator with high fidelity visuals and dynamics AgroSwarm
+
+Check more at the AgroSwarm website TODO
+
+Additional developed tools can be found at: 
+
+TODO
+
