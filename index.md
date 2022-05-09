@@ -7,19 +7,32 @@ AgroUnity is a photorealistic simulator developed for the generation of precisio
 This webpage gives a demonstration of what AgroUnity can do.
 
 site url [this website eidtor]({{ site.data.projectWebsite }})
-site url [button]({{ site.data.agroSwarm }})
-{{ site.data.agroSwarm }}
-site url [button]({{ site.data.agroSwarm.website }})
-{{ site.data.agroSwarm.website }}
-site url [button]({{ site.data.agroSwarm.documentation }})
-{{ site.data.agroSwarm.documentation }}
+
+site url [button]({{ site.data.links.agroSwarm }})
+
+hello {{ site.data.links.agroSwarm }}
+
+site url [button]({{ site.data.links.agroSwarm.documentation }})
+
+hello {{ site.data.links.agroSwarm.website }}
+
+site url [button]({{ site.data.links[agroSwarm.documentation] }})
+
+hello {{ site.data.links[0].name }}
+
+site url [button]({{ site.data.links[agroSwarm.documentation] }})
+
+hello {{ site.data.links[1].url }}
 
 then
 
-site url [button]({{ site.data.agroSwarm_wiki_installation }})
-{{ site.data.agroSwarm_wiki_installation }}
+site url [button]({{ site.data.urls.url }})
+
+hello {{ {{ site.data.urls.url }} }}
+
 site url [button]({{ site.data.agroSwarm_wiki_installation.url }})
-{{ site.data.agroSwarm_wiki_installation.url }}
+
+hello {{ site.data.agroSwarm_wiki_installation.url }}
 
 For installation visit AgroUnity's github wiki.
 
@@ -37,9 +50,9 @@ The performance of AgriUnity has been tested on multiple scientific experiments 
 
 In our simulator we have been able to photorealisticly simulate **sugar beets**, **potatoes** and **sunflowers**. Preview images are shown on the following images:
 
-TODO
+![Simulated plants screenshot](https://github.com/CSCarbone07/roma_agroUnity/tree/gh-pages/images/plants_screenshot.png)
 
-With procedural 
+With procedural TODO
 
 In the simulator you can create your own fields. We are currently working on developing a more user friendly setup for custom fields
 
