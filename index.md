@@ -20,7 +20,7 @@ site url [button]({{ site.data.links[agroSwarm.documentation] }})
 
 hello {{ site.data.links[0].name }}
 
-site url [button]({{ site.data.links[agroSwarm.documentation] }})
+site url [button]({{ site.data.links[1].url }})
 
 hello {{ site.data.links[1].url }}
 
@@ -28,7 +28,7 @@ then
 
 site url [button]({{ site.data.urls.url }})
 
-hello {{ {{ site.data.urls.url }} }}
+hello {{ site.data.urls.url }}
 
 site url [button]({{ site.data.agroSwarm_wiki_installation.url }})
 
