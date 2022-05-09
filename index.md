@@ -48,7 +48,7 @@ The performance of AgriUnity has been tested on multiple scientific experiments 
 
 In our simulator we have been able to photorealisticly simulate **sugar beets**, **potatoes** and **sunflowers**. Preview images are shown on the following images:
 
-![Simulated plants screenshot](images/plants_screenshot.png)
+![Simulated plants screenshot](https://raw.githubusercontent.com/CSCarbone07/roma_agroUnity/gh-pages/images/plants_screenshot.png)
 
 With procedural TODO
 
