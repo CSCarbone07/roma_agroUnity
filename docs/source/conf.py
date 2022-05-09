@@ -28,6 +28,7 @@ author = 'Carlos Carbone'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+        "sphinx.ext.intersphinx",
         "sphinx.ext.autodoc",
         "sphinx.ext.extlinks"
 ]
@@ -58,6 +59,8 @@ extlinks = {
         'agroSwarm_website': ('https://cscarbone07.github.io/roma_quad_ai/', 'Issue '),
         'agroSwarm_website': ('https://cscarbone07.github.io/roma_agroUnity/', None)
         }
+
+intersphinx_mapping = {'agroSwarm_mapping': ('https://cscarbone07.github.io/roma_quad_ai/', None)}
 
 
 

@@ -19,7 +19,7 @@ For installation refer to our wiki within the github repository:
 
 :agroSwarm_website:`install`
 
-:agroSwarm_website:None
+:agroSwarm_mapping:`install`
 
 :agroSwarm_website:`None`
 
