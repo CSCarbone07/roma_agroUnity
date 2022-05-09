@@ -1,0 +1,13 @@
+- name: agroSwarm
+  website: https://cscarbone07.github.io/roma_quad_ai/
+  wiki_installation: https://github.com/CSCarbone07/roma_quad_ai/wiki/Installation#installation
+  documentation: https://roma-agroswarm-quadai.readthedocs.io/en/latest/
+
+
+- name: agroSwarm_wiki_installation 
+  url: https://github.com/CSCarbone07/roma_quad_ai/wiki/Installation#installation
+
+- name: agroSwarm_docs
+  url: https://roma-agroswarm-quadai.readthedocs.io/en/latest/
+
+

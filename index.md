@@ -6,6 +6,21 @@ AgroUnity is a photorealistic simulator developed for the generation of precisio
 
 This webpage gives a demonstration of what AgroUnity can do.
 
+site url [this website eidtor]({{ site.data.projectWebsite }})
+site url [button]({{ site.data.agroSwarm }})
+{{ site.data.agroSwarm }}
+site url [button]({{ site.data.agroSwarm.website }})
+{{ site.data.agroSwarm.website }}
+site url [button]({{ site.data.agroSwarm.documentation }})
+{{ site.data.agroSwarm.documentation }}
+
+then
+
+site url [button]({{ site.data.agroSwarm_wiki_installation }})
+{{ site.data.agroSwarm_wiki_installation }}
+site url [button]({{ site.data.agroSwarm_wiki_installation.url }})
+{{ site.data.agroSwarm_wiki_installation.url }}
+
 For installation visit AgroUnity's github wiki.
 
 For use documentation visit AgroUnity's readthedocs documentation.
