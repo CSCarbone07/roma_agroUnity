@@ -6,37 +6,10 @@ AgroUnity is a photorealistic simulator developed for the generation of precisio
 
 This webpage gives a demonstration of what AgroUnity can do.
 
-site url [this website eidtor]({{ site.data.projectWebsite }})
+For installation visit [AgroUnity's github wiki]({{ site.data.links.agroUnity.wiki_installation }}).
 
-site url [button]({{ site.data.links.agroSwarm }})
-
-hello {{ site.data.links.agroSwarm }}
-
-site url [button]({{ site.data.links.agroSwarm.documentation }})
-
-hello {{ site.data.links.agroSwarm.website }}
-
-site url [button]({{ site.data.links[agroSwarm.documentation] }})
-
-hello {{ site.data.links[0].name }}
-
-site url [button]({{ site.data.links[1].url }})
-
-hello {{ site.data.links[1].url }}
-
-then
-
-site url [button]({{ site.data.urls.url }})
-
-hello {{ site.data.urls.url }}
-
-site url [button]({{ site.data.agroSwarm_wiki_installation.url }})
-
-hello {{ site.data.agroSwarm_wiki_installation.url }}
-
-For installation visit AgroUnity's github wiki.
-
-For use documentation visit AgroUnity's readthedocs documentation.
+For use documentation visit [AgroUnity's readthedocs documentation]
+({{ site.data.links.agroUnity.documentation }}).
 
 ## Publications
 
@@ -50,7 +23,10 @@ In our simulator we have been able to photorealisticly simulate **sugar beets**,
 
 ![Simulated plants screenshot](images/plants_screenshot.png)
 
-With procedural TODO
+The plants are spwaned procedurally and with additional scripts a complete field with multiple
+channels can be created.
+
+![Simulated plants screenshot](images/fields_screenshot.png)
 
 In the simulator you can create your own fields. We are currently working on developing a more user friendly setup for custom fields
 
@@ -58,9 +34,8 @@ In the simulator you can create your own fields. We are currently working on dev
 
 We developed AgriUnity to work in tandem with a swarm simulator that combines Gazebo with Unity. We call this simulator with high fidelity visuals and dynamics AgroSwarm
 
-Check more at the AgroSwarm website TODO
+Check more at the [AgroSwarm website]({{ site.data.links.agroSwarm.website }})
 
 Additional developed tools can be found at: 
 
-TODO
-
+[Swarm Robotics for Precision Agriculture]({{ site.data.links.swarmRobotics.website }})

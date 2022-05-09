@@ -1,6 +1,13 @@
+swarmRobotics: 
+  website: https://carloscarbone1990.wixsite.com/robotics
+
 agroSwarm: 
-  website: https://cscarbone07.github.io/roma_quad_ai/
-  wiki_installation: https://github.com/CSCarbone07/roma_quad_ai/wiki/Installation#installation
+  website: https://cscarbone07.github.io/roma_quad_ai
+  wiki_installation: https://github.com/CSCarbone07/roma_quad_ai/wiki/Installation
   documentation: https://roma-agroswarm-quadai.readthedocs.io/en/latest/
 
+agroUnity:
+  website: https://github.com/CSCarbone07/roma_agroUnity
+  wiki_installation: https://github.com/CSCarbone07/roma_agroUnity/wiki/Installation
+  documentation: https://roma-agroswarm-quadai.readthedocs.io/en/latest/
 
