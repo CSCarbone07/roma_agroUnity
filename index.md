@@ -8,8 +8,7 @@ This webpage gives a demonstration of what AgroUnity can do.
 
 For installation visit [AgroUnity's github wiki]({{ site.data.links.agroUnity.wiki_installation }}).
 
-For use documentation visit [AgroUnity's readthedocs documentation]
-({{ site.data.links.agroUnity.documentation }}).
+For use documentation visit [AgroUnity's readthedocs documentation]({{ site.data.links.agroUnity.documentation }}).
 
 ## Publications
 

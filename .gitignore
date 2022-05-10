@@ -2,3 +2,5 @@
 
 # ignoring unity project
 /agroUnity
+
+/docs/build
