@@ -7,5 +7,17 @@
 
 
 
+Table of contents
+=================
 
+.. toctree::
+    :maxdepth: 1
+
+    Home <home>
+
+.. toctree::
+    :maxdepth: 1
+    :caption: First steps
+
+    Introduction <introduction/introduction>
 
