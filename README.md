@@ -12,15 +12,15 @@ The results have been tested against real imagery and have been published in:
 
 For a simulator preview visit our
 
-[Project website](https://cscarbone07.github.io/roma_agroUnity/)
+**[AgroUnity simulator website](https://cscarbone07.github.io/roma_agroUnity/)**
 
 For installation guide visit our 
 
-[Installation wiki](https://github.com/CSCarbone07/roma_agroUnity/wiki/Installation)
+**[Installation wiki for AgroUnity](https://github.com/CSCarbone07/roma_agroUnity/wiki/Installation)**
 
 For user guide visit our 
 
-[User documentation](https://roma-agrounity.readthedocs.io/en/latest/)
+**[User documentation for AgroUnity](https://roma-agrounity.readthedocs.io/en/latest/)**
 
 <br/><br/>
 
@@ -28,3 +28,5 @@ For more simulators visit
 
 [Swarm Robotics for Precision Agriculture](https://carloscarbone1990.wixsite.com/robotics)
 
+## License
+This project is released under the MIT License. Please review the [License file](LICENSE) for more details.
