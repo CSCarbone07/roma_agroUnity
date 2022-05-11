@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+//[ExecuteAlways]
 [ExecuteInEditMode]
 public class PrefabInstatiation : MonoBehaviour
 {
@@ -252,6 +253,18 @@ public class PrefabInstatiation : MonoBehaviour
 
     public List<GameObject> get_createdPrefabs()
     {
+	if(createdPrefabs.Count == 0 && transform.childCount > 0)
+	{
+	  print("PrefabInstatiation | getting " + transform.childCount + " childs for created prefabs");
+	  createdPrefabs = new List<GameObject>();
+	  for (int i = 0; i< this.transform.childCount; i++)
+	  {
+	      createdPrefabs.Add(this.transform.GetChild(i).gameObject);
+	  }
+
+	}
+	print("PrefabInstatiation | returning " + createdPrefabs.Count + " created prefabs ");
+	print("returning prefabs");
         return createdPrefabs;
     }
 
@@ -272,8 +285,7 @@ public class PrefabInstatiation : MonoBehaviour
     //void OnRenderObject()
     {
 
-
-        if (updateInstantiation)
+        if (!Application.IsPlaying(this) && updateInstantiation)
         {
             if (useSeed)
             { Random.seed = seed; }
