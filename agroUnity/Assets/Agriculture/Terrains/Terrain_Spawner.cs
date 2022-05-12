@@ -11,6 +11,9 @@ public class Terrain_Spawner : SpawnerAndSwitch
 
     public Vector3 positionRandomness = new Vector3(0, 0, 0);
 
+    public bool switchToRGB = false;
+    public bool switchToNIR = false;
+    public bool switchToTAG = false;
 
     // Start is called before the first frame update
     public override void Start()
@@ -32,6 +35,24 @@ public class Terrain_Spawner : SpawnerAndSwitch
     // Update is called once per frame
     public override void Update()
     {
+	if (!Application.IsPlaying(this) && switchToRGB)
+        {
+            switchToRGB = false;
+	    SwitchToRGB();
+        }
+
+	if (!Application.IsPlaying(this) && switchToNIR)
+        {
+            switchToNIR = false;
+	    SwitchToNIR();
+        }
+
+	if (!Application.IsPlaying(this) && switchToTAG)
+        {
+            switchToTAG = false;
+	    SwitchToTAG();
+        }
+
 
     }
 

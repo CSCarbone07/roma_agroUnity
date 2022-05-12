@@ -67,6 +67,9 @@ public class PrefabInstatiation : MonoBehaviour
     private int sub_current_forcedAmount = -1;
 
     public bool updateInstantiation = false;    // Click to update instances
+    public bool switchToRGB = false;
+    public bool switchToNIR = false;
+    public bool switchToTAG = false;
     //private bool canUpdate = true;
     private bool regenerate = true;
 
@@ -292,6 +295,51 @@ public class PrefabInstatiation : MonoBehaviour
 
             procedural_Instantiate(prefab);
             updateInstantiation = false;
+        }
+        
+	if (!Application.IsPlaying(this) && switchToRGB)
+        {
+            switchToRGB = false;
+	    if(createdPrefabs != null)
+	    {
+	      foreach (GameObject item in createdPrefabs) 
+	      {
+		if(item != null && item.GetComponent<SpawnerAndSwitch>() != null)
+		{
+		  item.GetComponent<SpawnerAndSwitch>().SwitchToRGB();
+		}
+	      }
+	    }
+        }
+
+	if (!Application.IsPlaying(this) && switchToNIR)
+        {
+            switchToNIR = false;
+	    if(createdPrefabs != null)
+	    {
+	      foreach (GameObject item in createdPrefabs) 
+	      {
+		if(item != null && item.GetComponent<SpawnerAndSwitch>() != null)
+		{
+		  item.GetComponent<SpawnerAndSwitch>().SwitchToNIR();
+		}
+	      }
+	    }
+        }
+
+	if (!Application.IsPlaying(this) && switchToTAG)
+        {
+            switchToTAG = false;
+	    if(createdPrefabs != null)
+	    {
+	      foreach (GameObject item in createdPrefabs) 
+	      {
+		if(item != null && item.GetComponent<SpawnerAndSwitch>() != null)
+		{
+		  item.GetComponent<SpawnerAndSwitch>().SwitchToTAG();
+		}
+	      }
+	    }
         }
 
 

@@ -144,7 +144,8 @@ public class quadPlant_Spawner : SpawnerAndSwitch
         }
         */
         GetComponent<Renderer>().material = NIR_Mat_internal;
-        //Debug.Log("weeeed");       
+        print(this.name + " | selecting nir texture number " + currentTextureID);
+	//Debug.Log("weeeed");       
     }
     public override void SwitchToTAG()
     {

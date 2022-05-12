@@ -28,8 +28,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2930737863377244354, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
+      propertyPath: objectClass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930737863377244354, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
       propertyPath: randomizeTexture
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930737863377244354, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
+      propertyPath: maxIndexOfTextures
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 2930737863377244354, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
       propertyPath: randomizeInitialTexture

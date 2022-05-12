@@ -356,7 +356,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);
                 createdPrefabLeaf.transform.SetParent(this.transform);
                 createdPrefabLeaf.transform.localScale = createdPrefabLeaves[x].transform.localScale;
-                Destroy(createdPrefabLeaves[x]);
+                DestroyImmediate(createdPrefabLeaves[x]);
                 createdPrefabLeaves[x] = createdPrefabLeaf;
                 //Debug.Log(createdPrefabLeavesType[x]);
             }
@@ -376,7 +376,7 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);
                 createdPrefabLeaf.transform.SetParent(this.transform);
                 createdPrefabLeaf.transform.localScale = createdPrefabLeaves[x].transform.localScale;
-                Destroy(createdPrefabLeaves[x]);
+                DestroyImmediate(createdPrefabLeaves[x]);
                 createdPrefabLeaves[x] = createdPrefabLeaf;
                 //Debug.Log(createdPrefabLeavesType[x]);
                 //print(x);
@@ -392,11 +392,12 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
         {
             for (int x = 0; x < usedAmount; x++)
             {
+		print("SugarBeet_Spawner | switchingToTAG");
                 GameObject createdPrefabLeaf = Instantiate(beetLeaf_TAG[createdPrefabLeavesType[x]], createdPrefabLeaves[x].transform.position, createdPrefabLeaves[x].transform.rotation);
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);
                 createdPrefabLeaf.transform.SetParent(this.transform);
                 createdPrefabLeaf.transform.localScale = createdPrefabLeaves[x].transform.localScale;
-                Destroy(createdPrefabLeaves[x]);
+                DestroyImmediate(createdPrefabLeaves[x]);
                 createdPrefabLeaves[x] = createdPrefabLeaf;
                 //Debug.Log(createdPrefabLeavesType[x]);
             }
