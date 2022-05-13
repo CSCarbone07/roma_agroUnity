@@ -1,6 +1,6 @@
 # AgroUnity
 
-AgroUnity is a photorealistic simulator developed for the generation of precision agriculture imagery for training of convolutional neural networks (CNNs) to be implemented in autonomous robots in farms.
+AgroUnity is a photorealistic simulator, based on [Unity]({{ site.data.links.unity.main }}), developed for the generation of precision agriculture imagery for training of convolutional neural networks (CNNs) to be implemented in autonomous robots in farms.
 
 ## Reference websites
 
