@@ -16,8 +16,10 @@ Table of contents
     Home <home>
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :caption: First steps
 
     Introduction <introduction/introduction>
+    First demonstration level <levels/generic_field.rst>
+
 

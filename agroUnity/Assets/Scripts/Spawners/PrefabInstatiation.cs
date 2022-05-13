@@ -66,9 +66,13 @@ public class PrefabInstatiation : MonoBehaviour
     public int sub_ForcedAmountHigh = -1;
     private int sub_current_forcedAmount = -1;
 
+    [Tooltip("Click the box to respwan prefabs")]
     public bool updateInstantiation = false;    // Click to update instances
+    [Tooltip("Click the box to switch prefabs to RGB channel if available")]
     public bool switchToRGB = false;
+    [Tooltip("Click the box to switch prefabs to NIR channel if available")]
     public bool switchToNIR = false;
+    [Tooltip("Click the box to switch prefabs to TAG channel if available")]
     public bool switchToTAG = false;
     //private bool canUpdate = true;
     private bool regenerate = true;
