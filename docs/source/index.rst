@@ -22,4 +22,8 @@ Table of contents
     Introduction <introduction/introduction>
     First demonstration level <levels/generic_field.rst>
 
+.. toctree::
+    :maxdepth: 2
+    :caption: Customizing your fields
 
+    General Instantiation <components/generalPrefab_instantiation.rst>

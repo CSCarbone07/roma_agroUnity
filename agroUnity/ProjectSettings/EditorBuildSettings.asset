@@ -17,7 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/experiments/flightmare/box_boxPrague.unity
     guid: a0486d85af25e09548f75bd060110a5f
+  - enabled: 1
+    path: Assets/Scenes/experiments/flightmare/box_boxPrague_onePatch.unity
+    guid: 1a835c135ad2dfc658295cfe51e18c5e
   m_configObjects: {}
