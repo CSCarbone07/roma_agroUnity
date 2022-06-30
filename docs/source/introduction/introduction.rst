@@ -5,7 +5,8 @@ Introduction
 
 AgroUnity is developed for the generation of plant imagery for training of convolutional neural
 networks (CNN). Additionally the levels can be built to generate excecutable files to work with our
-swarm simulator `AgroSwarm <https://github.com/CSCarbone07/roma_quad_ai>`_.
+future AgroSwarm simulation.
+<!-- `AgroSwarm <https://github.com/CSCarbone07/roma_quad_ai>`_ -->
 
 Starting
 --------
