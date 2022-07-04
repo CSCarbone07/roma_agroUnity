@@ -53,12 +53,16 @@ public class SaveImage : MonoBehaviour
         byte[] bytes = screenShot.EncodeToPNG();
         //string filename = ScreenshotName(mode, field);
         
-        string filename = string.Format("{0}" + savePath + "images/" + sub + "{1}.png", Application.persistentDataPath, counter);
+	//string filename = string.Format("{0}" + savePath + "images/" + sub + "{1}.png", Application.persistentDataPath, counter);
+	string filename = string.Format("{0}" + savePath + sub + "{1}.png", Application.persistentDataPath, counter);
+	print("savePath");
+	print(filename);
         System.IO.File.WriteAllBytes(filename, bytes);
 
 
         //filename = string.Format("{0}/Dataset/LocationAndRotations.png", Application.persistentDataPath);
-        filename = string.Format("{0}" + savePath + "transforms/" + sub + "{1}.txt", Application.persistentDataPath, counter);
+        //filename = string.Format("{0}" + savePath + "transforms/" + sub + "{1}.txt", Application.persistentDataPath, counter);
+        filename = string.Format("{0}" + savePath + "transforms/" + "{1}.txt", Application.persistentDataPath, counter);
 
         string[] content = new string[2];
         //content[0] = "Position: " + this.transform.position.ToString();

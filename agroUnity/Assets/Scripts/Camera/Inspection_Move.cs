@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Inspection_Move : MonoBehaviour
 {
+
+    //[Header("test header")]
+
+    [Tooltip("Set the altitude of the camera")]
     public float altitude = 5;
     private Vector3 initalPosition = new Vector3(0, 0, 0);
     private Vector3 offset = new Vector3(1f, 1f, 1f);
+    [Tooltip("Set overlap in percentage")]
     public Vector3 overlap = new Vector3(0f, 0f, 0f);
     private Vector3 nonOverlap = new Vector3(100f, 100f, 100f);
+    [Tooltip("Set world coordinates for camera movement limit")]
     public Vector3 limit = new Vector3(200f, 200f, 200f);
     private Vector3 currentAdvancement = new Vector3(0,0,0);
     private bool movingForward = true;

@@ -8,13 +8,16 @@ using UnityEngine;
 public class PrefabInstatiation : MonoBehaviour
 {
 
+    [Tooltip("Select the object to instantiate")]
     public GameObject prefab;
     //public int numberOfObjects = 20;
     //public float radius = 5f;
     public bool useSeed = false;
     public int seed = 0;
 
+    [Tooltip("Randomness in position of overall field of instances")]
     public Vector3 overallPositionRandomness = new Vector3(0, 0, 0);
+    [Tooltip("Randomness in rotation of overall field of instances")]
     public Vector3 overallRotationRandomness = new Vector3(0, 0, 0);
     
     private Vector3 newOverallPositionRandomness = new Vector3(0, 0, 0);
@@ -22,23 +25,34 @@ public class PrefabInstatiation : MonoBehaviour
 
     private Vector3 myPosition;// = transform.position;
     protected List<GameObject> createdPrefabs = new List<GameObject>();
+    [Tooltip("How many repetitions of the instance must be created in the X axis")]
     public float gridX = 5f;
+    [Tooltip("How many repetitions of the instance must be created in the Y axis")]
     public float gridY = 5f;
+    [Tooltip("Space between each row of instances in the X direction")]
     public float spacingX = 2f;
+    [Tooltip("Space between each row of instances in the Y direction")]
     public float spacingY = 2f;
+    [Tooltip("Rotation applied individually to all instances (in case your mesh default rotation is not the desired one for the field)")]
     public Vector3 Rotation; //for rotating the mesh in case the mesh is upside down or something else
+    [Tooltip("Scale applied individually to all instances (in case your mesh default scale is not the desired one for the field)")]
     public Vector3 Scale = new Vector3(1,1,1);
     private Quaternion newRotation;
 
+    [Tooltip("Position offset applied individually to all instances (in case your mesh default rotation is not the desired one for the field)")]
     public Vector3 positionOffset = new Vector3(0, 0, 0);
+    [Tooltip("Position randomness applied to each individual instance. For example, if 1 is added in X then the noise in the X axis for the spawned instance will be between -1 and 1")]
     public Vector3 positionRandomness = new Vector3(0, 0, 0);
 
     private Vector3 addRandomRotation;
 
+    [Tooltip("Rotation randomness applied to each individual instance. For example, if 1 is added in X then the noise in the X axis for the spawned instance will be between -180 and 180")]
     [Range(0.0f, 1.0f)]
     public float addRandomRotationX = 0;
+    [Tooltip("Rotation randomness applied to each individual instance. For example, if 1 is added in Y then the noise in the Y axis for the spawned instance will be between -180 and 180")]
     [Range(0.0f, 1.0f)]
     public float addRandomRotationY = 0;
+    [Tooltip("Rotation randomness applied to each individual instance. For example, if 1 is added in Z then the noise in the Z axis for the spawned instance will be between -180 and 180")]
     [Range(0.0f, 1.0f)]
     public float addRandomRotationZ = 0;
 
@@ -46,6 +60,7 @@ public class PrefabInstatiation : MonoBehaviour
     private Vector3 randomRotationValue;
 
 
+    [Tooltip("Scale randomness applied to each individual instance. For example, if 1 is added in X then the noise in the X axis for the spawned instance will be between -1 and 1")]
     public float scaleRandomness = 0;// = new Vector3(0, 0, 0);
     /*
     [Range(0.0f, 1.0f)]
@@ -57,6 +72,8 @@ public class PrefabInstatiation : MonoBehaviour
     [Range(0.0f, 100.0f)]
     */
 
+
+    [Tooltip("Density of instances. If 100, all the instances based on the previous values will be spawned, it 50 then only half of the instances will actually spawned by random selection")]
     public float Density = 100;
     public int ForcedAmountLow = -1;
     public int ForcedAmountHigh = -1;

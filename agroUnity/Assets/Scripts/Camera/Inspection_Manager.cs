@@ -5,18 +5,25 @@ using UnityEngine;
 public class Inspection_Manager : MonoBehaviour
 {
 
-    public bool takeScreenshot = false;
 
     public float delayBetweenMoves = 1;
+    public bool respawnOnStart = false;
     private bool firstShoot = true;
     private string subfolder = "";
     private int counter = 0;
+
+    public bool recordScreenshot = false;
+    public bool includeRGB = false;
+    public bool includeNIR = false;
+    public bool includeTAG = false;
+    private float delay_current = 0;
+    private List<GameObject> spawnedObjects = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         this.GetComponent<Inspection_Move>().Initialize();
-        all_switch_rgb();
+	dataLoop();
     }
 
     // Update is called once per frame
@@ -27,17 +34,27 @@ public class Inspection_Manager : MonoBehaviour
 
     void TakeScreenshot()
     {
-        if (takeScreenshot)
+        print("trying to take screenshot");
+        if (recordScreenshot)
         {
-            this.GetComponent<SaveImage>().TakeScreenshot(subfolder, counter);
+	    print("taking screenshot");
+	    this.GetComponent<SaveImage>().TakeScreenshot(subfolder, counter);
         }    
     }
 
-    void all_switch_rgb()
+
+    void dataLoop()
     {
-        if (firstShoot == true)
+	delay_current = 0;
+        
+	if (firstShoot == true)
         {
             firstShoot = false;
+	    if(respawnOnStart)
+	    {
+	      delay_current += delayBetweenMoves;
+	      Invoke("all_respawn", delay_current); 
+	    }
         }
         else
         {
@@ -46,9 +63,64 @@ public class Inspection_Manager : MonoBehaviour
         }
 
 
+
+
+	if(includeRGB)
+	{
+	  delay_current += delayBetweenMoves;
+	  Invoke("all_switch_rgb", delay_current);
+	  delay_current += delayBetweenMoves;
+	  Invoke("TakeScreenshot", delay_current); 
+	}
+	if(includeNIR)
+	{
+	  delay_current += delayBetweenMoves;
+	  Invoke("all_switch_nir", delay_current);
+	  delay_current += delayBetweenMoves;
+	  Invoke("TakeScreenshot", delay_current);
+	}
+	if(includeTAG)
+	{
+	  delay_current += delayBetweenMoves;
+	  Invoke("all_switch_tag", delay_current);
+	  delay_current += delayBetweenMoves;
+	  Invoke("TakeScreenshot", delay_current);
+	}
+
+	delay_current += delayBetweenMoves;
+	Invoke("dataLoop", delay_current);
+
+    }
+
+    void all_respawn()
+    {
+
+	spawnedObjects.Clear();	
+      
+	//foreach (GameObject g in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        foreach (GameObject g in GameObject.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+
+	    print("found on respwan");
+	    print(g);
+	    if (g.GetComponent<PrefabInstatiation>())
+            {
+                List<GameObject> newSpawnedObjects = g.GetComponent<PrefabInstatiation>().procedural_Instantiate(null);
+		
+		spawnedObjects.AddRange(newSpawnedObjects); 
+            }
+
+        }
+
+    }
+
+    void all_switch_rgb()
+    {
+
+
         //foreach (object g in FindObjectsOfType<SpawnerAndSwitch>())
-        //foreach (GameObject g in GameObject.FindObjectsOfType(typeof(GameObject)))
-        foreach (GameObject g in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        //foreach (GameObject g in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        foreach (GameObject g in GameObject.FindObjectsOfType(typeof(GameObject)))
         {
 
             if (g.GetComponent<SpawnerAndSwitch>())
@@ -58,8 +130,7 @@ public class Inspection_Manager : MonoBehaviour
 
         }
         subfolder = "rgb/";
-        Invoke("TakeScreenshot", delayBetweenMoves/2);
-        Invoke("all_switch_nir", delayBetweenMoves);
+
     }
 
     void all_switch_nir()
@@ -73,9 +144,6 @@ public class Inspection_Manager : MonoBehaviour
             }
         }
         subfolder = "nir/";
-        Invoke("TakeScreenshot", delayBetweenMoves / 2);
-        //TakeScreenshot();
-        Invoke("all_switch_tag", delayBetweenMoves);
 
     }
 
@@ -91,16 +159,13 @@ public class Inspection_Manager : MonoBehaviour
             }
         }
         subfolder = "tag/";
-        Invoke("TakeScreenshot", delayBetweenMoves / 2);
-        TakeScreenshot();
-        Invoke("all_switch_rgb", delayBetweenMoves);
 
-        counter++;
     }
 
     void rellocate()
     {
         this.GetComponent<Inspection_Move>().Rellocate();
+        counter++;
     }
 
 
@@ -111,4 +176,13 @@ public class Inspection_Manager : MonoBehaviour
         Loop();
     }
     */
+
+    void OnApplicationQuit()
+    {
+      //Application.LoadLevel("CurrentLevel");
+      foreach (GameObject g in spawnedObjects)
+      {
+	DestroyImmediate(g);
+      }
+    }
 }

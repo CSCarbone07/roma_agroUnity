@@ -352,6 +352,15 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
         {
             for (int x = 0; x < usedAmount; x++)
             {
+	        /*
+		print("switching to RGB");
+		print(usedAmount);
+		print(x);
+		print(createdPrefabLeaves.Length);
+		print(createdPrefabLeaves[x]);
+		print(createdPrefabLeavesType.Length);
+		print(createdPrefabLeavesType[x]);
+		*/
                 GameObject createdPrefabLeaf = Instantiate(beetLeaf[createdPrefabLeavesType[x]], createdPrefabLeaves[x].transform.position, createdPrefabLeaves[x].transform.rotation);
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);
                 createdPrefabLeaf.transform.SetParent(this.transform);
