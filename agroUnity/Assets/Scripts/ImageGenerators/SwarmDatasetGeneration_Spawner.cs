@@ -34,6 +34,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
     private int altitudeId = 0;
     private int altitudesSize = 0;
 
+    public bool takeOverallScreenshot = false;
     public bool overlapTest = false;
     private bool overlapTestStart = true;
     public bool takeOnlyOnePOV = false;
@@ -923,7 +924,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 	RenderTexture rt;
         Texture2D screenShot;
         if (overlapTest || takeOnlyOnePOV)
-        {
+	{
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;
             if(forcedWidth == 0 && forcedHeight == 0)
@@ -1033,7 +1034,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         }
 
 
-        if (overlapTest && !takeOnlyOnePOV && overlapRow==0 && overlapColumn == 1)
+        if (takeOverallScreenshot && overlapTest && !takeOnlyOnePOV && overlapRow==0 && overlapColumn == 1)
         {
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;
