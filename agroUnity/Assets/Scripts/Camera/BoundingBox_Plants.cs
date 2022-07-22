@@ -6,6 +6,9 @@ using System.IO;
 
 public class BoundingBox_Plants : MonoBehaviour
 {
+
+    private bool DEBUG_ALL = false;
+
     public bool displayBoxes = true;
     private GameObject plantSpawner;
     private List<GameObject> plants;
@@ -34,15 +37,25 @@ public class BoundingBox_Plants : MonoBehaviour
         //plants = null;
         //plants.Clear();
         plants = inPlants;
-        print("plants reference set " + inPlants.Count);
+	if(DEBUG_ALL) 
+	{
+	  print("plants reference set " + inPlants.Count);
+	}
     }
 
     void OnGUI()
     {
-	print("trying to display boxes");
+	if(DEBUG_ALL) 
+	{
+	  print("trying to display boxes");
+	}
         if (displayBoxes && plants != null && plants.Count > 0)// && plants[0] != null)
         {
-	    print("trying to display boxes for " + plants.Count + " plants");
+	    
+	    if(DEBUG_ALL) 
+	    {
+	      print("trying to display boxes for " + plants.Count + " plants");
+	    }
             //GameObject[] allGOs = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
             //GameObject[] allGOs = plantSpawner;
 
@@ -55,15 +68,22 @@ public class BoundingBox_Plants : MonoBehaviour
 
             foreach (GameObject p in plants)
             {
-		print("getting each plant");
-		print(p);
+
+		if(DEBUG_ALL) 
+		{
+		  print("getting each plant");
+		  print(p);
+		}
 
                 if(p.GetComponent<SpawnerAndSwitch>().hasBeenSpawned)
                 {
 
                     firstRound = true;
 		
-		    print("getting bounding boxes");
+		    if(DEBUG_ALL) 
+		    {
+		      print("getting bounding boxes");
+		    }
 
 
                     for (int c = 0; c < p.transform.childCount; c++)
@@ -143,9 +163,11 @@ public class BoundingBox_Plants : MonoBehaviour
                         save_h_1 = Screen.height;
                     }
 
-                    print("save boundaries " + save_w_0 + "w_0, " + save_h_0 + "h_0, " + save_w_1 + "w_1, " + save_h_1 + "h_1. With screen " 
-                    + Screen.width + "w x " + Screen.height + "h");
-
+		    if(DEBUG_ALL) 
+		    {
+		      print("save boundaries " + save_w_0 + "w_0, " + save_h_0 + "h_0, " + save_w_1 + "w_1, " + save_h_1 + "h_1. With screen " 
+		      + Screen.width + "w x " + Screen.height + "h");
+		    }
                     
                     // Construct a rect of the min and max positions 
                     if ((total_max.x >= save_w_0 && total_max.y >= save_h_0 && total_max.x <= save_w_1 && total_max.y <= save_h_1) 
@@ -190,7 +212,11 @@ public class BoundingBox_Plants : MonoBehaviour
     //public void saveBoxes(List<GameObject> inObjects,string inImgPath, string inSavePath, string inClass, int w_0, int h_0, int w_1, int h_1)
     public void saveBoxes(List<GameObject> inObjects,string inImgPath, string inSavePath, int w_0, int h_0, int w_1, int h_1)
     {
-	print("BoundingBox_Plants | saving boxes from " + inObjects.Count + " plants at path " + inSavePath);
+
+	if(DEBUG_ALL) 
+	{
+	  print("BoundingBox_Plants | saving boxes from " + inObjects.Count + " plants at path " + inSavePath);
+	}
         string boxText = " ";
 
         Camera camera = GetComponent<Camera>();

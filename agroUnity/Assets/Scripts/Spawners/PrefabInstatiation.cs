@@ -7,6 +7,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class PrefabInstatiation : MonoBehaviour
 {
+    private bool DEBUG_ALL = false;
 
     [Tooltip("Select the object to instantiate")]
     public GameObject prefab;
@@ -129,9 +130,12 @@ public class PrefabInstatiation : MonoBehaviour
         Random.Range(-overallRotationRandomness.y, overallRotationRandomness.y), Random.Range(-overallRotationRandomness.z, overallRotationRandomness.z));
 
 
-        print("Instatiating prefabs. current forced amount " + current_forcedAmount + " sub_current_forcedAmount " + sub_current_forcedAmount);
-        print("Overall rotation " + newOverallRotationRandomness);
-        print(inGameObject);
+	if(DEBUG_ALL) 
+	{
+	  print("Instatiating prefabs. current forced amount " + current_forcedAmount + " sub_current_forcedAmount " + sub_current_forcedAmount);
+	  print("Overall rotation " + newOverallRotationRandomness);
+	  print(inGameObject);
+	}
         if (inGameObject != null)
         {
             prefab = inGameObject;
@@ -145,7 +149,8 @@ public class PrefabInstatiation : MonoBehaviour
 
             myPosition = transform.position;
             newRotation = Quaternion.Euler(Rotation);
-            //print("Debugging1");
+            
+	    //print("Debugging1");
             if(createdPrefabs != null)
             {
                 createdPrefabs.Clear();
@@ -220,12 +225,18 @@ public class PrefabInstatiation : MonoBehaviour
             child.transform.localScale = Scale + newScaleRandomness;
         }
         */
-	
+
+	if(DEBUG_ALL) 
+	{
 	print("main prefabs instantiated");
+	}
 
         if(current_forcedAmount > 0)
         {
+	    if(DEBUG_ALL) 
+	    {
 	    print("removing extra prefabs " + createdPrefabs.Count);
+	    }
             while(current_forcedAmount < createdPrefabs.Count)
             {
                 //createdPrefabs.RemoveAt(Random.Range(0,createdPrefabs.Count));
@@ -234,13 +245,20 @@ public class PrefabInstatiation : MonoBehaviour
                 createdPrefabs.RemoveAt(indexToDestroy);
                 DestroyImmediate(objectToDestroy);
 
+	      if(DEBUG_ALL) 
+	      {
                 print("removing object " + createdPrefabs.Count);
+	      }
             }
         }
 
         if(sub_current_forcedAmount >= 0 && current_forcedAmount > 0)
         {
-	    print("removing extra sub prefabs");
+	    
+	    if(DEBUG_ALL) 
+	    {
+	      print("removing extra sub prefabs");
+	    }
 
             List<GameObject> objectsToUnspawn = new List<GameObject>();
             //List<GameObject> objectsToUnspawn = createdPrefabs;
@@ -250,27 +268,35 @@ public class PrefabInstatiation : MonoBehaviour
                 objectsToUnspawn.Add(o);
             }
 	    
-	    print("created extra sub prefabs " + objectsToUnspawn.Count + " sub_current_forcedAmount " + sub_current_forcedAmount);
-            
+	    if(DEBUG_ALL) 
+	    {
+	      print("created extra sub prefabs " + objectsToUnspawn.Count + " sub_current_forcedAmount " + sub_current_forcedAmount);
+	    }
+
             while(sub_current_forcedAmount < objectsToUnspawn.Count)
             {
                 int indexToUnspwan = Random.Range(0,objectsToUnspawn.Count);
                 GameObject objectToUnspawn = objectsToUnspawn[indexToUnspwan]; 
                 objectsToUnspawn.RemoveAt(indexToUnspwan);
                 objectToUnspawn.GetComponent<SpawnerAndSwitch>().Unspawn();
-
-                print("unspawning extra sub prefab " + objectsToUnspawn.Count);
-                print("unspawning extra sub prefab " + createdPrefabs.Count);
+	
+		if(DEBUG_ALL) 
+		{
+		  print("unspawning extra sub prefab " + objectsToUnspawn.Count);
+		  print("unspawning extra sub prefab " + createdPrefabs.Count);
+		}
             }
 
         }
 
-	print("sub prefabs instantiated");
-        
-	if(current_forcedAmount > 0)
-	{print("created prefabs " + createdPrefabs.Count);}
+	if(DEBUG_ALL) 
+	{
+	  print("sub prefabs instantiated");
+	  if(current_forcedAmount > 0)
+	  {print("created prefabs " + createdPrefabs.Count);}
+	  print("returning prefabs");
+	}
 
-	print("returning prefabs");
 
         return createdPrefabs;
     }
@@ -279,7 +305,10 @@ public class PrefabInstatiation : MonoBehaviour
     {
 	if(createdPrefabs.Count == 0 && transform.childCount > 0)
 	{
+	  if(DEBUG_ALL) 
+	  {
 	  print("PrefabInstatiation | getting " + transform.childCount + " childs for created prefabs");
+	  }
 	  createdPrefabs = new List<GameObject>();
 	  for (int i = 0; i< this.transform.childCount; i++)
 	  {
@@ -287,8 +316,11 @@ public class PrefabInstatiation : MonoBehaviour
 	  }
 
 	}
-	print("PrefabInstatiation | returning " + createdPrefabs.Count + " created prefabs ");
-	print("returning prefabs");
+	if(DEBUG_ALL) 
+	{
+	  print("PrefabInstatiation | returning " + createdPrefabs.Count + " created prefabs ");
+	  print("returning prefabs");
+	}
         return createdPrefabs;
     }
 
@@ -399,7 +431,10 @@ public class PrefabInstatiation : MonoBehaviour
 
     public void setForcedAmounts(int inLow, int inHigh, int inLow_sub, int inHigh_sub)
     {
+	if(DEBUG_ALL) 
+	{
 	print("setting forced amounts. inLow " + inLow + " inHigh " + inHigh + " inLow_sub " + inLow_sub + " inHigh_sub " + inHigh_sub);
+	}
         ForcedAmountLow = inLow;
         ForcedAmountHigh = inHigh;
 

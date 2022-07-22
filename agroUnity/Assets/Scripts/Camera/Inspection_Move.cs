@@ -7,7 +7,14 @@ public class Inspection_Move : MonoBehaviour
 
     //[Header("test header")]
 
-    [Tooltip("Set the altitude of the camera")]
+
+    [Tooltip("Set the camera altitude based on the GSD (ground sample distance)")]
+    public bool altitudeBasedOnGSD = false;
+   
+    [Tooltip("GSD in m / pixel")]
+    public float groundSampleDistance = 0.01f;
+
+    [Tooltip("Set the altitude of the camera, invalid if altitudeBasedOnGSD is active")]
     public float altitude = 5;
     private Vector3 initalPosition = new Vector3(0, 0, 0);
     private Vector3 offset = new Vector3(1f, 1f, 1f);
@@ -19,8 +26,11 @@ public class Inspection_Move : MonoBehaviour
     private Vector3 currentAdvancement = new Vector3(0,0,0);
     private bool movingForward = true;
     private bool sliding = false;
+
+    // camera resolution (extracted from "SaveImage" script
     private int width = 1024;
     private int height = 1024;
+    private float fov_vertical  = 60;
 
 
     // Start is called before the first frame update
@@ -42,8 +52,38 @@ public class Inspection_Move : MonoBehaviour
     {
         width = this.GetComponent<SaveImage>().width;
         height = this.GetComponent<SaveImage>().height;
+	//fov_vertical = this.GetComponent<SaveImage>().fieldOfView;
 
-        this.transform.position = new Vector3(this.transform.position.x, altitude, this.transform.position.z);
+
+	if (altitudeBasedOnGSD)
+	{
+	  float smallestCameraDimension;
+	  float selected_fov; 
+	  float selected_footprint; 
+	  float aspectRatio;
+	  float diagonal;
+	
+	  if (width < height)
+	  {
+	    smallestCameraDimension = width;
+	  }
+	  else
+	  {
+	    smallestCameraDimension = height;
+	    selected_fov = fov_vertical;
+	    selected_footprint = height * groundSampleDistance;
+	  } 
+	  
+	  aspectRatio = width / height;
+	  //diagonal = Mathf.Pow((Mathf.Pow(width*groundSampleDistance)+Mathf.Pow(height*groundSampleDistance)), 0.5f);
+	  //altitude = diagonal / (2 * Mathf.Tan(selected_fov/2));
+
+	  this.transform.position = new Vector3(this.transform.position.x, altitude, this.transform.position.z);
+	}
+	else
+	{
+	  this.transform.position = new Vector3(this.transform.position.x, altitude, this.transform.position.z);
+	}
         initalPosition = this.transform.position;
         //print(this.transform.position.y);
 

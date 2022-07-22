@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df9cafeae9b4461d8fed5db706a3843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowest_intensity_multiplier: 0.95
-  highest_intensity_multiplier: 1.2
-  noise_Illumination_rotation_min: {x: 40, y: -180, z: 0}
-  noise_Illumination_rotation_max: {x: 140, y: 180, z: 0}
+  lowest_intensity_multiplier: 1
+  highest_intensity_multiplier: 1.5
+  noise_Illumination_rotation_min: {x: 60, y: -180, z: 0}
+  noise_Illumination_rotation_max: {x: 120, y: 180, z: 0}
 --- !u!108 &1765163273
 Light:
   m_ObjectHideFlags: 0
@@ -168,8 +168,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.98039216, b: 0.8745098, a: 1}
-  m_Intensity: 1.1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 3.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
@@ -178,7 +178,7 @@ Light:
     m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.2
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -243,7 +243,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1830221453}
   - component: {fileID: 1830221452}
+  - component: {fileID: 1830221451}
+  - component: {fileID: 1830221454}
   - component: {fileID: 1830221455}
+  - component: {fileID: 1830221456}
   - component: {fileID: 1830221457}
   m_Layer: 0
   m_Name: Main Camera
@@ -252,6 +255,45 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1830221451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830221450}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e168ed63c064a80e3b3ceb5ddc5a904f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beetLeaf: {fileID: 8675623560398367707, guid: 6330c17d72ea8f3d3a545444a7f2be7b, type: 3}
+  beetLeafScale: {x: 0.05, y: 0.05, z: 0.05}
+  galliumLeaf: {fileID: 100024, guid: 8aa6aaefd58ce410386271e12c533e81, type: 3}
+  galliumLeafScale: {x: 0.03, y: 0.03, z: 0.03}
+  galliumSteam: {fileID: 100000, guid: c5fc95659fabb49358ae74f69954d034, type: 3}
+  galliumStemScale: {x: 0.001, y: 0.075, z: 0.001}
+  capsellaLeaf1: {fileID: 5021228058555553362, guid: e2d0c79b72ef5445b9764c61c9df86ac, type: 3}
+  capsellaLeaf2: {fileID: 8460931437205624937, guid: b95b6e7806aceb47398b121c60c63c55, type: 3}
+  capsellaLeaf3: {fileID: 3908062073276738960, guid: cce0b4abff7239a00bbe50efb0890021, type: 3}
+  capsellaLeaf4: {fileID: 3875786308137477530, guid: 01220f317280b93bd9c0eb7eafdda2dc, type: 3}
+  capsellaLeaf5: {fileID: 8477647202122400895, guid: 0143a0e84b523e8b09af65a6406d44b2, type: 3}
+  capsellaLeaf6: {fileID: 3376891662767837440, guid: 3777f162f64314cc0945965988bcdf78, type: 3}
+  capsellaLeaf7: {fileID: 2138287426676506797, guid: 8aec2651da28d020a9974a4d69fcef35, type: 3}
+  capsellaLeaf8: {fileID: 2786061835743926620, guid: e53ab907f6b239e08a1fa5dc25774f03, type: 3}
+  capsellaLeaf9: {fileID: 767472578714892820, guid: 456a5b871f3614a8a814cc16e7d07941, type: 3}
+  capsellaLeafScale: {x: 0.1, y: 0.1, z: 0.1}
+  CapsellaRed: {fileID: 2100000, guid: ecd5dc0192869e1f39919fd399b56407, type: 2}
+  GalliumRed: {fileID: 2100000, guid: 4cb816ad8c96e9879af035b97e1648ea, type: 2}
+  BeetBlack: {fileID: 2100000, guid: 47631bc02182aa0a387ad283d9bd24ab, type: 2}
+  CapsellaBlack: {fileID: 2100000, guid: e082f46d58098e24c9982676b9feb4f0, type: 2}
+  GalliumBlack: {fileID: 2100000, guid: 5d5450ca1eb7e51799358cdcfdad8f7b, type: 2}
+  PlainBlack: {fileID: 2100000, guid: 47631bc02182aa0a387ad283d9bd24ab, type: 2}
+  green: {fileID: 2100000, guid: b6332b3b1ebf56326948013569a1ffdc, type: 2}
+  white: {fileID: 2100000, guid: 098d0a9e7a6f057b884a5f5f1c477533, type: 2}
+  terrain: {fileID: 4754444019115480821, guid: 66f9ef7a15d52578b8fd4ff13a2b0d52, type: 3}
+  TakeScreenshots: 0
+  SaveBoxes: 0
 --- !u!20 &1830221452
 Camera:
   m_ObjectHideFlags: 0
@@ -277,7 +319,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 50
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -303,51 +345,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830221450}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 10.06, y: 2, z: 6.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &1830221455
+--- !u!114 &1830221454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830221450}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
+  m_Script: {fileID: 11500000, guid: aaa7ab44c00761145afbf964fd64ec3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
   delayToSave: 1
-  delayToSwitch: 1
+  delayToSwitch: 2
   delayToRespawn: 1
   varyField: 1
   varyCamera_position: 1
-  noise_camera_position: {x: 2, y: 0, z: 2}
-  varyCamera_rotation: 0
-  noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 0
-  varyIllumination_orientation: 0
+  noise_camera_position: {x: 0, y: 0, z: 0}
+  varyCamera_rotation: 1
+  noise_camera_rotation: {x: 0, y: 0, z: 0}
+  varyIllumination_intensity: 1
+  varyIllumination_orientation: 1
   altitudeTest: 0
-  altitudes:
-  - 3
-  - 10
-  - 20
-  - 40
+  altitudes: []
   takeOverallScreenshot: 0
   overlapTest: 0
-  takeOnlyOnePOV: 1
+  takeOnlyOnePOV: 0
   randomPOV: 0
   overlapId_Distance: -1
   forcedFOV: 0
   forcedShiftDistance: 0
   forcedWidth: 0
   forcedHeight: 0
-  altitude: 20
+  altitude: 10
   useForcedAmounts_goodPlant: 0
   iterateUp_goodPlant: 1
   resetImgId_duringForcedAmounts: 0
@@ -362,12 +400,84 @@ MonoBehaviour:
   sub_ForcedAmountHigh_badPlant: -1
   Include_NIR: 0
   Include_TAG: 0
-  goodPlantSpawner: {fileID: 3441688999748511668, guid: 233f564ac47e1d091958be5be47ec365, type: 3}
-  goodPlant: {fileID: 3247680888802322304, guid: b0ddee45a628e3dc4a68b0abf5a6f0df, type: 3}
-  goodPlant_Offset: {x: 0, y: 0, z: 0}
+  goodPlantSpawner: {fileID: 0}
+  goodPlant: {fileID: 3247680888802322304, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+  goodPlant_Offset: {x: 0, y: 0.1, z: 0}
   goodPlantScale: {x: 1, y: 1, z: 1}
   textWeedSpawner: {fileID: 0}
-  textWeed_Offset: {x: 0, y: 0, z: 0}
+  textWeed_Offset: {x: 0, y: 0.1, z: 0}
+  WeedNumber: 14
+  weedPlantSpawner: {fileID: 0}
+  weedPlants: []
+  weedPlants_Offset: []
+  weedPlants_Rotation_Min: []
+  weedPlants_Rotation_Max: []
+  weedPlants_Scale: []
+  terrain: {fileID: 4754444019115480821, guid: 66f9ef7a15d52578b8fd4ff13a2b0d52, type: 3}
+  terrainOffset: {x: 0, y: 0, z: 0}
+  TakeScreenshots: 0
+  SaveBoundingBoxes: 1
+  SaveBoxes: 0
+  minImageIndex: 1
+  maxImageIndex: 10
+  varyFieldInterval: 10
+  width: 1024
+  height: 1024
+--- !u!114 &1830221455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830221450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 1
+  delayToSave: 1
+  delayToSwitch: 2
+  delayToRespawn: 1
+  varyField: 1
+  varyCamera_position: 1
+  noise_camera_position: {x: 3, y: 0, z: 3}
+  varyCamera_rotation: 0
+  noise_camera_rotation: {x: 0, y: 180, z: 0}
+  varyIllumination_intensity: 0
+  varyIllumination_orientation: 0
+  altitudeTest: 0
+  altitudes: []
+  takeOverallScreenshot: 0
+  overlapTest: 0
+  takeOnlyOnePOV: 0
+  randomPOV: 0
+  overlapId_Distance: -1
+  forcedFOV: 0
+  forcedShiftDistance: 0
+  forcedWidth: 0
+  forcedHeight: 0
+  altitude: 10
+  useForcedAmounts_goodPlant: 0
+  iterateUp_goodPlant: 1
+  resetImgId_duringForcedAmounts: 0
+  ForcedAmountLow_goodPlant: -1
+  ForcedAmountHigh_goodPlant: -1
+  sub_ForcedAmountLow_goodPlant: -1
+  sub_ForcedAmountHigh_goodPlant: -1
+  resetImgId_duringForcedSubAmounts: 0
+  ForcedAmountLow_badPlant: -1
+  ForcedAmountHigh_badPlant: -1
+  sub_ForcedAmountLow_badPlant: -1
+  sub_ForcedAmountHigh_badPlant: -1
+  Include_NIR: 1
+  Include_TAG: 1
+  goodPlantSpawner: {fileID: 3441688999748511668, guid: 2f5df025a08190aeb96b716f465259d4, type: 3}
+  goodPlant: {fileID: 9162085571466964456, guid: 0d209be6d6c71c823810c667f47e932d, type: 3}
+  goodPlant_Offset: {x: 0, y: 0.2, z: 0}
+  goodPlantScale: {x: 1, y: 1, z: 1}
+  textWeedSpawner: {fileID: 0}
+  textWeed_Offset: {x: 0, y: 0.1, z: 0}
   WeedNumber: 100
   weedPlantSpawner: {fileID: 0}
   weedPlants:
@@ -380,16 +490,45 @@ MonoBehaviour:
   - {x: 180, y: 180, z: 0}
   weedPlants_Scale:
   - {x: 1.2, y: 1.2, z: 1.2}
-  terrain: {fileID: 8776146947587348574, guid: 4b3d6424778939a1b8ac00342e19c222, type: 3}
-  terrainOffset: {x: 35, y: -0.5, z: 35}
+  terrain: {fileID: 339873330507695336, guid: 4547266bb275acd519eccc25bfae6f16, type: 3}
+  terrainOffset: {x: 10, y: 0, z: 5}
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
   minImageIndex: 1
-  maxImageIndex: 1000
+  maxImageIndex: 4000
   varyFieldInterval: 1
-  width: 3072
-  height: 3072
+  width: 1024
+  height: 1024
+--- !u!114 &1830221456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830221450}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca8bf16d476484b0a30681b1a3d8996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Include_NIR: 0
+  goodPlant: {fileID: 3247680888802322304, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
+  goodPlant_Offset: {x: 0, y: 0.1, z: 0}
+  goodPlantScale: {x: 1, y: 1, z: 1}
+  WeedNumber: 14
+  weedPlants: []
+  weedPlants_Offset: []
+  weedPlants_Rotation_Min: []
+  weedPlants_Rotation_Max: []
+  weedPlants_Scale: []
+  capsellaLeafScale: {x: 1, y: 1, z: 1}
+  PlainBlack: {fileID: 0}
+  green: {fileID: 0}
+  white: {fileID: 0}
+  terrain: {fileID: 339873330507695336, guid: 4547266bb275acd519eccc25bfae6f16, type: 3}
+  TakeScreenshots: 0
+  SaveBoxes: 0
 --- !u!114 &1830221457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,12 +536,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830221450}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94cbb413f30ce701493bd7eea7f058c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayBoxes: 1
+  displayBoxes: 0
 --- !u!850595691 &1995085377
 LightingSettings:
   m_ObjectHideFlags: 0

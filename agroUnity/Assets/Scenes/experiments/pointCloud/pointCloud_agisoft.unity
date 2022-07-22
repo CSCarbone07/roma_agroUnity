@@ -679,6 +679,8 @@ MonoBehaviour:
   takeScreenshotOnStart: 0
   saveBoundingBoxes: 0
   plantSpawners: []
+  zero_latitude: 41.90121857710724
+  zero_longitude: 12.499919190501346
 --- !u!20 &1830221452
 Camera:
   m_ObjectHideFlags: 0
@@ -748,6 +750,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d977f050ec534f2e381b582b41fc5cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  altitudeBasedOnGSD: 0
+  groundSampleDistance: 0.01
   altitude: 5
   overlap: {x: 80, y: 0, z: 80}
   limit: {x: 35, y: 200, z: 30}
@@ -780,6 +784,7 @@ MonoBehaviour:
   - 10
   - 20
   - 40
+  takeOverallScreenshot: 0
   overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 1
@@ -826,7 +831,7 @@ MonoBehaviour:
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  minImageIndex: 294
+  minImageIndex: 1
   maxImageIndex: 400
   varyFieldInterval: 1
   width: 3072

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3641909391706144856}
   - component: {fileID: 8724783325342891044}
   m_Layer: 0
-  m_Name: Field_SugarBeet_plant_01
+  m_Name: Field_SugarBeet_ancona_plant_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

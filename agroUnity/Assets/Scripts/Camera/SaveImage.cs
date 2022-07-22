@@ -17,8 +17,20 @@ public class SaveImage : MonoBehaviour
 
     public List<GameObject> plantSpawners = null;
 
+    // globally average value according to wikipedia
+    // https://en.wikipedia.org/wiki/Earth_radius
+    private float earthRadiusKm = 6371;
+
     private int counter = 0;
     private List<GameObject> allPlants = null;
+
+   
+    // termini coordinates 41.90121857710724, 12.499919190501346
+    //[Tooltip("Latitude, Longitude, Altitude")]
+    //public Vector3 zero_coordinate = new Vector3(41.90121857710724, 12.499919190501346 , 0);
+    public double zero_latitude = 41.90121857710724;
+    public double zero_longitude = 12.499919190501346;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +47,34 @@ public class SaveImage : MonoBehaviour
     {
         
     }
+    
+    public float degreesToRadians(float degrees) {
+      return degrees * Mathf.PI / 180;
+    }
 
+    public float distanceInKmBetweenEarthCoordinates(float lat1, float lon1, float lat2, float lon2) {
+
+      float dLat = degreesToRadians(lat2-lat1);
+      float dLon = degreesToRadians(lon2-lon1);
+
+      lat1 = degreesToRadians(lat1);
+      lat2 = degreesToRadians(lat2);
+
+      var a = Mathf.Sin(dLat/2) * Mathf.Sin(dLat/2) +
+	      Mathf.Sin(dLon/2) * Mathf.Sin(dLon/2) * Mathf.Cos(lat1) * Mathf.Cos(lat2); 
+      var c = 2 * Mathf.Atan2(Mathf.Sqrt(a), Mathf.Sqrt(1-a)); 
+      return earthRadiusKm * c;
+    }
+
+    public double convertToGNSS_longitude_difference(float x) // in meters
+    {
+      return x * (1/(earthRadiusKm * 1000)) * (180 / Mathf.PI);
+    }
+    public double convertToGNSS_latitude_difference(float z) // in meters
+    {
+      return z * (1/(earthRadiusKm * 1000)) * (180 / Mathf.PI);
+    }
+    
     public void TakeScreenshot(string sub, int c)
     {
         counter = c;
@@ -65,10 +104,12 @@ public class SaveImage : MonoBehaviour
         filename = string.Format("{0}" + savePath + "transforms/" + "{1}.txt", Application.persistentDataPath, counter);
 
         string[] content = new string[2];
+        content[0] = "Label,Latitude,Longitude,Altitude,Roll,Pitch,Yaw";
         //content[0] = "Position: " + this.transform.position.ToString();
         //content[1] = "Rotation: " + this.transform.rotation.ToString();
-        content[0] = "Position " + this.transform.position.x.ToString() + " " + this.transform.position.y.ToString() + " " + this.transform.position.z.ToString();
-        content[1] = "Rotation " + this.transform.eulerAngles.x.ToString() + " " + this.transform.eulerAngles.y.ToString() + " " + this.transform.eulerAngles.z.ToString();
+        //content[1] = "Position " + this.transform.position.x.ToString() + " " + this.transform.position.y.ToString() + " " + this.transform.position.z.ToString();
+        //content[2] = "Rotation " + this.transform.eulerAngles.x.ToString() + " " + this.transform.eulerAngles.y.ToString() + " " + this.transform.eulerAngles.z.ToString();
+        content[1] = counter.ToString() + "," + (zero_latitude + convertToGNSS_latitude_difference(this.transform.position.z)).ToString() + "," + (zero_longitude + convertToGNSS_longitude_difference(this.transform.position.x)).ToString() + "," + this.transform.position.y.ToString() + "," + this.transform.eulerAngles.z.ToString() + "," + this.transform.eulerAngles.x.ToString() + "," + this.transform.eulerAngles.y.ToString();
         File.WriteAllLines(filename, content);
 
 	if(saveBoundingBoxes)

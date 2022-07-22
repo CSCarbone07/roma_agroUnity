@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3641909391706144856}
   - component: {fileID: 8724783325342891044}
   m_Layer: 0
-  m_Name: Field_SugarBeet_plant_01
+  m_Name: Field_SugarBeet_ancona_weed_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,16 +44,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
-  gridX: 20
-  gridY: 25
-  spacingX: 1
-  spacingY: 0.5
-  Rotation: {x: 0, y: 0, z: 0}
+  useSeed: 0
+  seed: 0
+  overallPositionRandomness: {x: 0, y: 0, z: 0}
+  overallRotationRandomness: {x: 0, y: 0, z: 0}
+  gridX: 100
+  gridY: 100
+  spacingX: 0.1
+  spacingY: 0.1
+  Rotation: {x: 90, y: 0, z: 0}
   Scale: {x: 1, y: 1, z: 1}
-  positionRandomness: {x: 0, y: 0, z: 0}
+  positionOffset: {x: 0, y: 0, z: 0}
+  positionRandomness: {x: 0.5, y: 0, z: 0.5}
   addRandomRotationX: 0
   addRandomRotationY: 0
   addRandomRotationZ: 0
-  scaleRandomness: 0
-  Density: 100
+  scaleRandomness: 0.1
+  Density: 0.5
+  ForcedAmountLow: -1
+  ForcedAmountHigh: -1
+  sub_ForcedAmountLow: -1
+  sub_ForcedAmountHigh: -1
   updateInstantiation: 0
+  switchToRGB: 0
+  switchToNIR: 0
+  switchToTAG: 0

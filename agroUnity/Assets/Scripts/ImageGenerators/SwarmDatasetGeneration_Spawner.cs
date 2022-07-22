@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 {
-    private bool DEBUG_ALL = true;
+    private bool DEBUG_ALL = false;
 
     private Vector3 cameraInitialPosition;
 
@@ -302,7 +302,9 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 	#endif
         GC.Collect();
 
-        Debug.Log("spawning");
+
+	if(DEBUG_ALL) 
+	{Debug.Log("spawning");}
         CounterUpdate();
         //Random.seed = counter;
         seed++;
@@ -315,8 +317,12 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         (varyField && (varyFieldInterval > 0 && counter > 1 && (counter-1) % varyFieldInterval == 0)) 
         && (!altitudeTest || altitudeId == altitudesSize)))
         {
+
+	    if(DEBUG_ALL)
+	    {
             print("respawning on counter " + counter);
             print("Varation interval " + varyFieldInterval);
+	    }
             SpawnTerrain();
             Spawn();
         }
@@ -325,7 +331,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             if (!firstSpawn)
             {
                 SwitchToRGB();
+		if(DEBUG_ALL)
+		{
                 print("switched to RGB on counter " + counter);
+		}
             }
 
         }
@@ -347,7 +356,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             float randomRotY = Random.Range(-noise_camera_rotation.y, noise_camera_rotation.y);
             float randomRotZ = Random.Range(-noise_camera_rotation.z, noise_camera_rotation.z);
 
-            print("varying rotation " + randomRotY);
+
+	    if(DEBUG_ALL) 
+	    {
+	      print("varying rotation " + randomRotY);
+	    }
 
 
             this.transform.rotation = Quaternion.Euler(90 + randomRotX, randomRotY, randomRotZ);
@@ -368,7 +381,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         if (varyCamera_position && (firstSpawn || 
         (overlapTestStart && (!altitudeTest || altitudeId==altitudesSize)) ))
         { 
-            print("Varying position");
+	    if(DEBUG_ALL) 
+	    {
+	      print("Varying position");
+	    }
 
             randInitX = Random.Range(-noise_camera_position.x, noise_camera_position.x);
             randInitY = Random.Range(-noise_camera_position.y, noise_camera_position.y);
@@ -379,7 +395,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         if(altitudeTest && overlapTestStart)
         {
-            print("Increasing altitude id from " + altitudeId);
+	    if(DEBUG_ALL) 
+	    {
+	      print("Increasing altitude id from " + altitudeId);
+	    }
 
             if(altitudeId == altitudesSize)
             {
@@ -424,7 +443,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         if (overlapTest)
         {
-            print("Increasing overlap id from " + overlapNum);
+	    if(DEBUG_ALL) 
+	    {
+	      print("Increasing overlap id from " + overlapNum);
+	    }
 
             overlapNum++;
             if (overlapTestStart)
@@ -545,20 +567,22 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 overlapHeight_0 = ((forcedHeight / 3) * (1-overlapRow))+trimHeight/2;
                 overlapHeight_1 = ((forcedHeight / 3) * (2-overlapRow))+trimHeight/2;
                 
-                print("altitude: " + altitude);
-                print("width: " + width);
-                print("height: " + height);
-                print("forcedWidth: " + forcedWidth);
-                print("forcedHeight: " + forcedHeight);
-                print("trimWidth: " + trimWidth);
-                print("trimHeight: " + trimHeight);
-                print("overlapColumn: " + overlapColumn);
-                print("overlapRow: " + overlapRow); 
-                print("overlapWidth_0: " + overlapWidth_0);
-                print("overlapWidth_1: " + overlapWidth_1);
-                print("overlapHeight_0: " + overlapHeight_0);
-                print("overlapHeight_1: " + overlapHeight_1);
-                
+		if(DEBUG_ALL) 
+		{
+		  print("altitude: " + altitude);
+		  print("width: " + width);
+		  print("height: " + height);
+		  print("forcedWidth: " + forcedWidth);
+		  print("forcedHeight: " + forcedHeight);
+		  print("trimWidth: " + trimWidth);
+		  print("trimHeight: " + trimHeight);
+		  print("overlapColumn: " + overlapColumn);
+		  print("overlapRow: " + overlapRow); 
+		  print("overlapWidth_0: " + overlapWidth_0);
+		  print("overlapWidth_1: " + overlapWidth_1);
+		  print("overlapHeight_0: " + overlapHeight_0);
+		  print("overlapHeight_1: " + overlapHeight_1);
+		} 
 
             }
 
@@ -592,7 +616,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 */
 
 
-	print("loop finished, setting material and respawn delays");
+	if(DEBUG_ALL) 
+	{
+	  print("loop finished, setting material and respawn delays");
+	}
 
         accumulatedDelay = 0;
 
@@ -630,7 +657,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             }
         }
 
-	print("materials invoked");
+
+	if(DEBUG_ALL) 
+	{
+	  print("materials invoked");
+	}
 
         //if (varyField || (varyFieldInterval > 0 && counter % varyFieldInterval == 0))
         if ((varyField && (varyFieldInterval > 0 && counter > 0 && (counter) % varyFieldInterval == 0)) 
@@ -647,8 +678,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             Invoke("dataLoop", accumulatedDelay);
         }
 	
-	print("respawns invoked");
-        
+	if(DEBUG_ALL) 
+	{
+	  print("respawns invoked");
+	} 
 	firstSpawn = false;
 
     }
@@ -669,7 +702,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void clearScene()
     {
-        print("clearing scene");
+	
+	if(DEBUG_ALL) 
+	{
+	  print("clearing scene");
+	}
         Destroy(newTerrain);
 
         foreach (GameObject p in newPlant)
@@ -717,9 +754,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         Vector3 pos = RandomPosition();
         Vector3 plant_start_pos = goodPlant_Offset;
         Vector3 weed_start_pos = weedPlants_Offset[0];
-
+	
+	if(DEBUG_ALL) 
+	{
 	print("spawning all");
-
+	}
         if(useForcedAmounts_goodPlant)
         {
 	  //print("forced plants iteration, overlap column " + overlapColumn + " overlapRow " + overlapRow + " overlapNum " + overlapNum);
@@ -763,9 +802,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 		      }
 		  }
 		}
-		print ("iterating. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
-		print ("iterating. forced low " +  ForcedAmountLow_goodPlant + " forced sub low " + sub_ForcedAmountLow_goodPlant);
-             
+		if(DEBUG_ALL) 
+		{
+		  print ("iterating. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
+		  print ("iterating. forced low " +  ForcedAmountLow_goodPlant + " forced sub low " + sub_ForcedAmountLow_goodPlant);
+		}     
             }
             else
             {
@@ -775,7 +816,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 	  }
         }
 
-        print ("Spawning plant. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
+	if(DEBUG_ALL) 
+	{
+	  print ("Spawning plant. Current low " +  current_ForcedAmountLow_goodPlant + " current sub low " + current_sub_ForcedAmountLow_goodPlant);
+	}
 
         if(goodPlantSpawner!=null)
         { 
@@ -795,7 +839,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
                 }
             }
         }
-	print("good plant spawned");
+	if(DEBUG_ALL) 
+	{
+	  print("good plant spawned");
+	}
         if (weedPlantSpawner != null)
         {
             if (spawned_weedPlantSpawner == null)
@@ -844,7 +891,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void SwitchToRGB()
     {
-        print("Switching to RGB");
+	if(DEBUG_ALL) 
+	{
+	  print("Switching to RGB");
+	}
         foreach (GameObject g in newPlant)
         {
             g.GetComponent<SpawnerAndSwitch>().SwitchToRGB();
@@ -868,7 +918,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void SwitchToNIR()
     {
-        print("Switching to NIR");
+	if(DEBUG_ALL) 
+	{
+	  print("Switching to NIR");
+	}
         foreach (GameObject g in newPlant)
         {
             g.GetComponent<SpawnerAndSwitch>().SwitchToNIR();
@@ -892,7 +945,10 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void SwitchToTAG()
     {
-        print("Switching to TAG");
+	if(DEBUG_ALL) 
+	{
+	  print("Switching to TAG");
+	}
         foreach (GameObject g in newPlant)
         {
             g.GetComponent<SpawnerAndSwitch>().SwitchToTAG();
@@ -918,8 +974,11 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
     private void SaveRGB() //mode can be type.Image or type.Mask
     {
-	print("Saving rgb with counter " + counter + " CFALG " + current_sub_ForcedAmountLow_goodPlant + " CFASLG " 
-	    + current_sub_ForcedAmountLow_goodPlant + " overlapNum " + overlapNum);
+	if(DEBUG_ALL) 
+	{
+	  print("Saving rgb with counter " + counter + " CFALG " + current_sub_ForcedAmountLow_goodPlant + " CFASLG " 
+	      + current_sub_ForcedAmountLow_goodPlant + " overlapNum " + overlapNum);
+	}
         
 	RenderTexture rt;
         Texture2D screenShot;
@@ -1127,7 +1186,22 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
 
         byte[] bytes = screenShot.EncodeToPNG();
         //string filename = ScreenshotName(mode, field);
-        string filename = string.Format("{0}/Dataset/nir/{1}.png", Application.persistentDataPath, counter);
+	//string filename = string.Format("{0}/Dataset/nir/{1}.png", Application.persistentDataPath, counter);
+        string filename;
+        if (altitudeTest)
+        {
+            //filename = string.Format("{0}/Dataset/{1}/tag/{2}_{3}{4}.png"
+            //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
+            filename = string.Format("{0}/Dataset/nir/{1}_{2}_{3}.png"
+            , Application.persistentDataPath, currentTestAltitude, counter, overlapNum);
+        }
+        else
+        {
+            //filename = string.Format("{0}/Dataset/tag/{1}_{2}{3}.png"
+            //, Application.persistentDataPath, counter, overlapRow, overlapColumn);
+            filename = string.Format("{0}/Dataset/nir/{1}_{2}.png"
+            , Application.persistentDataPath, counter, overlapNum);
+        }
         System.IO.File.WriteAllBytes(filename, bytes);
     }
 

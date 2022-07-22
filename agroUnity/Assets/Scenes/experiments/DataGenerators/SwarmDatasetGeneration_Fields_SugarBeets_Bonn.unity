@@ -169,7 +169,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3.5
+  m_Intensity: 2.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
@@ -216,6 +216,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1765163274
@@ -344,7 +345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830221450}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10.06, y: 20, z: 6.52}
+  m_LocalPosition: {x: 10, y: 2, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -363,6 +364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
+  delayToSave: 1
+  delayToSwitch: 2
+  delayToRespawn: 1
   varyField: 1
   varyCamera_position: 1
   noise_camera_position: {x: 0, y: 0, z: 0}
@@ -370,13 +374,38 @@ MonoBehaviour:
   noise_camera_rotation: {x: 0, y: 0, z: 0}
   varyIllumination_intensity: 1
   varyIllumination_orientation: 1
+  altitudeTest: 0
+  altitudes: []
+  takeOverallScreenshot: 0
   overlapTest: 0
+  takeOnlyOnePOV: 0
+  randomPOV: 0
+  overlapId_Distance: -1
+  forcedFOV: 0
+  forcedShiftDistance: 0
+  forcedWidth: 0
+  forcedHeight: 0
   altitude: 10
+  useForcedAmounts_goodPlant: 0
+  iterateUp_goodPlant: 1
+  resetImgId_duringForcedAmounts: 0
+  ForcedAmountLow_goodPlant: -1
+  ForcedAmountHigh_goodPlant: -1
+  sub_ForcedAmountLow_goodPlant: -1
+  sub_ForcedAmountHigh_goodPlant: -1
+  resetImgId_duringForcedSubAmounts: 0
+  ForcedAmountLow_badPlant: -1
+  ForcedAmountHigh_badPlant: -1
+  sub_ForcedAmountLow_badPlant: -1
+  sub_ForcedAmountHigh_badPlant: -1
   Include_NIR: 0
+  Include_TAG: 0
   goodPlantSpawner: {fileID: 0}
   goodPlant: {fileID: 3247680888802322304, guid: fae438e451b0198f9a62a34e6995e8d0, type: 3}
   goodPlant_Offset: {x: 0, y: 0.1, z: 0}
   goodPlantScale: {x: 1, y: 1, z: 1}
+  textWeedSpawner: {fileID: 0}
+  textWeed_Offset: {x: 0, y: 0.1, z: 0}
   WeedNumber: 14
   weedPlantSpawner: {fileID: 0}
   weedPlants: []
@@ -389,10 +418,11 @@ MonoBehaviour:
   TakeScreenshots: 0
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  cropRows: 6
   minImageIndex: 1
   maxImageIndex: 10
   varyFieldInterval: 10
+  width: 1024
+  height: 1024
 --- !u!114 &1830221455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,26 +436,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1
-  varyField: 0
-  varyCamera_position: 0
-  noise_camera_position: {x: 3, y: 5, z: 3}
+  delayToSave: 1
+  delayToSwitch: 2
+  delayToRespawn: 1
+  varyField: 1
+  varyCamera_position: 1
+  noise_camera_position: {x: 2, y: 0, z: 2}
   varyCamera_rotation: 0
   noise_camera_rotation: {x: 0, y: 180, z: 0}
   varyIllumination_intensity: 0
   varyIllumination_orientation: 0
+  altitudeTest: 0
+  altitudes: []
+  takeOverallScreenshot: 0
   overlapTest: 0
+  takeOnlyOnePOV: 0
+  randomPOV: 0
+  overlapId_Distance: -1
+  forcedFOV: 0
+  forcedShiftDistance: 0
+  forcedWidth: 0
+  forcedHeight: 0
   altitude: 10
-  Include_NIR: 0
+  useForcedAmounts_goodPlant: 0
+  iterateUp_goodPlant: 1
+  resetImgId_duringForcedAmounts: 0
+  ForcedAmountLow_goodPlant: -1
+  ForcedAmountHigh_goodPlant: -1
+  sub_ForcedAmountLow_goodPlant: -1
+  sub_ForcedAmountHigh_goodPlant: -1
+  resetImgId_duringForcedSubAmounts: 0
+  ForcedAmountLow_badPlant: -1
+  ForcedAmountHigh_badPlant: -1
+  sub_ForcedAmountLow_badPlant: -1
+  sub_ForcedAmountHigh_badPlant: -1
+  Include_NIR: 1
+  Include_TAG: 1
   goodPlantSpawner: {fileID: 3441688999748511668, guid: 2f5df025a08190aeb96b716f465259d4, type: 3}
   goodPlant: {fileID: 9162085571466964456, guid: 0d209be6d6c71c823810c667f47e932d, type: 3}
-  goodPlant_Offset: {x: 0, y: 0.2, z: 0}
+  goodPlant_Offset: {x: 0, y: 0.3, z: 0}
   goodPlantScale: {x: 1, y: 1, z: 1}
+  textWeedSpawner: {fileID: 0}
+  textWeed_Offset: {x: 5, y: 0.1, z: 5}
   WeedNumber: 100
-  weedPlantSpawner: {fileID: 0}
+  weedPlantSpawner: {fileID: 3441688999748511668, guid: e57425d5bff615502871b0ea14332cef, type: 3}
   weedPlants:
   - {fileID: 1880638552065739605, guid: 8662116dd1f62d41daab71c69c79dc5d, type: 3}
   weedPlants_Offset:
-  - {x: 0, y: 1, z: 0}
+  - {x: 5, y: 1.01, z: 0}
   weedPlants_Rotation_Min:
   - {x: 180, y: -180, z: 0}
   weedPlants_Rotation_Max:
@@ -433,14 +491,15 @@ MonoBehaviour:
   weedPlants_Scale:
   - {x: 1.2, y: 1.2, z: 1.2}
   terrain: {fileID: 339873330507695336, guid: 4547266bb275acd519eccc25bfae6f16, type: 3}
-  terrainOffset: {x: 10, y: 0, z: 5}
+  terrainOffset: {x: 10, y: 0.5, z: 5}
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
   SaveBoxes: 0
-  cropRows: 6
   minImageIndex: 1
-  maxImageIndex: 100
-  varyFieldInterval: 3
+  maxImageIndex: 1034
+  varyFieldInterval: 1
+  width: 1024
+  height: 1024
 --- !u!114 &1830221456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,7 +549,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 2
+  serializedVersion: 3
   m_GIWorkflowMode: 0
   m_EnableBakedLightmaps: 1
   m_EnableRealtimeLightmaps: 1
@@ -512,7 +571,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
   m_ExportTrainingData: 0
   m_TrainingDataDestination: TrainingData
   m_RealtimeResolution: 2
@@ -529,7 +588,7 @@ LightingSettings:
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
   m_PVRBounces: 2
-  m_PVRRussianRouletteStartBounce: 2
+  m_PVRMinBounces: 1
   m_PVREnvironmentMIS: 0
   m_PVRFilteringMode: 2
   m_PVRDenoiserTypeDirect: 0
