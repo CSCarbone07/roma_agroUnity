@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 [ExecuteInEditMode]
 public class SugarBeet_Spawner : SpawnerAndSwitch
 {
+    private bool DEBUG_ALL = false;
 
     public Material TestMaterial;
 
@@ -401,7 +402,10 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
         {
             for (int x = 0; x < usedAmount; x++)
             {
-		print("SugarBeet_Spawner | switchingToTAG");
+		if(DEBUG_ALL)
+		{
+		  print("SugarBeet_Spawner | switchingToTAG");
+		}
                 GameObject createdPrefabLeaf = Instantiate(beetLeaf_TAG[createdPrefabLeavesType[x]], createdPrefabLeaves[x].transform.position, createdPrefabLeaves[x].transform.rotation);
                 //(beetLeaf_NIR[createdPrefabLeavesType[x]], createdPrefabLeaves[x]);
                 createdPrefabLeaf.transform.SetParent(this.transform);
@@ -415,7 +419,10 @@ public class SugarBeet_Spawner : SpawnerAndSwitch
 
     public void getLeaves()
     {
-        print("types of leaves");
+	if(DEBUG_ALL)
+	{
+	  print("types of leaves");
+	}
         //print(this.transform.GetChilds);
         //print(createdPrefabLeavesType[0]);
         foreach (Transform child in transform)

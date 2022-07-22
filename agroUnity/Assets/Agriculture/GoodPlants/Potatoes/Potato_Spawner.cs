@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class Potato_Spawner : SpawnerAndSwitch
 {
+    private bool DEBUG_ALL = false;
+    
     public bool SpawnOnStart = false;
 
     public Material TestMaterial;
@@ -80,7 +82,10 @@ public class Potato_Spawner : SpawnerAndSwitch
 
     public override void setPlantScale(float inScale)
     {
-        print("set plant scale " + inScale);
+	if(DEBUG_ALL)
+	{
+	  print("set plant scale " + inScale);
+	}
 
         stemScale.x += inScale;
         stemScale.y += inScale;
@@ -97,7 +102,10 @@ public class Potato_Spawner : SpawnerAndSwitch
     {
         totalStems = UnityEngine.Random.Range(minStems,maxStems);
 
-        print("total stems " + totalStems);
+	if(DEBUG_ALL)
+	{
+	  print("total stems " + totalStems);
+	}
 
         foreach (Transform child in transform) //this.gameObject.transform)
         {
