@@ -16,6 +16,7 @@ public class Inspection_Move : MonoBehaviour
 
     [Tooltip("Set the altitude of the camera, invalid if altitudeBasedOnGSD is active")]
     public float altitude = 5;
+    private float altitude_max = 5;
     private Vector3 initalPosition = new Vector3(0, 0, 0);
     private Vector3 offset = new Vector3(1f, 1f, 1f);
     [Tooltip("Set overlap in percentage")]
@@ -52,38 +53,32 @@ public class Inspection_Move : MonoBehaviour
     {
         width = this.GetComponent<SaveImage>().width;
         height = this.GetComponent<SaveImage>().height;
-	//fov_vertical = this.GetComponent<SaveImage>().fieldOfView;
+	fov_vertical = Camera.main.fieldOfView;
+	print(fov_vertical);
 
 
 	if (altitudeBasedOnGSD)
 	{
 	  float smallestCameraDimension;
-	  float selected_fov; 
-	  float selected_footprint; 
-	  float aspectRatio;
+	  float diagonal_fov; 
+	  float footprint_horizontal = width * groundSampleDistance; 
+	  float footprint_vertical = height * groundSampleDistance; 
+	  float aspectRatio = width / height;
 	  float diagonal;
 	
-	  if (width < height)
-	  {
-	    smallestCameraDimension = width;
-	  }
-	  else
-	  {
-	    smallestCameraDimension = height;
-	    selected_fov = fov_vertical;
-	    selected_footprint = height * groundSampleDistance;
-	  } 
-	  
-	  aspectRatio = width / height;
-	  //diagonal = Mathf.Pow((Mathf.Pow(width*groundSampleDistance)+Mathf.Pow(height*groundSampleDistance)), 0.5f);
+	  //diagonal_fov = fov_vertical * Math.Atan() * 2 * 180/Mathf.PI;
+	  //diagonal = Mathf.Pow((Mathf.Pow(footprint_horizontal,2)+Mathf.Pow(footprint_vertical,2)), 0.5f);
 	  //altitude = diagonal / (2 * Mathf.Tan(selected_fov/2));
+	  
+	  altitude_max = (footprint_vertical / 2) / Mathf.Tan((fov_vertical/2)*Mathf.PI/180);
 
-	  this.transform.position = new Vector3(this.transform.position.x, altitude, this.transform.position.z);
+	  altitude = altitude_max;
 	}
-	else
-	{
-	  this.transform.position = new Vector3(this.transform.position.x, altitude, this.transform.position.z);
-	}
+
+
+	
+
+	this.transform.position = new Vector3(this.transform.position.x, altitude, this.transform.position.z);
         initalPosition = this.transform.position;
         //print(this.transform.position.y);
 

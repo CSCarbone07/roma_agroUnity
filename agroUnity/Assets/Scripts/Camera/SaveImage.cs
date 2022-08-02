@@ -26,9 +26,11 @@ public class SaveImage : MonoBehaviour
 
    
     // termini coordinates 41.90121857710724, 12.499919190501346
-    //[Tooltip("Latitude, Longitude, Altitude")]
+    //[Tooltip("Latitude, Longitude")]
     //public Vector3 zero_coordinate = new Vector3(41.90121857710724, 12.499919190501346 , 0);
+    [Tooltip("Latitude for 0.0 coordinates in Unity")] // latitude = vertical angle on earth
     public double zero_latitude = 41.90121857710724;
+    [Tooltip("Longitude for 0.0 coordinates in Unity")] // longitude = horizontal angle on earth
     public double zero_longitude = 12.499919190501346;
 
 
@@ -66,13 +68,19 @@ public class SaveImage : MonoBehaviour
       return earthRadiusKm * c;
     }
 
-    public double convertToGNSS_longitude_difference(float x) // in meters
-    {
-      return x * (1/(earthRadiusKm * 1000)) * (180 / Mathf.PI);
-    }
-    public double convertToGNSS_latitude_difference(float z) // in meters
+    // in meters
+    public double convertToGNSS_latitude_difference(float z) 
     {
       return z * (1/(earthRadiusKm * 1000)) * (180 / Mathf.PI);
+    }
+    // in meters, give z for latitude adjustment in longitude calculation
+    public double convertToGNSS_longitude_difference(float z, float x) 
+    {
+      // get earth horizontal radius at the given latitude to properly calculate the longitude angle
+      // difference
+      double inLatitude = zero_latitude + z * (1/(earthRadiusKm * 1000)) * (180 / Mathf.PI);
+      double earthRadiusKm_atLatitude = earthRadiusKm * Mathf.Cos( (float)inLatitude * Mathf.PI/180);
+      return x * (1/(earthRadiusKm_atLatitude * 1000)) * (180 / Mathf.PI);
     }
     
     public void TakeScreenshot(string sub, int c)
@@ -109,7 +117,7 @@ public class SaveImage : MonoBehaviour
         //content[1] = "Rotation: " + this.transform.rotation.ToString();
         //content[1] = "Position " + this.transform.position.x.ToString() + " " + this.transform.position.y.ToString() + " " + this.transform.position.z.ToString();
         //content[2] = "Rotation " + this.transform.eulerAngles.x.ToString() + " " + this.transform.eulerAngles.y.ToString() + " " + this.transform.eulerAngles.z.ToString();
-        content[1] = counter.ToString() + "," + (zero_latitude + convertToGNSS_latitude_difference(this.transform.position.z)).ToString() + "," + (zero_longitude + convertToGNSS_longitude_difference(this.transform.position.x)).ToString() + "," + this.transform.position.y.ToString() + "," + this.transform.eulerAngles.z.ToString() + "," + this.transform.eulerAngles.x.ToString() + "," + this.transform.eulerAngles.y.ToString();
+        content[1] = counter.ToString() + "," + (zero_latitude + convertToGNSS_latitude_difference(this.transform.position.z)).ToString() + "," + (zero_longitude + convertToGNSS_longitude_difference(this.transform.position.z, this.transform.position.x)).ToString() + "," + this.transform.position.y.ToString() + "," + this.transform.eulerAngles.z.ToString() + "," + this.transform.eulerAngles.x.ToString() + "," + this.transform.eulerAngles.y.ToString();
         File.WriteAllLines(filename, content);
 
 	if(saveBoundingBoxes)

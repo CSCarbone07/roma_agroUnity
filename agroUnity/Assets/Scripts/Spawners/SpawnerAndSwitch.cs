@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class SpawnerAndSwitch : MonoBehaviour
 {
+    private bool DEBUG_ALL = false;
+    
     public string objectClass = "-1";
+    public int appearanceId = -1;
     
     [HideInInspector]
     public bool hasBeenSpawned = true;

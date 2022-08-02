@@ -16,6 +16,8 @@ public class PrefabInstatiation : MonoBehaviour
     public bool useSeed = false;
     public int seed = 0;
 
+    public bool assignScalatingIds = false;
+
     [Tooltip("Randomness in position of overall field of instances")]
     public Vector3 overallPositionRandomness = new Vector3(0, 0, 0);
     [Tooltip("Randomness in rotation of overall field of instances")]
@@ -99,6 +101,8 @@ public class PrefabInstatiation : MonoBehaviour
     public virtual List<GameObject> procedural_Instantiate(GameObject inGameObject)
     {
         //gameObject.isStatic = true;
+	
+	int appearanceId = 0;
 
         List<GameObject> childrenToDestroy = new List<GameObject>();
         foreach (Transform child in transform) //this.gameObject.transform)
@@ -201,6 +205,12 @@ public class PrefabInstatiation : MonoBehaviour
 
                             if (createdPrefab.GetComponent<SpawnerAndSwitch>())
                             {
+				if(assignScalatingIds)
+				{
+				  appearanceId ++;
+				  createdPrefab.GetComponent<SpawnerAndSwitch>().appearanceId = appearanceId;
+				}
+
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().setPlantScale(Random.Range(-scaleRandomness, scaleRandomness));
                                 createdPrefab.GetComponent<SpawnerAndSwitch>().Spawn();
 
