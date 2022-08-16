@@ -380,7 +380,7 @@ MonoBehaviour:
   - {x: 180, y: 180, z: 0}
   weedPlants_Scale:
   - {x: 1.2, y: 1.2, z: 1.2}
-  terrain: {fileID: 8776146947587348574, guid: 4b3d6424778939a1b8ac00342e19c222, type: 3}
+  terrain: {fileID: 8776146947587348574, guid: 08ba8ddf53b452904b7a3932f3b483f9, type: 3}
   terrainOffset: {x: 35, y: -0.5, z: 35}
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
