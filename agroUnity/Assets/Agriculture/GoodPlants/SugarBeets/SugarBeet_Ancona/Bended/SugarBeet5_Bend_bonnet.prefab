@@ -90,7 +90,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d25e32b23085bfc69adcff627e6d83d7, type: 3}
       propertyPath: m_Name
-      value: SugarBeet5_Bend_wagenignen
+      value: SugarBeet5_Bend_bonnet
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d25e32b23085bfc69adcff627e6d83d7, type: 3}
       propertyPath: m_RootOrder

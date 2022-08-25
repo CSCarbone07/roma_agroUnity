@@ -9,16 +9,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1764501619534837000, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
       propertyPath: m_Name
-      value: weedBonirob_whiteTag 1
+      value: weedBonirob_whiteTag_bonnet
       objectReference: {fileID: 0}
     - target: {fileID: 2930737863377244354, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
       propertyPath: NIR_Mat
       value: 
-      objectReference: {fileID: 2100000, guid: ef1038cafedbdd736800a5808eb84aae, type: 2}
+      objectReference: {fileID: 2100000, guid: 5ce6174b27e36cc579a71642828d09c5, type: 2}
     - target: {fileID: 2930737863377244354, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
       propertyPath: RGB_Mat
       value: 
-      objectReference: {fileID: 2100000, guid: 8fa6ea42e375e554789a76282cabe43d, type: 2}
+      objectReference: {fileID: 2100000, guid: e8f48157810e5ad43b0a8d9229d2c143, type: 2}
     - target: {fileID: 2930737863377244354, guid: db0f841a0716e2732879939c03cbd7a9, type: 3}
       propertyPath: TAG_Mat
       value: 
