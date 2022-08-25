@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 500000
+  seed: 600000
   delayToSave: 1
   delayToSwitch: 1
   delayToRespawn: 1
