@@ -7,6 +7,7 @@ public class markerBox_spawner : SpawnerAndSwitch
 
     public GameObject[] spawnPoints;
     public GameObject[] markers;
+    //public GameObject[] markers_tag;
 
     public GameObject current_box;
     public GameObject box_rgb;
@@ -95,15 +96,15 @@ public class markerBox_spawner : SpawnerAndSwitch
     public override void SwitchToRGB()
     {
         base.SwitchToRGB();
-	/*
         GameObject spawnedInstance = Instantiate(box_rgb, current_box.transform.position, current_box.transform.rotation, this.transform);
         //spawnedInstance.transform.SetParent(this.transform);
         spawnedInstance.transform.localScale = current_box.transform.localScale;
         DestroyImmediate(current_box);
         current_box = spawnedInstance;
         //Debug.Log(createdPrefabLeavesType[x]);
-        SpawnMarker();
-	*/
+
+	if(hasBeenSpawned)
+	{SpawnMarker();}
 
 
     }
@@ -131,6 +132,7 @@ public class markerBox_spawner : SpawnerAndSwitch
         {
             objectToSpawn = box_tag_unspawned;
         }
+        //objectToSpawn = box_tag_unspawned;
 
         spawnedInstance = Instantiate(objectToSpawn, current_box.transform.position, current_box.transform.rotation, this.transform);
         
