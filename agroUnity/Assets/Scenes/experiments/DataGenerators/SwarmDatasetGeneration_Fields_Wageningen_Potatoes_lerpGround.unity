@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17757863, g: 0.22232187, b: 0.30451775, a: 1}
+  m_IndirectSpecularColor: {r: 0.177579, g: 0.22232251, b: 0.30451912, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -328,16 +328,17 @@ MonoBehaviour:
   varyField: 1
   varyCamera_position: 1
   noise_camera_position: {x: 2, y: 0, z: 2}
-  varyCamera_rotation: 0
+  varyCamera_rotation: 1
   noise_camera_rotation: {x: 0, y: 180, z: 0}
-  varyIllumination_intensity: 0
-  varyIllumination_orientation: 0
+  varyIllumination_intensity: 1
+  varyIllumination_orientation: 1
   altitudeTest: 0
   altitudes:
   - 3
   - 10
   - 20
   - 40
+  takeOverallScreenshot: 0
   overlapTest: 0
   takeOnlyOnePOV: 1
   randomPOV: 0
@@ -379,7 +380,7 @@ MonoBehaviour:
   - {x: 180, y: 180, z: 0}
   weedPlants_Scale:
   - {x: 1.2, y: 1.2, z: 1.2}
-  terrain: {fileID: 8776146947587348574, guid: f5fe2fe9148cd54e1a71647b6e08743a, type: 3}
+  terrain: {fileID: 8776146947587348574, guid: 532b0487305183e289671ad9c5cf5ab8, type: 3}
   terrainOffset: {x: 27.5, y: -0.5, z: 35}
   TakeScreenshots: 1
   SaveBoundingBoxes: 1
