@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e471cf2e5e40fa11be6a3e6e8da6f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 500000
+  seed: 600000
   delayToSave: 1
   delayToSwitch: 1
   delayToRespawn: 1
@@ -361,7 +361,7 @@ MonoBehaviour:
   sub_ForcedAmountLow_badPlant: -1
   sub_ForcedAmountHigh_badPlant: -1
   Include_NIR: 0
-  Include_TAG: 0
+  Include_TAG: 1
   goodPlantSpawner: {fileID: 3441688999748511668, guid: f7bd4e1b1cddbdead99703a00e2f66bf, type: 3}
   goodPlant: {fileID: 4780572060926278114, guid: 23a99c0c937a84feab59f39bf6b24b2b, type: 3}
   goodPlant_Offset: {x: 3, y: 0.15, z: 3}

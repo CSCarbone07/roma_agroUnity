@@ -1214,7 +1214,15 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         {
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;
-            screenShot = new Texture2D(width / 3, height / 3, TextureFormat.RGB24, false);
+            //screenShot = new Texture2D(width / 3, height / 3, TextureFormat.RGB24, false);
+            if(forcedWidth == 0 && forcedHeight == 0)
+            {
+                screenShot = new Texture2D(width/3, height/3, TextureFormat.RGB24, false);
+            }
+            else
+            {
+                screenShot = new Texture2D(forcedWidth/3, forcedHeight/3, TextureFormat.RGB24, false);
+            }
             GetComponent<Camera>().Render();
             RenderTexture.active = rt;
             screenShot.ReadPixels(new Rect(overlapWidth_0, overlapHeight_0, overlapWidth_1, overlapHeight_1), 0, 0, false);
@@ -1236,7 +1244,7 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
         byte[] bytes = screenShot.EncodeToPNG();
         //string filename = string.Format("{0}/Dataset/tag/{1}.png", Application.persistentDataPath, counter);
         string filename;
-        if (altitudeTest)
+        if (altitudeTest && !overlapTest)
         {
             //filename = string.Format("{0}/Dataset/{1}/tag/{2}_{3}{4}.png"
             //, Application.persistentDataPath, currentTestAltitude, counter, overlapRow, overlapColumn);
@@ -1250,11 +1258,26 @@ public class SwarmDatasetGeneration_Spawner : MonoBehaviour
             filename = string.Format("{0}/Dataset/tag/{1}_{2}.png"
             , Application.persistentDataPath, counter, overlapNum);
         }
+
+        if (!altitudeTest && overlapTest)
+	{
+            filename = string.Format("{0}/Dataset/tag/{1}_{2}.png"
+            , Application.persistentDataPath, counter, overlapNum);
+
+            if(useForcedAmounts_goodPlant)
+            {
+            filename = string.Format("{0}/Dataset/tag/{1}_{2}_{3}_{4}_{5}.png"
+            , Application.persistentDataPath, counter, overlapNum, current_ForcedAmountLow_goodPlant, current_sub_ForcedAmountLow_goodPlant, distancesInPOVsIds[overlapNum - 1]);
+            }
+
+	}
+
+
         System.IO.File.WriteAllBytes(filename, bytes);
 
 
 
-        if (overlapTest && !takeOnlyOnePOV && overlapRow==0 && overlapColumn == 1)
+        if (takeOverallScreenshot && overlapTest && !takeOnlyOnePOV && overlapRow==0 && overlapColumn == 1)
         {
             rt = new RenderTexture(width, height, 24);
             GetComponent<Camera>().targetTexture = rt;

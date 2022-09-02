@@ -5,8 +5,11 @@ using UnityEngine;
 public class markerBox_spawner : SpawnerAndSwitch
 {
 
+    private bool DEBUG_ALL = false;
+
     public GameObject[] spawnPoints;
     public GameObject[] markers;
+    //public GameObject[] markers_tag;
 
     public GameObject current_box;
     public GameObject box_rgb;
@@ -42,7 +45,10 @@ public class markerBox_spawner : SpawnerAndSwitch
         }
         */
 
-        print("spawning box");
+	if(DEBUG_ALL) 
+	{
+	  print("spawning box");
+	}
 
         if(randomOverallRotation == -1)
         {randomOverallRotation = Random.Range(0, 4);}
@@ -60,7 +66,11 @@ public class markerBox_spawner : SpawnerAndSwitch
 
     public void SpawnMarker()
     {
-	print("spawning marker");
+
+	if(DEBUG_ALL) 
+	{
+	  print("spawning marker");
+	}
         spawnedMarker = Instantiate(markers[0], spawnPoints[randomOverallRotation].transform.position, spawnPoints[randomOverallRotation].transform.rotation, this.gameObject.transform);
         spawnedMarker.transform.localScale = spawnPoints[randomOverallRotation].transform.localScale;
         //createdPrefab.transform.SetParent(this.gameObject.transform); // = this.transform;
@@ -73,11 +83,18 @@ public class markerBox_spawner : SpawnerAndSwitch
 
     public override void Unspawn()
     {
-	print("unspawning marker");
+
+	if(DEBUG_ALL) 
+	{
+	  print("unspawning marker");
+	}
         hasBeenSpawned = false;
         if(spawnedMarker != null)
         {
-	    print("destroying marker");
+	    if(DEBUG_ALL) 
+	    {
+	      print("destroying marker");
+	    }
             DestroyImmediate(spawnedMarker);
         }
         if(boudningBox != null)
@@ -95,15 +112,15 @@ public class markerBox_spawner : SpawnerAndSwitch
     public override void SwitchToRGB()
     {
         base.SwitchToRGB();
-	/*
         GameObject spawnedInstance = Instantiate(box_rgb, current_box.transform.position, current_box.transform.rotation, this.transform);
         //spawnedInstance.transform.SetParent(this.transform);
         spawnedInstance.transform.localScale = current_box.transform.localScale;
         DestroyImmediate(current_box);
         current_box = spawnedInstance;
         //Debug.Log(createdPrefabLeavesType[x]);
-        SpawnMarker();
-	*/
+
+	if(hasBeenSpawned)
+	{SpawnMarker();}
 
 
     }
@@ -131,6 +148,7 @@ public class markerBox_spawner : SpawnerAndSwitch
         {
             objectToSpawn = box_tag_unspawned;
         }
+        //objectToSpawn = box_tag_unspawned;
 
         spawnedInstance = Instantiate(objectToSpawn, current_box.transform.position, current_box.transform.rotation, this.transform);
         
